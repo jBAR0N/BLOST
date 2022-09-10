@@ -1,11 +1,12 @@
 # BLOST
- Medium Clone
+ This will be a blog post platform where every user can read articles, create an account and write articles himself also having features like following users and bookmarking articles. 
 
 ## Features
 - [x] User authentication
 - [x] Edit user credentials
-- [ ] Load content
-- [ ] Load followed writers
+- [ ] Following
+- [ ] Bookmarks
+- [ ] Likes
 - [ ] ...
 
 ## Design
