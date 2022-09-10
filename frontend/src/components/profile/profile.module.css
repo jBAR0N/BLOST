@@ -45,7 +45,6 @@
 
 .link img {
     height: 20px;
-    filter: var(--filter-gray-25);
 }
 
 .link:hover {
@@ -54,8 +53,4 @@
 
 .link.active {
     background-color: var(--color-gray-100);
-}
-
-.link.active .navIcon {
-    filter: var(--filter-gray-0);
 }

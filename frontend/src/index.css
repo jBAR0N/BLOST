@@ -45,14 +45,10 @@ div.page-wr {
   background: var(--color-gray-75);
 }
 
-body {
+:root {
   --color-primary: #9F3A77;
   --color-secondary: #AB4335;
 
-  --filter-primary: invert(27%) sepia(97%) saturate(810%) hue-rotate(283deg) brightness(85%) contrast(85%);
-  --filter-secondary: invert(34%) sepia(18%) saturate(3403%) hue-rotate(328deg) brightness(90%) contrast(88%);
-
-  --color-gray-5: #0D0C0C;
   --color-gray-10: #1A1819;
   --color-gray-25: #403D3E;
   --color-gray-50: #80797D;
@@ -60,28 +56,4 @@ body {
   --color-gray-90: #E6DAE1;
   --color-gray-95: #F2E6ED;
   --color-gray-100: #FFF2FA;
-
-  --filter-gray-0: invert(0%) sepia(100%) saturate(7434%) hue-rotate(211deg) brightness(115%) contrast(115%);
-  --filter-gray-25: invert(24%) sepia(6%) saturate(249%) hue-rotate(289deg) brightness(93%) contrast(94%);
-  --filter-gray-50: invert(56%) sepia(5%) saturate(316%) hue-rotate(273deg) brightness(84%) contrast(90%);
-  --filter-gray-75: invert(78%) sepia(6%) saturate(209%) hue-rotate(274deg) brightness(93%) contrast(94%);
-  --filter-gray-100: invert(92%) sepia(8%) saturate(859%) hue-rotate(298deg) brightness(102%) contrast(112%);
-}
-
-body.dark {
-
-  --color-gray-5: #FFF2FA;
-  --color-gray-10: #F2E6ED;
-  --color-gray-25: #E6DAE1;
-  --color-gray-50: #BFB6BB;
-  --color-gray-75: #80797D;
-  --color-gray-90: #403D3E;
-  --color-gray-95: #1A1819;
-  --color-gray-100: #0D0C0C;
-
-  --filter-gray-0: invert(92%) sepia(8%) saturate(859%) hue-rotate(298deg) brightness(102%) contrast(112%);
-  --filter-gray-25: invert(78%) sepia(6%) saturate(209%) hue-rotate(274deg) brightness(93%) contrast(94%);
-  --filter-gray-50: invert(56%) sepia(5%) saturate(316%) hue-rotate(273deg) brightness(84%) contrast(90%);
-  --filter-gray-75: invert(24%) sepia(6%) saturate(249%) hue-rotate(289deg) brightness(93%) contrast(94%);
-  --filter-gray-100: invert(0%) sepia(100%) saturate(7434%) hue-rotate(211deg) brightness(115%) contrast(115%);
 }

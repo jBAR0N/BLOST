@@ -47,7 +47,7 @@ export default function Login (props) {
 
     return (
         <div className={CSS.contentWr}>
-            <img onClick={()=>{navigate("/")}} className={CSS.backButton} src={Logo} alt="back" />
+            <img onClick={()=>{navigate("/")}} className={CSS.logo} src={Logo} alt="home" />
             <div className={CSS.content}>
                 <div className={CSS.header}>
                     <div onClick={()=>{setSignUp(true)}} className={CSS.headerLink + " " + (signUp? CSS.active: "")}>Sign up</div>

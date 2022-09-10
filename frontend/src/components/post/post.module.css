@@ -18,7 +18,6 @@
 
 .bookmark {
     height: 27px;
-    filter: var(--filter-gray-50);
     margin: 10px;
     margin-left: auto;
 }

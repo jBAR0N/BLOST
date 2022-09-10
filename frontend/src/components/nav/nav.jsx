@@ -15,10 +15,18 @@ export default function Nav (props) {
         <React.Fragment>
             <div className={CSS.nav}>
                 <img onClick={()=>{navigate("/")}} style={{marginBottom: "auto"}} src={Logo} alt="Logo" className={CSS.logo}/>
-                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/"} ><img src={homeIcon} alt="home" /></NavLink>
-                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/followed"} ><img src={followedIcon} alt="followed" /></NavLink>
-                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/bookmarks"} ><img src={bookmarkIcon} alt="followed" /></NavLink>
-                <NavLink style={{marginTop: "auto"}}  className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/profile"} ><img src={userIcon} alt="followed" /></NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/"} >
+                    <img src={homeIcon} alt="home" />
+                </NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/followed"} >
+                    <img src={followedIcon} alt="followed" />
+                </NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/bookmarks"} >
+                    <img src={bookmarkIcon} alt="followed" />
+                </NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"/profile"} >
+                    <img src={userIcon} alt="followed" />
+                </NavLink>
             </div>
             <div className={CSS.main}>
                 <Header img={props.img} user={props.user}/>

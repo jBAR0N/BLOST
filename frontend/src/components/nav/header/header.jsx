@@ -5,18 +5,15 @@ import linkIcon from "./img/link.svg"
 import signinIcon from "./img/signin.svg"
 import signoutIcon from "./img/signout.svg"
 import bellIcon from "./img/bell.svg"
-import sunIcon from "./img/sun.svg"
-import moonIcon from "./img/moon.svg"
 import userIcon from "./img/user.svg"
 import { useNavigate } from "react-router-dom"
+
+//TODO make menu look like google cal menu plus box-shadow
 
 export default function Header (props) {
     const navigate = useNavigate()
 
     const [menuHidden, setMenuHidden] = useState(true)
-    const [dark, setDark] = useState(()=>{
-        return(localStorage.getItem("blost-darkmode") === "true")
-    })
 
     useEffect(()=>{
         document.body.addEventListener("click", hideMenu)
@@ -25,23 +22,15 @@ export default function Header (props) {
         }
     })
 
-    useEffect(()=>{
-        if (dark) {
-            document.body.classList.add("dark")
-            localStorage.setItem("blost-darkmode", dark)
-        } else {
-            document.body.classList.remove("dark")
-            localStorage.setItem("blost-darkmode", dark)
-        }
-    },[dark])
-
     function hideMenu () {
         if (!menuHidden) setMenuHidden(true)
     }
 
     function showMenu (e) {
-        e.stopPropagation()
-        if (menuHidden) setMenuHidden(false)
+        if (menuHidden) {
+            e.stopPropagation()
+            setMenuHidden(false)
+        }
     }
 
     function logout () {
@@ -62,12 +51,6 @@ export default function Header (props) {
                 <div className={CSS.menuRow}>
                     <div className={CSS.menuLink}>About</div>
                     <img className={CSS.icon} src={linkIcon} alt="link" />
-                </div>
-                <div onClick={()=>{setDark(!dark)}} className={CSS.menuRow}>
-                    <div style={{display: (dark? "none": "block")}} className={CSS.menuLink}>Dark theme</div>
-                    <div style={{display: (dark? "block": "none")}} className={CSS.menuLink}>Light theme</div>
-                    <img style={{display: (dark? "none": "block")}} className={CSS.icon} src={moonIcon} alt="link" />
-                    <img style={{display: (dark? "block": "none")}} className={CSS.icon} src={sunIcon} alt="link" />
                 </div>
                 <div style={{display: (props.user.email === undefined? "flex" : "none")}} onClick={()=>{navigate("/login")}} className={CSS.menuRow}>
                     <div className={CSS.menuLink}>Sign in</div>

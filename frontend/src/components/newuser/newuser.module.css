@@ -90,7 +90,6 @@
 
 .button img {
     width: 20px;
-    filter: var(--filter-gray-100);
 }
 
 .upload {

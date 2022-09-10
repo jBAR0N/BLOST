@@ -93,11 +93,10 @@
     font-size: 15px;
 }
 
-.backButton {
+.logo {
     position: absolute;
     top: 10px;
     left: 10px;
     cursor: pointer;
     height: 25px;
-    filter: var(--filter-gray-25);
 }

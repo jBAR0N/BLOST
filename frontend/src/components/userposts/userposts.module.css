@@ -17,7 +17,6 @@
 .writeArticle :first-child {
     margin-left: 2.5px;
     width: 30px;
-    filter: var(--filter-gray-100);
 }
 
 .writeArticle :last-child {

@@ -37,7 +37,6 @@ function App() {
         setImg("/img/user.png")
       }
     })
-    if (localStorage.getItem("blost-darkmode") === "true") document.body.classList.add("dark")
   }, [])
 
   return (
