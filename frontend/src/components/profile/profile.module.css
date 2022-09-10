@@ -1,0 +1,61 @@
+.infoWr {
+    margin: 20px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.accountImg {
+    object-fit: cover;
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.infoName {
+    margin: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+.infoFollowers {
+    margin: 20px;
+    margin-left: auto;
+    font-size: 15px;
+    color: var(--color-gray-25);
+}
+
+.nav {
+    margin: 10px;
+    display: flex;
+    border-radius: 50px;
+    overflow: hidden;
+    background-color: var(--color-gray-95);
+    border: 2px solid var(--color-gray-95);
+}
+
+.link {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.link img {
+    height: 20px;
+    filter: var(--filter-gray-25);
+}
+
+.link:hover {
+    background-color: var(--color-gray-100);
+}
+
+.link.active {
+    background-color: var(--color-gray-100);
+}
+
+.link.active .navIcon {
+    filter: var(--filter-gray-0);
+}

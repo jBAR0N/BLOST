@@ -1,0 +1,44 @@
+.writeArticle {
+    cursor: pointer;
+    background-color: var(--color-primary);
+    width: 35px;
+    height: 35px;
+    color: var(--color-gray-100);
+    border-radius: 45px;
+    display: flex;
+    align-items: center;
+    bottom: 10px;
+    right: 10px;
+    transition: all 300ms;
+    overflow: hidden;
+    margin-left: auto;
+}
+
+.writeArticle :first-child {
+    margin-left: 2.5px;
+    width: 30px;
+    filter: var(--filter-gray-100);
+}
+
+.writeArticle :last-child {
+    margin-left: 5px;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.writeArticle:hover {
+    width: 140px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px;
+}
+
+.heading .heading {
+    color: var(--color-gray-25);
+    font-size: 20px;
+    font-weight: bold;
+}
