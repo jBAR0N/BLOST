@@ -52,7 +52,7 @@ function App() {
           <Route path='/newUser' element={user.username === null?<NewUser setError={setError} img={img}/>:<FourOFour/>}/>
           <Route path='/login' element={!user.email?<Login setError={setError}/>:<React.Fragment/>/* logout call */}/>
           <Route path='/' element={<Nav img={img} user={user}/>}>
-            <Route index element={<Home/>}/>
+            <Route index element={<Home setError={setError}/>}/>
             <Route path="/followed" element={!user.username? <LoginCall user={user}/> : <Followed user={user}/>}/>
             <Route path='/user/:name' element={<User/>}/>
             <Route path="/bookmarks" element={!user.username? <LoginCall user={user}/> : <Bookmarks user={user}/>}/>

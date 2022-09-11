@@ -37,12 +37,12 @@ div.page-wr {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gray-90);
+  background: var(--color-gray-75);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-75);
+  background: var(--color-gray-90);
 }
 
 :root {

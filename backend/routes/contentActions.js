@@ -2,7 +2,7 @@ const con = require("../config/db-config")
 
 module.exports = (app)=>{
     // TODO check for all of these relations, if they already exist
-
+    
     app.post("/follow", (req, res)=>{
         if (req.isAuthenticated()) {
             con.query(`
@@ -12,7 +12,7 @@ module.exports = (app)=>{
             WHERE u.name = ?
             `, [req.user.id, req.body.user], (err)=>{
                 if (err) {res.send({success: false, message: "Something went wrong. Try again!"})}
-                else res.send({success: true})
+                else res.send({success:false})
             })
         } else {
             res.send({success: false, message: "Something went wrong. Try again!"})
