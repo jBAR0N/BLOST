@@ -3,7 +3,7 @@ const con = require("../config/db-config")
 module.exports = (app)=>{
     app.get("/get/articles/date/:from/:to",(req, res)=>{
         con.query(`
-        SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name FROM
+        SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
         (
             SELECT 
                 ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
