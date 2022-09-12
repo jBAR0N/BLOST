@@ -1,8 +1,6 @@
 .content {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     overflow: auto;
-}
-
-.tags {
-    height: 30px;
 }
