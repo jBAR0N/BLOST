@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import CSS from "./deleteProfile.module.css"
 
 export default function DeleteProfile (props) {
     const navigate = useNavigate()
     const [input, setInput] = useState("")
+
+    useEffect(()=>{
+        if (!props.user.email) navigate("/login", {replace: true})
+    }, [props])
 
     function submit () {
         if (input) {

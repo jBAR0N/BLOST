@@ -3,26 +3,27 @@ import Post from "../post/post"
 import React, { useState, useEffect } from "react"
 
 export default function Home (props) {
-    // TODO get mode from param
-    // TODO make last calculated by height
-    // TODO add loading wheel if lastLength is enough
-    // TODO dont call fetch several times on scroll
+    // TODO get mode from props
+    // TODO add loading wheel if lastLength !== 0
     const [last, setLast] = useState(0)
-    const [length, setLength] = useState(10)
+    const [length, setLength] = useState(0)
     const [articles, setArticles] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(()=>{
-        loadContent()
+        loadContent();
     }, [])
 
     function loadContent () {
-        fetch("http://localhost:3000/get/articles/date/" + (last + 1) +"/" + (last + 10))
+        setLoading(true)
+        fetch("http://localhost:3000/get/articles/date/" + (last + 1) +"/" + (last + Math.round(window.innerHeight / 140)*2))
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                setLast(last + 10)
+                setLast(last + Math.round(window.innerHeight / 140)*2)
                 setLength(data.content.length)
                 setArticles([...articles, ...data.content])
+                setLoading(false)
             }
             else {
                 props.setError("Failed to load content!")
@@ -36,12 +37,14 @@ export default function Home (props) {
     return (
         <React.Fragment>
             <div className={CSS.tags}></div>
-            <div onScroll={(e)=>{if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight + 100 && length === 10) {loadContent(); console.log("bottom")}}} className={CSS.content}>
+            <div onScroll={(e)=>{if (e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight + 100 && length > 0 && !loading) loadContent()}} className={CSS.content}>
                 {
                     articles.map((item)=>(
-                        <Post id={item.id} name={item.name} title={item.title} subtitle={item.subtitle} date={item.date} />
+                        <Post id={item.id} name={item.name} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
                     ))
                 }
+                <div className={CSS.loading}></div>
+                <div style={{minHeight: "75px"}}></div>
             </div>
         </React.Fragment>
     )

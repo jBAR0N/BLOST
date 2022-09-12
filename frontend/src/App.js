@@ -10,7 +10,6 @@ import UserPosts from './components/userposts/userposts';
 import UserHistory from './components/userhistory/userhistory';
 import UserStats from './components/userstats/userstats';
 import UserEdit from './components/useredit/useredit';
-import LoginCall from './components/logncall/logincall';
 import Login from './components/login/login';
 import NewUser from './components/newuser/newuser';
 import User from './components/user/user';
@@ -46,17 +45,17 @@ function App() {
         <Routes>
           <Route path='/about' element={<React.Fragment/>}/>
           <Route path='/article/:article' element={<Article/>}/>
-          <Route path='/create/:id'element={user.email?<React.Fragment/>:<FourOFour/>}/>
-          <Route path='/profile/delete' element={user.email? <DeleteProfile setError={setError}/>: <FourOFour/>}/>
-          <Route path='/profile/password' element={user.email? <ChangePassword setError={setError}/>: <FourOFour/>}/>
-          <Route path='/newUser' element={user.username === null?<NewUser setError={setError} img={img}/>:<FourOFour/>}/>
-          <Route path='/login' element={!user.email?<Login setError={setError}/>:<React.Fragment/>/* logout call */}/>
+          <Route path='/create/:id'element={<React.Fragment/>}/>
+          <Route path='/profile/delete' element={<DeleteProfile user={user} setError={setError}/>}/>
+          <Route path='/profile/password' element={<ChangePassword user={user} setError={setError}/>}/>
+          <Route path='/newUser' element={<NewUser user={user} setError={setError} img={img}/>}/>
+          <Route path='/login' element={<Login user={user} setError={setError}/>}/>
           <Route path='/' element={<Nav img={img} user={user}/>}>
             <Route index element={<Home setError={setError}/>}/>
-            <Route path="/followed" element={!user.username? <LoginCall user={user}/> : <Followed user={user}/>}/>
+            <Route path="/followed" element={<Followed user={user}/>}/>
             <Route path='/user/:name' element={<User/>}/>
-            <Route path="/bookmarks" element={!user.username? <LoginCall user={user}/> : <Bookmarks user={user}/>}/>
-            <Route path="/profile" element={!user.username? <LoginCall user={user}/> : <Profile img={img} user={user}/>}>
+            <Route path="/bookmarks" element={<Bookmarks user={user}/>}/>
+            <Route path="/profile" element={<Profile img={img} user={user}/>}>
               <Route index element={<UserPosts/>}/>
               <Route path="/profile/history" element={<UserHistory/>}/>
               <Route path="/profile/stats" element={<UserStats/>}/>
@@ -69,5 +68,6 @@ function App() {
     </div>
   );
 }
+// TODO make these route names better
 
 export default App;

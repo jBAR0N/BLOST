@@ -1,10 +1,16 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import CSS from "./newuser.module.css"
 import arrowIcon from "./img/arrow.svg"
 import logoutIcon from "./img/logout.svg"
 
 export default function NewUser (props) {
+    const navigate = useNavigate()
     const [input, setInput] = useState("")
+
+    useEffect(()=>{
+        if (!props.user.email || props.user.username) navigate("/", {replace: true})
+    }, [props])
 
     function submit () {
         const requestOptions = {

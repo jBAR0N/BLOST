@@ -1,12 +1,16 @@
 import CSS from "./changePassword.module.css"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function ChangePassword (props) {
     const navigate = useNavigate()
     const [password, setPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [newPasswordR, setNewPasswordR] = useState("")
+
+    useEffect(()=>{
+        if (!props.user.email) navigate("/login", {replace: true})
+    }, [props])
 
     function submit () {
         if (password && newPassword && newPasswordR === newPassword) {

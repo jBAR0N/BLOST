@@ -7,6 +7,7 @@
     transition: all 200ms;
     position: absolute;
     align-items: center;
+    background-color: var(--color-gray-100);
 }
 
 .logo {

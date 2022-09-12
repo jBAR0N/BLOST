@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import CSS from "./login.module.css"
 import Logo from "./img/Logo.svg"
 import { useNavigate } from "react-router-dom"
@@ -13,7 +13,13 @@ export default function Login (props) {
     const [inPassword, SetInPassword] = useState("")
     const [privacyAccepted, SetPrivacyAccepted] = useState(false)
 
-    async function submitUp(e) {
+    useEffect(()=>{
+        if (props.user.email) {
+            navigate("/", {replace: true})
+        }
+    }, [props])
+
+    function submitUp(e) {
         e.preventDefault()
         if (upPassword === upSecondPassword && privacyAccepted && upEmail !== "" && upPassword !== "") {
             sendForm(upEmail, upPassword, "signUp", "/newUser")
