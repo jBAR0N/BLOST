@@ -9,8 +9,9 @@ module.exports = (app)=>{
         if (req.isAuthenticated()) {
             con.query("SELECT * FROM users WHERE name = ?", [req.body.object], (err, result)=>{
                 if (result.length === 0) {
-                    con.query("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id], ()=>{
-                        res.send({success: true})
+                    con.query("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
+                        if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                        else res.send({success: true})
                     })
                 } else {
                     res.send({success: false, message: "Name is already in use!"})
@@ -23,8 +24,9 @@ module.exports = (app)=>{
     
     app.post("/set/description",(req, res)=>{
         if (req.isAuthenticated()) {
-            con.query("UPDATE users SET description = ? WHERE id = ?", [req.body.object, req.user.id], ()=>{
-                res.send({success: true})
+            con.query("UPDATE users SET description = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
+                if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                else res.send({success: true})
             })
         } else {
             res.send({success: false, message: "Something went wrong. Try again!"})
@@ -35,8 +37,9 @@ module.exports = (app)=>{
         if (req.isAuthenticated()) {
             con.query("SELECT * FROM users WHERE email = ?", [req.body.object], (err, result)=>{
                 if (result.length === 0) {
-                    con.query("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id], ()=>{
-                        res.send({success: true})
+                    con.query("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
+                        if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                        else res.send({success: true})
                     })
                 } else {
                     res.send({success: false, message: "Email is already in use!"})
@@ -50,8 +53,9 @@ module.exports = (app)=>{
     app.post("/set/image", upload.single('image'), (req, res)=>{
         if (req.isAuthenticated()) {
             if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
-            con.query("UPDATE users SET image = ? WHERE id = ?", [req.file.filename, req.user.id], ()=>{
-                res.send({success: true})
+            con.query("UPDATE users SET image = ? WHERE id = ?", [req.file.filename, req.user.id], (err)=>{
+                if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                else res.send({success: true})
             })
         } else {
             if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path)
@@ -63,8 +67,9 @@ module.exports = (app)=>{
         if (req.isAuthenticated()) {
             if (bcrypt.compareSync(req.body.old, req.user.hash)) {
                 const password = bcrypt.hashSync(req.body.new, 10)
-                con.query("UPDATE users SET hash = ? WHERE id = ?", [password, req.user.id], ()=>{
-                    res.send({success: true})
+                con.query("UPDATE users SET hash = ? WHERE id = ?", [password, req.user.id], (err)=>{
+                    if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                    else res.send({success: true})
                 })
             } else {
                 res.send({success: false, message: "Wrong password!"})
@@ -77,11 +82,14 @@ module.exports = (app)=>{
     app.post("/delete/profile", (req, res)=>{
         if (req.isAuthenticated()) {
             if (bcrypt.compareSync(req.body.password, req.user.hash)) {
-                con.query("DELETE FROM users WHERE id = ?", [req.user.id], ()=>{
-                    if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
-                    req.logout(()=>{
-                        res.send({success: true})  
-                    })
+                con.query("DELETE FROM users WHERE id = ?", [req.user.id], (err)=>{
+                    if (err) {res.send({success: false, message: "Something went wrong. Try again!"})}
+                    else {
+                        if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
+                        req.logout(()=>{
+                            res.send({success: true})  
+                        })
+                    }
                 })
             } else {
                 res.send({success: false, message: "Wrong password!"})

@@ -53,7 +53,7 @@ function InfoRow (props) {
             fetch("http://localhost:3000/set/" + props.name.toLowerCase(), requestOptions)
             .then(res => res.json())
             .then(data =>{
-                if (data.success) document.location.reload()
+                if (data.success) window.location.reload()
                 else props.setError(data.message)
             }).catch(()=>{
                 props.setError("Something went wrong. Try again!")

@@ -9,7 +9,7 @@ export default function ChangePassword (props) {
     const [newPasswordR, setNewPasswordR] = useState("")
 
     useEffect(()=>{
-        if (!props.user.email) navigate("/login", {replace: true})
+        if (!props.user.email && !props.user.loading) navigate("/login", {replace: true})
     }, [props])
 
     function submit () {

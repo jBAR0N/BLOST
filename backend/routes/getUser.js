@@ -11,7 +11,7 @@ module.exports = (app)=>{
             ON f.follower = ? AND f.user = u.id
         WHERE name = ?
         `, [req.user? req.user.id: null, req.params.name], (err, result)=>{
-            if (!result) res.send({success: false, message: "Something went wrong. Try again!"})
+            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
             else res.send(result[0])
         })
     })

@@ -7,7 +7,7 @@ export default function DeleteProfile (props) {
     const [input, setInput] = useState("")
 
     useEffect(()=>{
-        if (!props.user.email) navigate("/login", {replace: true})
+        if (!props.user.email && !props.user.loading) navigate("/login", {replace: true})
     }, [props])
 
     function submit () {

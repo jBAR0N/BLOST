@@ -3,12 +3,22 @@ import bookmarkIcon from "./img/bookmark.svg"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
-//TODO format date
 export default function Post (props) {
     const navigate = useNavigate()
     const [img, setImg] = useState(null)
+    const [date, setDate] = useState()
 
     useEffect(()=>{
+        const creationDate = new Date (props.date)
+        const currentDate = new Date
+        const formatDate = 
+        creationDate.getHours() + 
+        ":" + creationDate.getMinutes() + 
+        ", "+ creationDate.toLocaleString('default', { month: 'short' }) + 
+        " " + creationDate.getDate() +
+        ", " + currentDate.getFullYear()
+        setDate(formatDate)
+
         if(props.image) {
             fetch("http://localhost:3000/image/" + props.image)
             .then(res => res.blob())
@@ -24,7 +34,7 @@ export default function Post (props) {
             </div>
             <div className={CSS.description}>{props.subtitle}</div>
             <div className={CSS.row}>
-                <div className={CSS.info}>{props.date}</div>
+                <div className={CSS.info}>{date}</div>
                 <div onClick={(e)=>{e.stopPropagation(); navigate("/user/" + props.name)}} className={CSS.writerWr}>
                     <div className={CSS.writer}>{props.name}</div>
                     <img alt="account-img" src={img? img: "img/user.png"} className={CSS.img}/>

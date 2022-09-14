@@ -22,7 +22,9 @@ export default function Login (props) {
     function submitUp(e) {
         e.preventDefault()
         if (upPassword === upSecondPassword && privacyAccepted && upEmail !== "" && upPassword !== "") {
-            sendForm(upEmail, upPassword, "signUp", "/newUser")
+            sendForm(upEmail, upPassword, "signUp", "/profile/new")
+        } else if (upPassword !== upSecondPassword) {
+            props.setError("Please check password and repeat it correctly!")
         }
     }
 

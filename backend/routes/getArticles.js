@@ -7,7 +7,7 @@ module.exports = (app)=>{
         (
             SELECT 
                 ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                c.date, c.title, c.subtitle, c.published, c.id,
+                c.date, c.title, c.subtitle, c.id,
                 u.image, u.name,
                 IF(b.user_id IS NULL, false, true) AS bookmarked
             FROM
@@ -16,11 +16,72 @@ module.exports = (app)=>{
                 ON u.id = c.user_id
                 LEFT JOIN bookmarked AS b
                 ON c.id = b.content_id AND b.user_id = ?
+            WHERE c.published = 1
         ) t
-        WHERE published = 1 AND row >= ? AND row <= ?
+        WHERE row >= ? AND row <= ?
         ORDER BY date DESC
         `, [req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
-            res.send({success: true, content: result})
+            if(err) res.send({success: false})
+            else res.send({success: true, content: result})
         })
+    })
+
+    app.get("/get/articles/bookmarks/:from/:to",(req, res)=>{
+        if (req.isAuthenticated()) {
+            con.query(`
+            SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
+            (
+                SELECT 
+                    ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
+                    c.date, c.title, c.subtitle, c.id,
+                    u.image, u.name,
+                    IF(b.user_id IS NULL, false, true) AS bookmarked
+                FROM
+                    content AS c
+                    LEFT JOIN users AS u
+                    ON u.id = c.user_id
+                    LEFT JOIN bookmarked AS b
+                    ON c.id = b.content_id AND b.user_id = ?
+                WHERE c.published = 1 AND b.user_id IS NOT NULL
+            ) t
+            WHERE row >= ? AND row <= ?
+            ORDER BY date DESC
+            `, [req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
+                if(err) res.send({success: false})
+                else res.send({success: true, content: result})
+            })
+        } else {
+            res.send({success: false})
+        }
+    })
+
+    app.get("/get/articles/followed/:from/:to",(req, res)=>{
+        if (req.isAuthenticated()) {
+            con.query(`
+            SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
+            (
+                SELECT 
+                    ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
+                    c.date, c.title, c.subtitle, c.id,
+                    u.image, u.name,
+                    IF(b.user_id IS NULL, false, true) AS bookmarked
+                FROM
+                    content AS c
+                    LEFT JOIN users AS u
+                    ON u.id = c.user_id
+                    LEFT JOIN bookmarked AS b
+                    ON c.id = b.content_id AND b.user_id = ?
+                    LEFT JOIN followed AS f
+                    ON c.user_id = f.user AND f.follower = ?
+                WHERE c.published = 1 AND f.user IS NOT NULL
+            ) t
+            ORDER BY date DESC
+            `, [req.user? req.user.id: null, req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
+                if(err) res.send({success: false})
+                else res.send({success: true, content: result})
+            })
+        } else {
+            res.send({success: false})
+        }
     })
 }

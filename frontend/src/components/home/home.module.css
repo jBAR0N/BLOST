@@ -1,8 +1,9 @@
-.content {
-    height: 100%;
-    overflow: auto;
+.tags {
+    min-height: 30px;
 }
 
-.tags {
-    height: 30px;
+.contentWr {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }

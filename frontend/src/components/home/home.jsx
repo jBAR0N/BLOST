@@ -4,9 +4,9 @@ import React from "react"
 
 export default function Home (props) {
     return (
-        <React.Fragment>
+        <div className={CSS.contentWr}>
             <div className={CSS.tags}></div>    
             <Posts setError={props.setError} path={"date/"}/>
-        </React.Fragment>
+        </div>
     )
 }

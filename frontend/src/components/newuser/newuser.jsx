@@ -9,7 +9,7 @@ export default function NewUser (props) {
     const [input, setInput] = useState("")
 
     useEffect(()=>{
-        if (!props.user.email || props.user.username) navigate("/", {replace: true})
+        if (!props.user.email && !props.user.loading|| props.user.username) navigate("/", {replace: true})
     }, [props])
 
     function submit () {

@@ -31,8 +31,6 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname, '..', 'Frontend', 'build')))
 app.use('/img', express.static(path.join('public', "img")));
 
-// TODO add if (err) res.send(message) in every db query
-
 require("./routes/authUser")(app, passport)
 require("./routes/setUser")(app)
 require("./routes/getArticles")(app)

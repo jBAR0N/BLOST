@@ -3,12 +3,11 @@ import Post from "../post/post"
 import CSS from "./posts.module.css"
 
 export default function Posts (props) {
-    // TODO add loading bar if lastLength !== 0
-    // TODO make overflow behavior changable
+    // TODO add text for nothing to find
     const [last, setLast] = useState(0)
-    const [length, setLength] = useState(0)
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(false)
+    const [finsihed, setFinished] = useState(false)
 
     useEffect(()=>{
         loadContent();
@@ -22,9 +21,9 @@ export default function Posts (props) {
         .then(data => {
             if (data.success) {
                 setLast(last + steps)
-                setLength(data.content.length)
                 setArticles([...articles, ...data.content])
                 setLoading(false)
+                if(data.content.length < steps) setFinished(true)
             }
             else {
                 props.setError("Failed to load content!")
@@ -36,15 +35,19 @@ export default function Posts (props) {
     }
 
     return (
-        <div onScroll={(e)=>{if (e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight + 100 && length > 0 && !loading) loadContent()}} className={CSS.content}>
+        <div onScroll={(e)=>{if (e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight + 100 && !finsihed && !loading) loadContent()}} className={CSS.content}>
             {props.children}
             {
                 articles.map((item)=>(
                     <Post id={item.id} name={item.name} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
                 ))
             }
-            <div className={CSS.loading}></div>
-            <div style={{minHeight: "75px"}}></div>
+            <div style={{display: !finsihed? "flex": "none"}} className={CSS.loadingWr}>
+                <div className={CSS.bar}>
+                    <div className={CSS.loading}/>
+                </div>
+            </div>
+            <div style={{minHeight: "100px"}}></div>
         </div>
     )
 }
