@@ -53,7 +53,9 @@ function App() {
           <Route path='/profile/new' element={<NewUser user={user} setError={setError} img={img}/>}/>
           <Route path='/login' element={<Login user={user} setError={setError}/>}/>
           <Route path='/' element={<Nav img={img} user={user}/>}>
-            <Route index element={<Home setError={setError}/>}/>
+            <Route index element={<Home mode="date" setError={setError}/>}/>
+            <Route path='/search/:keyword' element={<Home mode="search" setError={setError}/>}/>
+            <Route path='/tag/:keyword' element={<Home mode="tag" setError={setError}/>}/>
             <Route path="/followed" element={<Followed setError={setError} user={user}/>}/>
             <Route path='/user/:name' element={<User setError={setError}/>}/>
             <Route path="/bookmarks" element={<Bookmarks setError={setError} user={user}/>}/>

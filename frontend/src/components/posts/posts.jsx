@@ -4,14 +4,22 @@ import CSS from "./posts.module.css"
 
 export default function Posts (props) {
     // TODO add text for nothing to find
+    const {path} = props
     const [last, setLast] = useState(0)
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(false)
     const [finsihed, setFinished] = useState(false)
 
     useEffect(()=>{
-        loadContent();
-    }, [])
+        setArticles([])
+        setLast(0)
+    }, [path])
+
+    useEffect(()=>{
+        if (last === 0) {
+            loadContent();
+        }
+    }, [last])
 
     function loadContent () {
         const steps = Math.round((window.innerHeight / 140)*2)

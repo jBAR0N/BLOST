@@ -14,6 +14,7 @@ export default function Header (props) {
     const navigate = useNavigate()
 
     const [menuHidden, setMenuHidden] = useState(true)
+    const [search, setSearch] = useState("")
 
     useEffect(()=>{
         document.body.addEventListener("click", hideMenu)
@@ -37,11 +38,18 @@ export default function Header (props) {
         fetch("http://localhost:3000/logOut").then(document.location.reload())
     }
 
+    function submitSearch () {
+        if (search !== "") {
+            navigate("/search/" + search)
+            setSearch("")
+        }
+    }
+
     return (
         <div className={CSS.header}>
             <div className={CSS.searchWr}>
-                <input placeholder="Search" type="text" className={CSS.search}/>
-                <img alt="Search" className={CSS.searchIcon} src={SearchIcon}/>
+                <input value={search} onKeyPress={(e)=>{const keyCode = e.code || e.key; if (keyCode == 'Enter') submitSearch()}} onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" type="text" className={CSS.search}/>
+                <img onClick={submitSearch} alt="Search" className={CSS.searchIcon} src={SearchIcon}/>
             </div>
             <div className={CSS.notificationButton}>
                 <img src={bellIcon} alt="notifications"/>

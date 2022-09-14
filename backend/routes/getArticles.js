@@ -75,6 +75,7 @@ module.exports = (app)=>{
                     ON c.user_id = f.user AND f.follower = ?
                 WHERE c.published = 1 AND f.user IS NOT NULL
             ) t
+            WHERE row >= ? AND row <= ?
             ORDER BY date DESC
             `, [req.user? req.user.id: null, req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
                 if(err) res.send({success: false})
@@ -83,5 +84,30 @@ module.exports = (app)=>{
         } else {
             res.send({success: false})
         }
+    })
+
+    app.get("/get/articles/search/:keyword/:from/:to",(req, res)=>{
+        con.query(`
+        SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
+        (
+            SELECT 
+                ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
+                c.date, c.title, c.subtitle, c.id,
+                u.image, u.name,
+                IF(b.user_id IS NULL, false, true) AS bookmarked
+            FROM
+                content AS c
+                LEFT JOIN users AS u
+                ON u.id = c.user_id
+                LEFT JOIN bookmarked AS b
+                ON c.id = b.content_id AND b.user_id = ?
+            WHERE c.published = 1 AND LOWER(c.title) LIKE ?
+        ) t
+        WHERE row >= ? AND row <= ?
+        ORDER BY date DESC
+        `, [req.user? req.user.id: null, "%" + req.params.keyword.toLowerCase()+ "%", req.params.from , req.params.to], (err, result)=>{
+            if(err) res.send({success: false})
+            else res.send({success: true, content: result})
+        })
     })
 }
