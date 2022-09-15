@@ -22,19 +22,19 @@ export default function UserEdit (props) {
     }
 
     return (
-        <React.Fragment>
+        <div className={CSS.contentWr}>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Name" current={props.user.username}/>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Email" current={props.user.email}/>
             <InfoRow inputHeight={"100px"} setError={props.setError} name="Description" current={props.user.description}/>
             <div className={CSS.infoGroup}>
                 <label className={CSS.uploadLabel} htmlFor="file">
-                    <div className={CSS.editButton + " " + CSS.button}><p>Upload image</p></div>
+                    <div style={{marginTop: "5px"}} className={CSS.editButton + " " + CSS.button}><p>Upload image</p></div>
                 </label>
                 <input onChange={(e)=>{uploadFile(e.target.files[0])}} id="file" type="file" accept="image/png, image/jpg" className={CSS.upload}/>
-                <div onClick={()=>{navigate("/profile/password")}} className={CSS.editButton + " " + CSS.button}><p>Change password</p></div>
-                <div onClick={()=>{navigate("/profile/delete")}} className={CSS.deleteButton + " " + CSS.button}><p>Delete account</p></div>
+                <div style={{marginTop: "5px"}} onClick={()=>{navigate("/profile/password")}} className={CSS.editButton + " " + CSS.button}><p>Change password</p></div>
+                <div style={{marginTop: "5px"}} onClick={()=>{navigate("/profile/delete")}} className={CSS.deleteButton + " " + CSS.button}><p>Delete account</p></div>
             </div>
-        </React.Fragment>
+        </div>
     )
 }
 

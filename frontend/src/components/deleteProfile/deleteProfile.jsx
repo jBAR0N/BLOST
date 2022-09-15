@@ -37,7 +37,7 @@ export default function DeleteProfile (props) {
                 <input onChange={(e)=>{setInput(e.target.value)}} type="password" placeholder="Pasword"/>
                 <p>Do you really want to delete your account? All your content will be gone!</p>
                 <div className={CSS.row}>
-                    <div onClick={()=>{navigate("/profile")}} className={CSS.button}>Cancel</div>
+                    <div onClick={()=>{navigate("/profile/edit")}} className={CSS.button}>Cancel</div>
                     <div onClick={submit} className={CSS.button + " " + CSS.delete}>Delete</div>
                 </div>
             </div>

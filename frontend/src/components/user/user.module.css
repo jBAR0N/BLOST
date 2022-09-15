@@ -13,7 +13,7 @@
 
 .name {
     color: var(--color-secondary);
-    font-weight: bold;
+    font-weight: 500;
     font-size: 15px;
 }
 

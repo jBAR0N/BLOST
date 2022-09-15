@@ -11,6 +11,7 @@
     margin: 10px;
     color: var(--color-gray-25);
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .infoSpec {
@@ -66,4 +67,8 @@
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
+}
+
+.contentWr {
+    margin-bottom: 75px;
 }

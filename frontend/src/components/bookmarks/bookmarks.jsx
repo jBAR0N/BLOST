@@ -11,6 +11,8 @@ export default function Bookmarks (props) {
     }, [props])
 
     return (
-        <Posts setError={props.setError} path={"bookmarks/"}/>
+        <Posts setError={props.setError} path={"bookmarks/"} children={
+            <div className={CSS.heading}>Bookmarks</div>
+        }/>
     )
 }

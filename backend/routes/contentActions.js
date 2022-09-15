@@ -1,8 +1,6 @@
 const con = require("../config/db-config")
 
 module.exports = (app)=>{
-    // TODO check for all of these relations, if they already exist
-    
     app.post("/follow", (req, res)=>{
         if (req.isAuthenticated()) {
             con.query(`

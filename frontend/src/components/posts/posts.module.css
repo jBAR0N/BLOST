@@ -32,3 +32,11 @@
     0% {transform: rotate(0deg);}
     100% {transform: rotate(360deg);}
   }
+
+  .end {
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 13px;
+    color: var(--color-gray-10);
+  }

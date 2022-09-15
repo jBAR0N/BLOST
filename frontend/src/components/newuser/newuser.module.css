@@ -81,7 +81,7 @@
     cursor: pointer;
     position: absolute;
     right: 0;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .logout {

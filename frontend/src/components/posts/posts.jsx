@@ -3,7 +3,6 @@ import Post from "../post/post"
 import CSS from "./posts.module.css"
 
 export default function Posts (props) {
-    // TODO add text for nothing to find
     const {path} = props
     const [last, setLast] = useState(0)
     const [articles, setArticles] = useState([])
@@ -11,15 +10,17 @@ export default function Posts (props) {
     const [finsihed, setFinished] = useState(false)
 
     useEffect(()=>{
-        setArticles([])
+        setFinished(false)
+        setLoading(false)
         setLast(0)
+        setArticles([])
     }, [path])
 
     useEffect(()=>{
-        if (last === 0) {
+        if (articles.length === 0) {
             loadContent();
         }
-    }, [last])
+    }, [articles])
 
     function loadContent () {
         const steps = Math.round((window.innerHeight / 140)*2)
@@ -35,10 +36,12 @@ export default function Posts (props) {
             }
             else {
                 props.setError("Failed to load content!")
+                setFinished(true)
             }
         })
         .catch(()=>{
             props.setError("Failed to load content!")
+            setFinished(true)
         })
     }
 
@@ -50,6 +53,9 @@ export default function Posts (props) {
                     <Post id={item.id} name={item.name} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
                 ))
             }
+            <div style={{display: !finsihed? "none": "flex"}} className={CSS.end}>
+            There is nothing more to show here!
+            </div>
             <div style={{display: !finsihed? "flex": "none"}} className={CSS.loadingWr}>
                 <div className={CSS.bar}>
                     <div className={CSS.loading}/>

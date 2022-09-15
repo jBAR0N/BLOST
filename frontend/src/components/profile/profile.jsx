@@ -1,7 +1,6 @@
 import CSS from "./profile.module.css"
 import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import featherIcon from "./img/feather.svg"
-import clockIcon from "./img/clock.svg"
 import chartIcon from "./img/chart.svg"
 import penIcon from "./img/pen.svg"
 import { useEffect } from "react"

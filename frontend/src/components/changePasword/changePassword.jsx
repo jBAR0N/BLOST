@@ -41,7 +41,7 @@ export default function ChangePassword (props) {
                 <input onChange={(e)=>{setNewPassword(e.target.value)}} type="password" placeholder="New password"/>
                 <input onChange={(e)=>{setNewPasswordR(e.target.value)}} type="password" placeholder="Repeat new password"/>
                 <div className={CSS.row}>
-                    <div onClick={()=>{navigate("/profile")}} className={CSS.button}>Cancel</div>
+                    <div onClick={()=>{navigate("/profile/edit")}} className={CSS.button}>Cancel</div>
                     <div onClick={submit} className={CSS.button + " " + CSS.delete}>Submit</div>
                 </div>
             </div>
