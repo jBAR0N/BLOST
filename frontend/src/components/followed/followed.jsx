@@ -12,18 +12,20 @@ export default function Followed (props) {
     const [writers, setWriters] = useState([])
 
     useEffect(()=>{
-        fetch("http://localhost:3000/get/followed")
-        .then(res => res.json())
-        .then(data => {
-            if(data.success) {
-                setWriters(data.content)
-            } else {
+        if(props.user.email) {
+            fetch("http://localhost:3000/get/followed")
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    setWriters(data.content)
+                } else {
+                    props.setError("Failed to load writers!")
+                }
+            })
+            .catch(()=>{
                 props.setError("Failed to load writers!")
-            }
-        })
-        .catch(()=>{
-            props.setError("Failed to load writers!")
-        })
+            })
+        }
     }, [])
 
     useEffect(()=>{
@@ -37,7 +39,8 @@ export default function Followed (props) {
                 <div className={CSS.heading}>Writers</div>
                 <div className={CSS.writers}>
                     <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.moveSlider}>{"<"}</div>
-                    <div ref={sliderWr} className={CSS.sliderWr}>
+                    <div style={{justifyContent: writers.length === 0? "center": ""}} ref={sliderWr} className={CSS.sliderWr}>
+                        <div style={{display: writers.length === 0? "block": "none"}} className={CSS.noUser}>Followed writers will appear here!</div>
                         <div style={{marginLeft: "calc(" + slider + " * 50%)"}} ref={userSlider} className={CSS.slider}>
                         {writers.map((item)=>
                             <Writer name={item.name} image={item.image}/>

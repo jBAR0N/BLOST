@@ -32,7 +32,7 @@ export default function Home (props) {
                 <div className={CSS.active + " " + CSS.tag} style={{display: props.mode==="search"? "block": "none"}}>"{keyword}"</div>
                 <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.tag}>{"<"}</div>
                 <div ref={sliderWr} className={CSS.scrollWr}>
-                    <div ref={tagSlider} style={{left: "calc(" + slider + " * 50%)"}} className={CSS.tagSlider}>
+                    <div ref={tagSlider} style={{marginLeft: "calc(" + slider + " * 50%)"}} className={CSS.tagSlider}>
                         {
                             tags.map((item)=>
                                 <NavLink to={"/tag/"+ item.name} end className={({isActive})=>{return (isActive? CSS.active + " "+ CSS.tag: CSS.tag)}}>{item.name}</NavLink>

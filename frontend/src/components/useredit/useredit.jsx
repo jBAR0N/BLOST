@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import CSS from "./useredit.module.css"
+import addIcon from "./img/add.svg"
 
 export default function UserEdit (props) {
     const navigate = useNavigate()
@@ -23,6 +24,13 @@ export default function UserEdit (props) {
 
     return (
         <div className={CSS.contentWr}>
+            <div className={CSS.header}>
+                <div className={CSS.heading}>Edit Profile</div>
+                <div className={CSS.writeArticle}>
+                    <img src={addIcon} alt="add" />
+                    <p>Create article</p>
+                </div>
+            </div>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Name" current={props.user.username}/>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Email" current={props.user.email}/>
             <InfoRow inputHeight={"100px"} setError={props.setError} name="Description" current={props.user.description}/>

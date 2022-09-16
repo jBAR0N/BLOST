@@ -27,7 +27,7 @@ export default function Post (props) {
     }, [])
 
     return(
-        <div onClick={()=>{navigate("/article/" + props.id)}} className={CSS.content}>
+        <div onClick={()=>{navigate(props.draft?"/create/" + props.id:"/article/" + props.id)}} className={CSS.content}>
             <div className={CSS.row}>
                 <div className={CSS.heading}>{props.title}</div>
                 <img onClick={(e)=>{e.stopPropagation();}} className={CSS.bookmark} src={bookmarkIcon} alt={"bookmark"} />

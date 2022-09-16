@@ -16,6 +16,7 @@ import Error from './components/error/error';
 import Article from './components/article/article';
 import DeleteProfile from './components/deleteProfile/deleteProfile';
 import ChangePassword from './components/changePasword/changePassword';
+import UserDrafts from './components/userdrafts/userdrafts';
 
 function App() {
   const [user, setUser] = useState({loading: true})
@@ -60,7 +61,8 @@ function App() {
             <Route path='/user/:name' element={<User setError={setError}/>}/>
             <Route path="/bookmarks" element={<Bookmarks setError={setError} user={user}/>}/>
             <Route path="/profile" element={<Profile img={img} user={user}/>}>
-              <Route index element={<UserPosts/>}/>
+              <Route index element={<UserDrafts setError={setError} user={user}/>}/>
+              <Route path="/profile/posts" element={<UserPosts setError={setError} user={user}/>}/>
               <Route path="/profile/stats" element={<UserStats/>}/>
               <Route path="/profile/edit" element={<UserEdit setError={setError} user={user}/>}/>
             </Route>

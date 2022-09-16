@@ -11,16 +11,16 @@ export default function Posts (props) {
 
     useEffect(()=>{
         setLoading(false)
-        setArticles([])
         setLast(0)
         setFinished(false)
+        setArticles([])
     }, [path])
 
     useEffect(()=>{
-        if (articles.length === 0 && finsihed === false) {
+        if (articles.length === 0 && finsihed === false && loading === false && last === 0) {
             loadContent();
         }
-    }, [finsihed])
+    })
 
     function loadContent () {
         const steps = Math.round((window.innerHeight / 140)*2)
@@ -50,7 +50,7 @@ export default function Posts (props) {
             {props.children}
             {
                 articles.map((item)=>(
-                    <Post id={item.id} name={item.name} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
+                    <Post draft={props.draft? true: false} id={item.id} name={item.name} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
                 ))
             }
             <div style={{display: !finsihed? "none": "flex"}} className={CSS.end}>

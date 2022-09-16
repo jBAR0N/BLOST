@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import featherIcon from "./img/feather.svg"
 import chartIcon from "./img/chart.svg"
 import penIcon from "./img/pen.svg"
+import articleIcon from "./img/article.svg"
 import { useEffect } from "react"
 
 export default function Profile (props) {
@@ -20,7 +21,8 @@ export default function Profile (props) {
                 <div className={CSS.infoFollowers}>x follwers</div>
             </div>
             <div className={CSS.nav}>
-                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} end to={"/profile"}><img className={CSS.navIcon} src={featherIcon} alt={"articles"}/></NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} end to={"/profile"}><img className={CSS.navIcon} src={featherIcon} alt={"drafts"}/></NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"posts"}><img className={CSS.navIcon} src={articleIcon} alt={"posts"}/></NavLink>
                 <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"stats"}><img className={CSS.navIcon} src={chartIcon} alt={"statitics"}/></NavLink>
                 <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"edit"}><img className={CSS.navIcon} src={penIcon} alt={"edit"}/></NavLink>
             </div>
