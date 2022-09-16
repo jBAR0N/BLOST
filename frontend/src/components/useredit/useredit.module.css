@@ -70,5 +70,5 @@
 }
 
 .contentWr {
-    margin-bottom: 75px;
+    overflow: auto;
 }

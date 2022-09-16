@@ -11,13 +11,7 @@
     padding: 10px;
 }
 
-.bar {
-    width: 40px;
-    position: relative;
-}
-
 .loading {
-    position: absolute;
     width: 15px;
     height: 15px;
     border-radius: 3px;
@@ -25,18 +19,17 @@
     animation-name: loading;
     animation-duration: 1s;
     animation-iteration-count: infinite;
-    z-index: -100;
 }
 
 @keyframes loading {
     0% {transform: rotate(0deg);}
     100% {transform: rotate(360deg);}
-  }
+}
 
-  .end {
+.end {
     align-items: center;
     justify-content: center;
     padding: 10px;
     font-size: 13px;
     color: var(--color-gray-10);
-  }
+}

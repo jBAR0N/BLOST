@@ -10,17 +10,17 @@ export default function Posts (props) {
     const [finsihed, setFinished] = useState(false)
 
     useEffect(()=>{
-        setFinished(false)
         setLoading(false)
-        setLast(0)
         setArticles([])
+        setLast(0)
+        setFinished(false)
     }, [path])
 
     useEffect(()=>{
-        if (articles.length === 0) {
+        if (articles.length === 0 && finsihed === false) {
             loadContent();
         }
-    }, [articles])
+    }, [finsihed])
 
     function loadContent () {
         const steps = Math.round((window.innerHeight / 140)*2)
@@ -57,9 +57,7 @@ export default function Posts (props) {
             There is nothing more to show here!
             </div>
             <div style={{display: !finsihed? "flex": "none"}} className={CSS.loadingWr}>
-                <div className={CSS.bar}>
-                    <div className={CSS.loading}/>
-                </div>
+                <div className={CSS.loading}/>
             </div>
             <div style={{minHeight: "100px"}}></div>
         </div>

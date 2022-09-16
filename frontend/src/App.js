@@ -41,7 +41,7 @@ function App() {
   }, [])
 
   return (
-    <div className="page-wr">
+    <React.Fragment>
       <Error setError={setError} error={error}/>
       <div className='content-wr'>
         <Routes>
@@ -68,7 +68,7 @@ function App() {
           </Route>
         </Routes>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -10,7 +10,7 @@ export default function User (props) {
 
     return (
         <div onClick={redirect} className={CSS.user}>
-            <div className={CSS.imgWr}></div>
+            <div className={CSS.img}></div>
             <div className={CSS.name}>{props.name}</div>
         </div>
     )

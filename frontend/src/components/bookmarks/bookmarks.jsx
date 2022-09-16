@@ -11,8 +11,10 @@ export default function Bookmarks (props) {
     }, [props])
 
     return (
+        props.user.email?
         <Posts setError={props.setError} path={"bookmarks/"} children={
             <div className={CSS.heading}>Bookmarks</div>
         }/>
+        :""
     )
 }

@@ -9,23 +9,20 @@ body {
 }
 
 #root {
-  display: flex;
-  justify-content: center;
-}
-
-div.content-wr {
-  height: 100%;
-  width: 100%;
-  max-width: 1000px;
-  position: relative;
-}
-
-div.page-wr {
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+}
+
+div.content-wr {
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  flex-grow: 1;
+  min-height: 0;
 }
 
 ::-webkit-scrollbar {

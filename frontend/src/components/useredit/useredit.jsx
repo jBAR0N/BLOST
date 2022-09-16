@@ -26,7 +26,7 @@ export default function UserEdit (props) {
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Name" current={props.user.username}/>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Email" current={props.user.email}/>
             <InfoRow inputHeight={"100px"} setError={props.setError} name="Description" current={props.user.description}/>
-            <div className={CSS.infoGroup}>
+            <div style={{marginBottom: "75px"}} className={CSS.infoGroup}>
                 <label className={CSS.uploadLabel} htmlFor="file">
                     <div style={{marginTop: "5px"}} className={CSS.editButton + " " + CSS.button}><p>Upload image</p></div>
                 </label>
