@@ -14,7 +14,6 @@
     font-size: 18px;
     font-weight: 500;
     color: var(--color-gray-25);
-    font-family: "Roboto Slab";
 }
 
 .bookmark {
@@ -27,7 +26,6 @@
     margin: 10px;
     color: var(--color-gray-25);
     font-size: 15px;
-    font-family: "Roboto Slab";
     font-weight: 300;
 }
 

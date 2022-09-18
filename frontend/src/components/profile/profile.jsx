@@ -11,6 +11,7 @@ export default function Profile (props) {
 
     useEffect(()=>{
         if (!props.user.email && !props.user.loading) navigate("/login", {replace: true})
+        if (props.user.email && !props.user.loading && !props.user.username) navigate("/profile/new", {replace: true})
     }, [props])
 
     return (
@@ -22,7 +23,7 @@ export default function Profile (props) {
             </div>
             <div className={CSS.nav}>
                 <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} end to={"/profile"}><img className={CSS.navIcon} src={featherIcon} alt={"drafts"}/></NavLink>
-                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"posts"}><img className={CSS.navIcon} src={articleIcon} alt={"posts"}/></NavLink>
+                <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"articles"}><img className={CSS.navIcon} src={articleIcon} alt={"articles"}/></NavLink>
                 <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"stats"}><img className={CSS.navIcon} src={chartIcon} alt={"statitics"}/></NavLink>
                 <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} to={"edit"}><img className={CSS.navIcon} src={penIcon} alt={"edit"}/></NavLink>
             </div>

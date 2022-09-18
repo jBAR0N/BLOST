@@ -1,6 +1,9 @@
 .infoRow {
+    margin: 10px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-gray-90);
 }
 
 .img {
@@ -8,6 +11,7 @@
     height: 80px;
     margin: 10px;
     border-radius: 100%;
+    flex-shrink: 0;
     overflow: hidden;
 }
 
@@ -15,6 +19,8 @@
     color: var(--color-secondary);
     font-weight: 500;
     font-size: 15px;
+    word-wrap: break-word;
+    min-width: 0;
 }
 
 .notFound {
@@ -40,10 +46,11 @@
     cursor: pointer;
 }
 
-.follwers {
+.infoText {
     color: var(--color-secondary);
     font-size: 15px;
-    margin-left: auto;
+    margin: 10px;
+    flex-shrink: 0;
 }
 
 .follow {
@@ -54,10 +61,12 @@
     color: var(--color-gray-100);
     cursor: pointer;
     margin: 10px;
+    border-radius: 3px;
+    font-weight: 500;
 }
 
 .description {
-    margin: 10px;
+    margin: 10px 20px;
     color: var(--color-gray-25);
     font-size: 15px;
 }

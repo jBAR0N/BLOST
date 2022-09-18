@@ -21,9 +21,9 @@ export default function NewUser (props) {
         fetch("http://localhost:3000/set/name", requestOptions)
         .then(res => res.json())
         .then((data)=>{
-            if (data.inUse) props.setError("Name is already in use!")
-            else document.location.replace("/")})
-        .catch(()=>{
+            if (data.success) document.location.replace("/")
+            else props.setError(data.message)
+        }).catch(()=>{
             props.setError("Something went wrong. Try again!")
         })
     }
@@ -39,7 +39,7 @@ export default function NewUser (props) {
             method: 'POST',
             body: formData
         }
-        fetch("http://localhost:3000/setImage", requestOptions)
+        fetch("http://localhost:3000/set/image", requestOptions)
         .then(res => res.json())
         .then(res => {
             if (res.success) window.location.reload()

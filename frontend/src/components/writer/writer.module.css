@@ -20,6 +20,6 @@
     margin: 10px;
     font-size: 15px;
     font-weight: 500;
-    line-break: anywhere;
+    overflow-wrap: break-word;
     text-align: center;
 }

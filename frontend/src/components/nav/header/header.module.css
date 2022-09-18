@@ -40,39 +40,6 @@
     object-fit: cover;
 }
 
-.menu {
-    border-radius: 10px;
-    width: 200px;
-    position: absolute;
-    top: 100%;
-    background-color: var(--color-gray-100);
-    border: 1px solid var(--color-gray-95);
-    right: 10px;
-    overflow: hidden;
-    z-index: 100;
-}
-
-.menuLink {
-    color: var(--color-gray-25);
-}
-
-.menuRow {
-    display: flex;
-    padding: 8px;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 200ms;
-    cursor: pointer;
-}
-
-.menuRow:hover {
-    background-color: var(--color-gray-95);
-}
-
-.icon {
-    height: 20px;
-}
-
 .searchWr {
     flex-grow: 1;
     display: flex;
@@ -99,4 +66,92 @@
 
 .notificationButton:hover {
     background-color: var(--color-gray-95);
+}
+
+
+
+.menu {
+    box-shadow: 0 0 2px var(--color-gray-25);
+    border-radius: 10px;
+    position: absolute;
+    top: 100%;
+    background-color: var(--color-gray-100);
+    right: 10px;
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+}
+
+.authButton {
+    color: var(--color-gray-10);
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid var(--color-gray-90);
+    border-radius: 5px;
+    font-size: 15px;
+    margin: 10px;
+}
+
+.authButton:hover {
+    background-color: var(--color-gray-95);
+}
+
+.editButton {
+    color: var(--color-gray-10);
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid var(--color-gray-90);
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.editButton:hover {
+    background-color: var(--color-gray-95);
+}
+
+.menuImg {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 100%;
+    object-fit: cover;
+    margin: 10px 70px;
+}
+
+.nameInfo {
+    color: var(--color-gray-10);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.emailInfo {
+    color: var(--color-gray-10);
+    margin: 10px 20px;
+    font-size: 15px;
+}
+
+.info {
+    color: var(--color-gray-10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seperator {
+    border-bottom: 1px solid var(--color-gray-90);
+    width: 100%;
+}
+
+.menuLinks {
+    display: flex;
+    color: var(--color-gray-10);
+    margin: 10px;
+    font-size: 13px;
+}
+
+.menuLinks a {
+    color: var(--color-gray-10);
+    font-size: 13px;
+    text-decoration: underline;
 }

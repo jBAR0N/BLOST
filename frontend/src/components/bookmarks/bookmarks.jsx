@@ -8,10 +8,11 @@ export default function Bookmarks (props) {
 
     useEffect(()=>{
         if (!props.user.email && !props.user.loading) navigate("/login", {replace: true})
+        if (props.user.email && !props.user.loading && !props.user.username) navigate("/profile/new", {replace: true})
     }, [props])
 
     return (
-        props.user.email?
+        props.user.username?
         <Posts setError={props.setError} path={"bookmarks/"} children={
             <div className={CSS.heading}>Bookmarks</div>
         }/>

@@ -7,7 +7,7 @@
 }
 
 .content {
-    border: 1px solid var(--color-gray-95);
+    border: 1px solid var(--color-gray-90);
     width: 400px;
     display: flex;
     flex-direction: column;

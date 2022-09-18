@@ -8,8 +8,6 @@ import bellIcon from "./img/bell.svg"
 import userIcon from "./img/user.svg"
 import { useNavigate } from "react-router-dom"
 
-//TODO make menu look like google cal menu plus box-shadow
-
 export default function Header (props) {
     const navigate = useNavigate()
 
@@ -34,10 +32,6 @@ export default function Header (props) {
         }
     }
 
-    function logout () {
-        fetch("http://localhost:3000/logOut").then(document.location.reload())
-    }
-
     function submitSearch () {
         if (search !== "") {
             navigate("/search/" + search)
@@ -55,23 +49,44 @@ export default function Header (props) {
                 <img src={bellIcon} alt="notifications"/>
             </div>
             <img onClick={(e)=>{showMenu(e)}} className={CSS.accountImg} src={props.img} alt="account" />
-            <div style={{display: (menuHidden? "none" : "block")}} className={CSS.menu}>
-                <div className={CSS.menuRow}>
-                    <div className={CSS.menuLink}>About</div>
-                    <img className={CSS.icon} src={linkIcon} alt="link" />
+            <Menu setMenuHidden={setMenuHidden} menuHidden={menuHidden} user={props.user} img={props.img}/>
+        </div>
+    )
+}
+
+function Menu (props) {
+    const navigate = useNavigate()
+    
+    function logout () {
+        fetch("http://localhost:3000/logOut")
+        .then(()=>{document.location = "/"})
+    }
+
+    return (
+        <div style={{display: (props.menuHidden? "none" : "flex")}} onClick={(e)=>{e.stopPropagation()}} className={CSS.menu}>
+            <img src={props.img} alt="profile picture" className={CSS.menuImg} />
+            <div style={{display: props.user.username? "block": "none"}} className={CSS.nameInfo}>
+                {props.user.username}
+            </div>
+            <div style={{display: props.user.email? "block": "none"}} className={CSS.emailInfo}>
+                {props.user.email}
+            </div>
+            <div style={{display: !props.user.username && props.user.email? "block": "none"}}onClick={()=>{navigate("/profile/new")}} className={CSS.editButton}>
+                Finish setup
                 </div>
-                <div style={{display: (props.user.email === undefined? "flex" : "none")}} onClick={()=>{navigate("/login")}} className={CSS.menuRow}>
-                    <div className={CSS.menuLink}>Sign in</div>
-                    <img className={CSS.icon} src={signinIcon} alt="link" />
-                </div>
-                <div style={{display: props.user.username === undefined? "none": "flex"}} className={CSS.menuRow} onClick={()=>{navigate("/profile/edit")}}>
-                    <div className={CSS.menuLink}>{props.user.username === null? props.user.email: props.user.username}</div>
-                    <img className={CSS.icon} src={userIcon} alt="link" />
-                </div>
-                <div style={{display: (props.user.email === undefined? "none" : "flex")}} onClick={logout} className={CSS.menuRow}>
-                    <div className={CSS.menuLink}>Log out</div>
-                    <img className={CSS.icon} src={signoutIcon} alt="link" />
-                </div>
+            <div style={{display: props.user.username? "block": "none"}} onClick={()=>{navigate("/profile/edit"); props.setMenuHidden(true)}} className={CSS.editButton}>
+                Account settings
+            </div>
+            <div className={CSS.seperator}/>
+            <div className={CSS.authButton} style={{display: (props.user.email? "none" : "flex")}} onClick={()=>{navigate("/login")}}>
+                Sign in
+            </div>
+            <div className={CSS.authButton} style={{display: (props.user.email? "flex" : "none")}} onClick={logout}>
+                Log out
+            </div>
+            <div className={CSS.seperator}/>
+            <div className={CSS.menuLinks}>
+                <a href="/about">About</a>&nbsp;-&nbsp; <a href="/terms">Privacy policy</a>
             </div>
         </div>
     )

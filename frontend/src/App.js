@@ -46,7 +46,6 @@ function App() {
       <Error setError={setError} error={error}/>
       <div className='content-wr'>
         <Routes>
-          <Route path='/about' element={<React.Fragment/>}/>
           <Route path='/article/:article' element={<Article/>}/>
           <Route path='/create/:id'element={<React.Fragment/>}/>
           <Route path='/profile/delete' element={<DeleteProfile user={user} setError={setError}/>}/>
@@ -62,7 +61,7 @@ function App() {
             <Route path="/bookmarks" element={<Bookmarks setError={setError} user={user}/>}/>
             <Route path="/profile" element={<Profile img={img} user={user}/>}>
               <Route index element={<UserDrafts setError={setError} user={user}/>}/>
-              <Route path="/profile/posts" element={<UserPosts setError={setError} user={user}/>}/>
+              <Route path="/profile/articles" element={<UserPosts setError={setError} user={user}/>}/>
               <Route path="/profile/stats" element={<UserStats/>}/>
               <Route path="/profile/edit" element={<UserEdit setError={setError} user={user}/>}/>
             </Route>
