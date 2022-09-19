@@ -11,8 +11,8 @@
     height: 70px;
     width: 70px;
     margin: 5px;
-    background-color: var(--color-gray-90);
     border-radius: 100%;
+    background-color: white;
 }
 
 .name {

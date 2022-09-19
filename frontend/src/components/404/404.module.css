@@ -14,7 +14,7 @@
 
 .content p {
     color: var(--color-gray-25);
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .content a {
@@ -24,4 +24,9 @@
     padding: 7px;
     cursor: pointer;
     font-size: 15px;
+    border-radius: 3px;
+}
+
+.content a:hover {
+    background-color: var(--color-gray-95);
 }

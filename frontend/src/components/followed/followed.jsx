@@ -3,6 +3,7 @@ import Writer from "../writer/writer"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState, useRef } from "react"
 import Posts from "../posts/posts"
+import searchIcon from "./img/search.svg"
 
 export default function Followed (props) {
     const navigate = useNavigate()
@@ -22,6 +23,7 @@ export default function Followed (props) {
 }
 
 function Writers (props) {
+    const navigate = useNavigate()
     const userSlider = useRef()
     const sliderWr = useRef()
     const [slider, setSlider] = useState(0)
@@ -48,7 +50,11 @@ function Writers (props) {
         <div className={CSS.writers}>
             <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.moveSlider}>{"<"}</div>
             <div style={{justifyContent: writers.length === 0? "center": ""}} ref={sliderWr} className={CSS.sliderWr}>
-                <div style={{display: writers.length === 0? "block": "none"}} className={CSS.noUser}>Followed writers will appear here!</div>
+                <div style={{display: writers.length === 0? "flex": "none"}} className={CSS.noUserWr}>
+                    <img src={searchIcon} alt="nothing found" className={CSS.searchImg}/>
+                    You haven't followed anyone!
+                    <div className={CSS.cta} onClick={()=>{navigate("/")}}>Browse content</div>
+                </div>
                 <div style={{marginLeft: "calc(" + slider + " * 50%)"}} ref={userSlider} className={CSS.slider}>
                 {writers.map((item)=>
                     <Writer name={item.name} image={item.image}/>

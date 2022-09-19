@@ -36,11 +36,11 @@ export default function UserEdit (props) {
             <InfoRow inputHeight={"100px"} setError={props.setError} name="Description" current={props.user.description}/>
             <div style={{marginBottom: "75px"}} className={CSS.infoGroup}>
                 <label className={CSS.uploadLabel} htmlFor="file">
-                    <div style={{marginTop: "5px"}} className={CSS.editButton + " " + CSS.button}><p>Upload image</p></div>
+                    <div style={{marginTop: "5px"}} className={CSS.button}><p>Upload image</p></div>
                 </label>
                 <input onChange={(e)=>{uploadFile(e.target.files[0])}} id="file" type="file" accept="image/png, image/jpg" className={CSS.upload}/>
-                <div style={{marginTop: "5px"}} onClick={()=>{navigate("/profile/password")}} className={CSS.editButton + " " + CSS.button}><p>Change password</p></div>
-                <div style={{marginTop: "5px"}} onClick={()=>{navigate("/profile/delete")}} className={CSS.deleteButton + " " + CSS.button}><p>Delete account</p></div>
+                <div style={{marginTop: "5px"}} onClick={()=>{navigate("/profile/password")}} className={CSS.button}><p>Change password</p></div>
+                <div style={{marginTop: "5px"}} onClick={()=>{navigate("/profile/delete")}} className={CSS.button}><p>Delete account</p></div>
             </div>
         </div>
     )
@@ -77,8 +77,8 @@ function InfoRow (props) {
         <div className={CSS.infoRow}>
             <div className={CSS.infoGroup}>
                 <div className={CSS.infoSpec}>{props.name}:&nbsp;</div>
-                <div onClick={submit} className={CSS.submitButton + " " + CSS.button}>Submit</div>
-                <div onClick={()=>{setInput(props.current)}} className={CSS.editButton + " " + CSS.button}>Reset</div>
+                <div onClick={submit} style={{marginLeft: "auto"}} className={CSS.button}>Submit</div>
+                <div className={CSS.button} onClick={()=>{setInput(props.current)}}>Reset</div>
             </div>
             <textarea value={input} onChange={e=>{setInput(e.target.value)}} type="text" className={CSS.input} style={{height: props.inputHeight}}/>
         </div>

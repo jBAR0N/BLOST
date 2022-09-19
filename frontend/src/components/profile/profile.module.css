@@ -12,6 +12,7 @@
     overflow: hidden;
     margin-left: 10px;
     flex-shrink: 0;
+    background-color: white;
 }
 
 .infoName {
@@ -27,7 +28,7 @@
     margin: 10px;
     margin-left: auto;
     font-size: 15px;
-    color: var(--color-gray-25);
+    color: var(--color-gray-10);
     flex-shrink: 0;
 }
 

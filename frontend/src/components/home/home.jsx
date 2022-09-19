@@ -28,11 +28,11 @@ export default function Home (props) {
     return (
         <div className={CSS.contentWr}>
             <div className={CSS.tags}>
-                <NavLink to={"/"} end className={({isActive})=>{return (isActive? CSS.active + " "+ CSS.tag: CSS.tag)}}>All</NavLink>
-                <div className={CSS.active + " " + CSS.tag} style={{display: props.mode==="search"? "block": "none"}}>"{keyword}"</div>
-                <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.tag}>{"<"}</div>
+                <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.moveTags}>{"<"}</div>
                 <div ref={sliderWr} className={CSS.scrollWr}>
                     <div ref={tagSlider} style={{marginLeft: "calc(" + slider + " * 50%)"}} className={CSS.tagSlider}>
+                        <NavLink to={"/"} end className={({isActive})=>{return (isActive? CSS.active + " "+ CSS.tag: CSS.tag)}}>All</NavLink>
+                        <div className={CSS.active + " " + CSS.tag} style={{display: props.mode==="search"? "block": "none"}}>"{keyword}"</div>
                         {
                             tags.map((item)=>
                                 <NavLink to={"/tag/"+ item.name} end className={({isActive})=>{return (isActive? CSS.active + " "+ CSS.tag: CSS.tag)}}>{item.name}</NavLink>
@@ -40,7 +40,7 @@ export default function Home (props) {
                         }
                     </div>
                 </div>
-                <div onClick={()=>{if(tagSlider.current.clientWidth > sliderWr.current.clientWidth * ((-slider + 1) / 2)) setSlider(slider - 1)}} className={CSS.tag}>{">"}</div>
+                <div onClick={()=>{if(tagSlider.current.clientWidth > sliderWr.current.clientWidth * ((-slider + 1) / 2)) setSlider(slider - 1)}} className={CSS.moveTags}>{">"}</div>
             </div>    
             <Posts setError={props.setError} path={
                 props.mode === "date"? "date/" : "" +

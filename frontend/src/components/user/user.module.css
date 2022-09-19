@@ -13,6 +13,7 @@
     border-radius: 100%;
     flex-shrink: 0;
     overflow: hidden;
+    background-color: white;
 }
 
 .name {
@@ -44,6 +45,7 @@
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
     cursor: pointer;
+    border-radius: 3px;
 }
 
 .infoText {
@@ -51,18 +53,22 @@
     font-size: 15px;
     margin: 10px;
     flex-shrink: 0;
+    color: var(--color-gray-10);
 }
 
 .follow {
     color: var(--color-secondary);
     font-size: 15px;
-    padding: 7px 15px;
-    background-color: var(--color-secondary);
-    color: var(--color-gray-100);
+    padding: 5px 15px;
     cursor: pointer;
     margin: 10px;
     border-radius: 3px;
+    border: 2px solid var(--color-secondary);
     font-weight: 500;
+}
+
+.follow:hover {
+    background-color: var(--color-gray-95);
 }
 
 .description {
