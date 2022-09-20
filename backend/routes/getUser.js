@@ -11,7 +11,7 @@ module.exports = (app)=>{
         LEFT JOIN followed AS f
         ON f.user = u.id
         LEFT JOIN content AS c
-        ON c.user_id = u.id
+        ON c.user_id = u.id AND c.published = 1
         WHERE name = ?
         `, [req.user? req.user.id: null, req.params.name], (err, result)=>{
             if (err) res.send({success: false, message: "Failed to load user!"})

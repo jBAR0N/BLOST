@@ -67,7 +67,7 @@ export default function User (props) {
                     <div className={CSS.infoRow}>
                         <img className={CSS.img} src={img} alt="account"/>
                         <div className={CSS.name}>{credentials.name}</div>
-                        <div style={{marginLeft: "auto"}} className={CSS.infoText}>{credentials.posts }{" Posts"}</div>
+                        <div style={{marginLeft: "auto"}} className={CSS.infoText}>{credentials.posts }{credentials.posts === 1?" Post":" Posts"}</div>
                         <div className={CSS.infoText}>{followers}{followers === 1?" Follower":" Followers"}</div>
                         {followed?
                             <div onClick={submitFollow} className={CSS.followed + " "+ CSS.followButton}>Unfollow</div>

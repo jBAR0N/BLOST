@@ -18,7 +18,8 @@ export default function Profile (props) {
             <div className={CSS.infoWr}>
                 <img src={props.img} alt="account" className={CSS.accountImg}/>
                 <div className={CSS.infoName}>{props.user.username}</div>
-                <div className={CSS.infoFollowers}>{props.user.followers}{props.user.followers === 1?" Follower":" Followers"}</div>
+                <div style={{marginLeft: "auto"}} className={CSS.infoText}>{props.user.posts}{props.user.posts === 1?" Post":" Posts"}</div>
+                <div className={CSS.infoText}>{props.user.followers}{props.user.followers === 1?" Follower":" Followers"}</div>
             </div>
             <div className={CSS.nav}>
                 <NavLink className={(({isActive})=>{return (isActive? CSS.link + " " + CSS.active: CSS.link)})} end to={"/profile"}><img className={CSS.navIcon} src={featherIcon} alt={"drafts"}/></NavLink>

@@ -7,7 +7,6 @@ import Bookmarks from './components/bookmarks/bookmarks';
 import Profile from './components/profile/profile';
 import FourOFour from './components/404/404';
 import UserPosts from './components/userposts/userposts';
-import UserStats from './components/userstats/userstats';
 import UserEdit from './components/useredit/useredit';
 import Login from './components/login/login';
 import NewUser from './components/newuser/newuser';
