@@ -62,7 +62,6 @@ function App() {
             <Route path="/profile" element={<Profile img={img} user={user}/>}>
               <Route index element={<UserDrafts setError={setError} user={user}/>}/>
               <Route path="/profile/articles" element={<UserPosts setError={setError} user={user}/>}/>
-              <Route path="/profile/stats" element={<UserStats/>}/>
               <Route path="/profile/edit" element={<UserEdit setError={setError} user={user}/>}/>
             </Route>
             <Route path="*" element={<FourOFour/>}/>

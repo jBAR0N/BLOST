@@ -1,8 +1,8 @@
 const express = require('express');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
-const app = express()
 const path = require('path')
+const app = express()
 
 const passport = require('passport');
 

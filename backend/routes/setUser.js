@@ -67,12 +67,8 @@ module.exports = (app)=>{
                     if (err) res.send({success: false, message: "Something went wrong. Try again!"})
                     else res.send({success: true})
                 })
-            } else {
-                res.send({success: false, message: "Wrong password!"})
-            }
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+            } else res.send({success: false, message: "Wrong password!"})
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
 
     app.post("/delete/profile", (req, res)=>{
@@ -87,11 +83,7 @@ module.exports = (app)=>{
                         })
                     }
                 })
-            } else {
-                res.send({success: false, message: "Wrong password!"})
-            }
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+            } else res.send({success: false, message: "Wrong password!"})
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
 }

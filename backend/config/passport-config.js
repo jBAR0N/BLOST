@@ -27,6 +27,8 @@ module.exports = function (passport) {
                     return done(err)
                 if (rows.length) {
                     return done(null, false, {message: 'Email is already in use!'});
+                } if (email.length > 255) {
+                    return done(null, false, {message: 'Maximum email length is 255 characters!'})
                 } else {
                     var newUser = {
                         email: email,

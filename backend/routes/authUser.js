@@ -37,12 +37,15 @@ module.exports = (app, passport)=>{
 
     app.get("/get/session", (req, res)=>{
         if(req.isAuthenticated()) {
+          con.query(`SELECT COUNT(follower) AS followers FROM followed WHERE user = ?`,[req.user.id], (err, result)=>{
             res.send({
-                email: req.user.email,
-                username: req.user.name,
-                description: req.user.description,
-                image: req.user.image
+              email: req.user.email,
+              username: req.user.name,
+              description: req.user.description,
+              image: req.user.image,
+              followers: result[0].followers
             })
+          })
         } else {
             res.send({})
         }

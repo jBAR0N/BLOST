@@ -1,5 +1,6 @@
 import CSS from "./post.module.css"
 import bookmarkIcon from "./img/bookmark.svg"
+import bookmarkedIcon from "./img/bookmarked.svg"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
@@ -7,6 +8,7 @@ export default function Post (props) {
     const navigate = useNavigate()
     const [img, setImg] = useState(null)
     const [date, setDate] = useState()
+    const [bookmark, setBookmark] = useState(props.bookmarked)
 
     useEffect(()=>{
         const creationDate = new Date (props.date)
@@ -26,11 +28,32 @@ export default function Post (props) {
         }
     }, [])
 
+    function submitBookmark (e) {
+        e.stopPropagation();
+        let requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({content: props.id})
+        }
+        fetch("http://localhost:3000/bookmark", requestOptions)
+        .then(res => res.json())
+        .then(data =>{
+            if (data.success) setBookmark(data.action)
+            else props.setError(data.message)
+        })
+    }
+
     return(
         <div onClick={()=>{navigate(props.draft?"/create/" + props.id:"/article/" + props.id)}} className={CSS.content}>
             <div className={CSS.row}>
                 <div className={CSS.heading}>{props.title}</div>
-                <img onClick={(e)=>{e.stopPropagation();}} className={CSS.bookmark} src={bookmarkIcon} alt={"bookmark"} />
+                {bookmark?
+                    <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkedIcon} alt={"remove bookmark"} />
+                    :
+                    <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkIcon} alt={"bookmark"} />
+                }
             </div>
             <div className={CSS.description}>{props.subtitle}</div>
             <div className={CSS.row}>

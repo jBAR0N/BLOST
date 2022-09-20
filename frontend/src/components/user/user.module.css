@@ -61,16 +61,24 @@
 
 .follow {
     color: var(--color-secondary);
+    border: 2px solid var(--color-secondary);
+}
+
+.followed {
+    color: var(--color-gray-75);
+    border: 2px solid var(--color-gray-75);
+}
+
+.followButton {
     font-size: 15px;
     padding: 5px 15px;
     cursor: pointer;
     margin: 10px;
     border-radius: 3px;
-    border: 2px solid var(--color-secondary);
     font-weight: 500;
 }
 
-.follow:hover {
+.followButton:hover {
     background-color: var(--color-gray-95);
 }
 
