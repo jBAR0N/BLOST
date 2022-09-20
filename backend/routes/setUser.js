@@ -7,47 +7,43 @@ module.exports = (app)=>{
 
     app.post("/set/name",(req, res)=>{
         if (req.isAuthenticated()) {
-            con.query("SELECT * FROM users WHERE name = ?", [req.body.object], (err, result)=>{
-                if (result.length === 0) {
-                    con.query("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
-                        if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                        else res.send({success: true})
-                    })
-                } else {
-                    res.send({success: false, message: "Name is already in use!"})
-                }
-            })
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+            if (req.body.length <= 100) {
+                con.query("SELECT * FROM users WHERE name = ?", [req.body.object], (err, result)=>{
+                    if (result.length === 0) {
+                        con.query("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
+                            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                            else res.send({success: true})
+                        })
+                    } else res.send({success: false, message: "Name is already in use!"})
+                })
+            } else res.send({success: false, message: "Maximum length is 100 characters!"})
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
     
     app.post("/set/description",(req, res)=>{
         if (req.isAuthenticated()) {
-            con.query("UPDATE users SET description = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
-                if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                else res.send({success: true})
-            })
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+            if (req.body.length <= 5000) {
+                con.query("UPDATE users SET description = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
+                    if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                    else res.send({success: true})
+                })
+            } else res.send({success: false, message: "Maximum length is 5000 characters!"})
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
     
     app.post("/set/email",(req, res)=>{
         if (req.isAuthenticated()) {
-            con.query("SELECT * FROM users WHERE email = ?", [req.body.object], (err, result)=>{
-                if (result.length === 0) {
-                    con.query("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
-                        if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                        else res.send({success: true})
-                    })
-                } else {
-                    res.send({success: false, message: "Email is already in use!"})
-                }
-            })
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+            if (req.body.length <= 5000) {
+                con.query("SELECT * FROM users WHERE email = ?", [req.body.object], (err, result)=>{
+                    if (result.length === 0) {
+                        con.query("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
+                            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                            else res.send({success: true})
+                        })
+                    } else res.send({success: false, message: "Email is already in use!"})
+                })
+            } else res.send({success: false, message: "Maximum length is 255 characters!"})
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
 
     app.post("/set/image", upload.single('image'), (req, res)=>{

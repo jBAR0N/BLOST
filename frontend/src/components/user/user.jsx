@@ -14,7 +14,7 @@ export default function User (props) {
         fetch("http://localhost:3000/get/user/" + name)
         .then(res => res.json())
         .then(res=> {
-            if (res.success) {
+            if (res.success && res.content) {
                 setCredentials(res.content);
                 if (res.content.image) {
                     fetch("http://localhost:3000/image/" + res.content.image)
@@ -23,14 +23,13 @@ export default function User (props) {
                         setImg(URL.createObjectURL(data))
                     })
                 }
-            }
-            else setNotFound(true)
+            } else setNotFound(true)
         })
         .catch(()=>{setNotFound(true)})
     }, [name])
 
     return (
-        notFound?
+        notFound || notFound === undefined?
             <div className={CSS.content}>
                 <div className={CSS.notFound}>User not found</div>
                 <div onClick={()=>{navigate("/")}} className={CSS.return}>Back to home</div>

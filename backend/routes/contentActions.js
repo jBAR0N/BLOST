@@ -12,9 +12,7 @@ module.exports = (app)=>{
                 if (err) {res.send({success: false, message: "Something went wrong. Try again!"})}
                 else res.send({success:false})
             })
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
 
     app.post("/like", (req, res)=>{
@@ -23,9 +21,7 @@ module.exports = (app)=>{
                 if (err) {res.send({success: false, message: "Something went wrong. Try again!"})}
                 else res.send({success: true})
             })
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
 
     app.post("/bookmark", (req, res)=>{
@@ -34,8 +30,6 @@ module.exports = (app)=>{
                 if (err) {res.send({success: false, message: "Something went wrong. Try again!"})}
                 else res.send({success: true})
             })
-        } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
-        }
+        } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
 }

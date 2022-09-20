@@ -11,7 +11,7 @@ module.exports = (app)=>{
             ON f.follower = ? AND f.user = u.id
         WHERE name = ?
         `, [req.user? req.user.id: null, req.params.name], (err, result)=>{
-            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+            if (err) res.send({success: false, message: "Failed to load user!"})
             else res.send({success:true, content: result[0]})
         })
     })
@@ -26,11 +26,11 @@ module.exports = (app)=>{
                 ON f.follower = ? AND f.user = u.id
             WHERE f.user IS NOT NULL
             `, [req.user? req.user.id: null], (err, result)=>{
-                if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                if (err) res.send({success: false, message: "Failed to load writers!"})
                 else res.send({success: true, content: result})
             })
         } else {
-            res.send({success: false, message: "Something went wrong. Try again!"})
+            res.send({success: false, message: "Failed to load writers!"})
         }
     })
 }

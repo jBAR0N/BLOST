@@ -14,11 +14,8 @@ export default function Home (props) {
         fetch("http://localhost:3000/get/tags")
         .then(res => res.json())
         .then(data => {
-            if(data.success) {
-                setTags(data.content)
-            } else {
-                props.setError("Failed to load tags!")
-            }
+            if(data.success) setTags(data.content)
+            else props.setError(data.message)
         })
         .catch(()=>{
             props.setError("Failed to load tags!")

@@ -54,10 +54,23 @@
     font-size: 13px;
     background-color: var(--color-gray-25);
     color: var(--color-gray-100);
-    border-radius: 5px;
+    border-radius: 3px;
     margin-bottom: 20px;
+    border: 1px solid var(--color-gray-25);
+    transition: all 100ms;
+}
+
+.button:hover {
+    color: var(--color-gray-25);
+    background-color: unset;
 }
 
 .delete {
     background-color: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+}
+
+.delete:hover {
+    color: var(--color-secondary);
+    background-color: unset;
 }

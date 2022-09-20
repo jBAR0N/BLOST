@@ -28,19 +28,20 @@ function Writers (props) {
     const sliderWr = useRef()
     const [slider, setSlider] = useState(0)
     const [writers, setWriters] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(()=>{
+        setLoading(true)
         fetch("http://localhost:3000/get/followed")
         .then(res => res.json())
         .then(data => {
-            if(data.success) {
-                setWriters(data.content)
-            } else {
-                props.setError("Failed to load writers!")
-            }
+            if(data.success) setWriters(data.content)
+            else props.setError(data.message)
+            setLoading(false)
         })
         .catch(()=>{
             props.setError("Failed to load writers!")
+            setLoading(false)
         })
     }, [])
 
@@ -50,11 +51,12 @@ function Writers (props) {
         <div className={CSS.writers}>
             <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.moveSlider}>{"<"}</div>
             <div style={{justifyContent: writers.length === 0? "center": ""}} ref={sliderWr} className={CSS.sliderWr}>
-                <div style={{display: writers.length === 0? "flex": "none"}} className={CSS.noUserWr}>
+                <div style={{display: writers.length === 0 && !loading? "flex": "none"}} className={CSS.noUserWr}>
                     <img src={searchIcon} alt="nothing found" className={CSS.searchImg}/>
                     You haven't followed anyone!
                     <div className={CSS.cta} onClick={()=>{navigate("/")}}>Browse content</div>
                 </div>
+                <div className={CSS.loading}  style={{display: loading? "block": "none"}}/>
                 <div style={{marginLeft: "calc(" + slider + " * 50%)"}} ref={userSlider} className={CSS.slider}>
                 {writers.map((item)=>
                     <Writer name={item.name} image={item.image}/>

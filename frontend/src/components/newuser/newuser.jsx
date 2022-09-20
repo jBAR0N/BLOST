@@ -41,9 +41,9 @@ export default function NewUser (props) {
         }
         fetch("http://localhost:3000/set/image", requestOptions)
         .then(res => res.json())
-        .then(res => {
-            if (res.success) window.location.reload()
-            else props.setError(res.message)
+        .then(data => {
+            if (data.success) window.location.reload()
+            else props.setError(data.message)
         }).catch(()=>{
             props.setError("Something went wrong. Try again!")
         })
@@ -53,7 +53,9 @@ export default function NewUser (props) {
         <div className={CSS.contentWr}>
             <div className={CSS.content}>
                 <label htmlFor="file">
-                    <img name="file" src={props.img} alt="account" className={CSS.accountImg}/>
+                    <div className={CSS.imgWr}>
+                        <img name="file" src={props.img} alt="account" className={CSS.accountImg}/>
+                    </div>
                 </label>
                 <input onChange={(e)=>{uploadFile(e.target.files[0])}} id="file" type="file" accept="image/png, image/jpg" className={CSS.upload}/>
                 <div className={CSS.text}>Almost there, just give your profile a name!</div>

@@ -18,31 +18,10 @@
 }
 
 .accountImg {
-    overflow: hidden;
     width: 125px;
     height: 125px;
     border-radius: 100%;
-    margin: 20px;
-    position: relative;
-    cursor: pointer;
     object-fit: cover;
-}
-
-.accountImg::after {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    content: "Upload image";
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-gray-90);
-    top: 0;
-    color: var(--color-gray-25);
-    display: none;
-}
-
-.accountImg:hover::after {
-    display: flex;
 }
 
 .text {
@@ -67,7 +46,7 @@
     margin: 20px;
     border-radius: 5px;
     overflow: hidden;
-    border: 1px solid var(--color-gray-95);
+    border: 1px solid var(--color-gray-90);
 }
 
 .button {
@@ -105,4 +84,34 @@
     color: white;
     background-color: black;
     display: inline-block;
+}
+
+.imgWr:hover::after {
+    display: flex;
+}
+
+.imgWr {
+    position: relative;
+    margin: 20px;
+    border-radius: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    width: 125px;
+    height: 125px;
+}
+
+.imgWr::after {
+    content: "Upload image";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-90);
+    opacity: 0.9;
+    display: none;
+    top: 0;
+    left: 0;
+    color: var(--color-gray-25);
+    z-index: 100;
 }

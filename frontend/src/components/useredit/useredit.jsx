@@ -14,9 +14,9 @@ export default function UserEdit (props) {
         }
         fetch("http://localhost:3000/set/image", requestOptions)
         .then(res => res.json())
-        .then(res => {
-            if (res.success) window.location.reload()
-            else props.setError("Something went wrong. Try again!")
+        .then(data => {
+            if (data.success) window.location.reload()
+            else props.setError(data.message)
         }).catch(()=>{
             props.setError("Something went wrong. Try again!")
         })

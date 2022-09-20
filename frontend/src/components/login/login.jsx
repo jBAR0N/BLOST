@@ -47,8 +47,8 @@ export default function Login (props) {
         fetch("http://localhost:3000/" + path, requestOptions)
         .then(res=>res.json())
         .then(data=>{
-            if (data.success) { document.location.replace(redirect); }
-            else { props.setError(data.message) }
+            if (data.success) document.location.replace(redirect);
+            else props.setError(data.message)
         })
         .catch(()=>{props.setError("Something went wrong. Try again!")})
     }

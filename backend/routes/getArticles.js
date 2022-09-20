@@ -3,7 +3,7 @@ const con = require("../config/db-config")
 module.exports = (app)=>{
     app.get("/get/tags", (req, res) =>{
         con.query("SELECT name FROM tags",(err, result)=>{
-            if(err) res.send({success: false})
+            if(err) res.send({success: false, message: "Failed to load tags!"})
             else res.send({success: true, content: result})
         })
     })
@@ -28,7 +28,7 @@ module.exports = (app)=>{
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
         `, [req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
-            if(err) res.send({success: false})
+            if(err) res.send({success: false, message: "Failed to load content!"})
             else res.send({success: true, content: result})
         })
     })
@@ -54,12 +54,10 @@ module.exports = (app)=>{
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
             `, [req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
-                if(err) res.send({success: false})
+                if(err) res.send({success: false, message: "Failed to load content!"})
                 else res.send({success: true, content: result})
             })
-        } else {
-            res.send({success: false})
-        }
+        } else res.send({success: false, message: "Failed to load content!"})
     })
 
     app.get("/get/articles/followed/:from/:to",(req, res)=>{
@@ -85,12 +83,10 @@ module.exports = (app)=>{
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
             `, [req.user? req.user.id: null, req.user? req.user.id: null, req.params.from , req.params.to], (err, result)=>{
-                if(err) res.send({success: false})
+                if(err) res.send({success: false, message: "Failed to load content!"})
                 else res.send({success: true, content: result})
             })
-        } else {
-            res.send({success: false})
-        }
+        } else res.send({success: false, message: "Failed to load content!"})
     })
 
     app.get("/get/articles/search/:keyword/:from/:to",(req, res)=>{
@@ -113,7 +109,7 @@ module.exports = (app)=>{
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
         `, [req.user? req.user.id: null, "%" + req.params.keyword.toLowerCase()+ "%", req.params.from , req.params.to], (err, result)=>{
-            if(err) res.send({success: false})
+            if(err) res.send({success: false, message: "Failed to load content!"})
             else res.send({success: true, content: result})
         })
     })
@@ -141,7 +137,7 @@ module.exports = (app)=>{
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
         `, [req.user? req.user.id: null,req.params.keyword, req.params.from , req.params.to], (err, result)=>{
-            if(err) res.send({success: false})
+            if(err) res.send({success: false, message: "Failed to load content!"})
             else res.send({success: true, content: result})
         })
     })
