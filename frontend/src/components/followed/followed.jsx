@@ -54,7 +54,7 @@ function Writers (props) {
                 <div style={{display: writers.length === 0 && !loading? "flex": "none"}} className={CSS.noUserWr}>
                     <img src={searchIcon} alt="nothing found" className={CSS.searchImg}/>
                     You haven't followed anyone!
-                    <div className={CSS.cta} onClick={()=>{navigate("/")}}>Browse content</div>
+                    <div className={"call-to-home"} onClick={()=>{navigate("/")}}>Browse content</div>
                 </div>
                 <div className={CSS.loading}  style={{display: loading? "block": "none"}}/>
                 <div style={{marginLeft: "calc(" + slider + " * 50%)"}} ref={userSlider} className={CSS.slider}>

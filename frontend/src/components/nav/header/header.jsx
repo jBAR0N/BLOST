@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react"
 import CSS from "./header.module.css"
 import SearchIcon from "./img/search.svg"
-import linkIcon from "./img/link.svg"
-import signinIcon from "./img/signin.svg"
-import signoutIcon from "./img/signout.svg"
 import bellIcon from "./img/bell.svg"
-import userIcon from "./img/user.svg"
-import { useNavigate } from "react-router-dom"
+import trashIcon from "./img/trash.svg"
+import { NavLink, useNavigate } from "react-router-dom"
 
 export default function Header (props) {
     const navigate = useNavigate()
 
     const [menuHidden, setMenuHidden] = useState(true)
+    const [notHidden, setNotHidden] = useState(true)
     const [search, setSearch] = useState("")
 
     useEffect(()=>{
         document.body.addEventListener("click", hideMenu)
+        document.body.addEventListener("click", hideNot)
         return ()=>{
             document.body.removeEventListener("click", hideMenu)
+            document.body.removeEventListener("click", hideNot)
         }
     })
 
@@ -28,9 +28,23 @@ export default function Header (props) {
     function showMenu (e) {
         if (menuHidden) {
             e.stopPropagation()
+            setNotHidden(true)
             setMenuHidden(false)
         }
     }
+
+    function hideNot () {
+        if (!notHidden) setNotHidden(true)
+    }
+
+    function showNot (e) {
+        if (notHidden) {
+            e.stopPropagation()
+            setMenuHidden(true)
+            setNotHidden(false)
+        }
+    }
+
 
     function submitSearch () {
         if (search !== "") {
@@ -45,11 +59,70 @@ export default function Header (props) {
                 <input value={search} onKeyPress={(e)=>{const keyCode = e.code || e.key; if (keyCode == 'Enter') submitSearch()}} onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" type="text" className={CSS.search}/>
                 <img onClick={submitSearch} alt="Search" className={CSS.searchIcon} src={SearchIcon}/>
             </div>
-            <div className={CSS.notificationButton}>
-                <img src={bellIcon} alt="notifications"/>
-            </div>
-            <img onClick={(e)=>{showMenu(e)}} className={CSS.accountImg} src={props.img} alt="account" />
+            <img src={bellIcon} onClick={showNot} className={CSS.notificationButton} alt="notifications"/>
+            <Notification setNotHidden={setNotHidden} notHidden={notHidden} user={props.user}/>
+            <img onClick={showMenu} className={CSS.accountImg} src={props.img} alt="account" />
             <Menu setMenuHidden={setMenuHidden} menuHidden={menuHidden} user={props.user} img={props.img}/>
+        </div>
+    )
+}
+
+function Notification (props) {
+    const [notifications, setNotifications] = useState([])
+    const {notHidden} = props
+
+    useEffect(()=>{
+        loadNotification()
+    }, [])
+
+    useEffect(()=>{
+        if (!notHidden)
+        var requestOptions = {
+            method: "POST"
+        }
+        fetch ("http://localhost:3000/set/notified", requestOptions)
+    }, [notHidden])
+
+    function loadNotification () {
+        fetch("http://localhost:3000/get/notifications")
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) setNotifications(data)
+        })
+    }
+
+    function deleteNot (content) {
+        let requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({content: content})
+        }
+        fetch("http://localhost:3000/delete/notification", requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) loadNotification()
+        })
+    }
+
+    return (
+        <div style={{display: (props.notHidden? "none" : "flex")}} onClick={(e)=>{e.stopPropagation()}} className={CSS.notBox}>
+            <div className={CSS.notHeading}>Notifications</div>
+            <div style={{overflow: "auto"}}>
+            {
+                notifications.map((item)=>(
+                    <div className={CSS.notRow}>
+                        <NavLink to={"article/" + item.id} className={CSS.notification}>
+                            <NavLink onClick={()=>{props.setNotHidden(true)}} to={"user/" + item.user}>{item.user}</NavLink> posted a new Article
+                            <div>{item.content}</div>
+                        </NavLink>
+                        <img onClick={()=>{deleteNot(item.id)}} src={trashIcon} alt="delete" />
+                    </div>
+                ))
+            }
+            <div className={CSS.upToDate} style={{display: notifications.length === 0? "block" : "none"}}>You're up to date!</div>
+            </div>
         </div>
     )
 }

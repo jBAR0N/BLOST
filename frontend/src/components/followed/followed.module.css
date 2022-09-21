@@ -44,20 +44,6 @@
     color: var(--color-gray-25);
 }
 
-.cta {
-    margin: 10px;
-    padding: 7px;
-    font-size: 13px;
-    border-radius: 3px;
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    cursor: pointer;
-}
-
-.cta:hover {
-    background-color: var(--color-gray-95);
-}
-
 .searchImg {
     width: 60px;
     margin: 10px;

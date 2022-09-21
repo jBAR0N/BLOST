@@ -49,26 +49,17 @@
 }
 
 .notificationButton {
-    width: 35px;
-    height: 35px;
+    width: 23px;
     margin-right: 10px;
     cursor: pointer;
     border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: all 200ms;
-}
-
-.notificationButton img {
-    height: 22px;
+    padding: 6px;
 }
 
 .notificationButton:hover {
     background-color: var(--color-gray-95);
 }
-
-
 
 .menu {
     box-shadow: 0 0 2px var(--color-gray-25);
@@ -154,4 +145,77 @@
     color: var(--color-gray-10);
     font-size: 13px;
     text-decoration: underline;
+}
+
+.notBox {
+    box-shadow: 0 0 2px var(--color-gray-25);
+    border-radius: 5px;
+    position: absolute;
+    top: 100%;
+    background-color: var(--color-gray-100);
+    right: 55px;
+    z-index: 100;
+    flex-direction: column;
+    height: 350px;
+    width: 300px;
+}
+
+.notHeading {
+    font-weight: 500;
+    font-size: 15px;
+    margin: 10px;
+}
+
+.notification {
+    color: var(--color-gray-10);
+    flex-grow: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.notification a {
+    color: var(--color-gray-10);
+    text-decoration: underline;
+    overflow-wrap: break-word;
+}
+
+.notification a:hover {
+    text-decoration: none;
+}
+
+.notification div {
+    margin-top: 5px;
+    font-weight: 500;
+    font-size: 15px;
+    overflow-wrap: break-word;
+}
+
+.notRow {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--color-gray-90);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.notRow:hover {
+    background-color: var(--color-gray-95);
+}
+
+.notRow img {
+    width: 25px;
+    height: 25px;
+    border: 1px solid var(--color-gray-90);
+    border-radius: 100%;
+    padding: 5px;
+    margin-left: 10px;
+}
+.notRow img:hover {
+    background-color: var(--color-gray-100);
+}
+
+.upToDate {
+    text-align: center;
+    margin-top: 125px;
+    font-size: 15px;
 }

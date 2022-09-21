@@ -59,7 +59,7 @@ export default function User (props) {
         notFound || notFound === undefined?
             <div className={CSS.content}>
                 <div className={CSS.notFound}>User not found</div>
-                <div onClick={()=>{navigate("/")}} className={CSS.return}>Back to home</div>
+                <div onClick={()=>{navigate("/")}} className="call-to-home">Back to home</div>
             </div>
             : 
             <Posts setError={props.setError} path={"user/" + name + "/"} children={
