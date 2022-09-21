@@ -11,21 +11,6 @@
     padding: 10px;
 }
 
-.loading {
-    width: 15px;
-    height: 15px;
-    border-radius: 3px;
-    border: 2px solid var(--color-gray-75);
-    animation-name: loading;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes loading {
-    0% {transform: rotate(0deg);}
-    100% {transform: rotate(360deg);}
-}
-
 .end {
     align-items: center;
     justify-content: center;

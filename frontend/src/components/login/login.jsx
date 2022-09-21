@@ -54,7 +54,7 @@ export default function Login (props) {
     }
 
     return (
-        <div className={CSS.contentWr}>
+        <div className={"centered-content-wrapper"}>
             <img onClick={()=>{navigate("/")}} className={CSS.logo} src={Logo} alt="home" />
             <div className={CSS.content}>
                 <div className={CSS.header}>
@@ -63,9 +63,9 @@ export default function Login (props) {
                 </div>
                 <div style={{transform: (signUp? "translate(0%)": "translate(-50%)")}} className={CSS.formsWr}>
                     <form className={CSS.form}>
-                        <input onChange={(e)=>{SetUpEmail(e.target.value)}} className={CSS.input} placeholder="Email" type="email"/>
-                        <input onChange={(e)=>{SetUpPassword(e.target.value)}} className={CSS.input} placeholder="Password" type="password" />
-                        <input onChange={(e)=>{SetUpSecondPassword(e.target.value)}} className={CSS.input} placeholder="Password" type="password" />
+                        <input onChange={(e)=>{SetUpEmail(e.target.value)}} className="form-input" placeholder="Email" type="email"/>
+                        <input onChange={(e)=>{SetUpPassword(e.target.value)}} className="form-input" placeholder="Password" type="password" />
+                        <input onChange={(e)=>{SetUpSecondPassword(e.target.value)}} className="form-input" placeholder="Password" type="password" />
                         <div className={CSS.formRow}>
                             <input type="checkbox" className={CSS.privacyCheckbox} onChange={()=>{SetPrivacyAccepted(!privacyAccepted)}} value={privacyAccepted}/>
                             <div className={CSS.privacyText}>
@@ -75,8 +75,8 @@ export default function Login (props) {
                         <input onClick={(e)=>{submitUp(e)}} className={CSS.submit} value={"Sign up"} type="submit"/>
                     </form>
                     <form className={CSS.form}>
-                        <input onChange={(e)=>{SetInEmail(e.target.value)}} className={CSS.input} placeholder="Email" type="email"/>
-                        <input onChange={(e)=>{SetInPassword(e.target.value)}} className={CSS.input} placeholder="Password" type="password" />
+                        <input onChange={(e)=>{SetInEmail(e.target.value)}} className="form-input" placeholder="Email" type="email"/>
+                        <input onChange={(e)=>{SetInPassword(e.target.value)}} className="form-input" placeholder="Password" type="password" />
                         <input onClick={(e)=>{submitIn(e)}} className={CSS.submit} value={"Sign in"} type="submit"/>
                     </form>
                 </div>

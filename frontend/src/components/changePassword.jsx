@@ -1,4 +1,3 @@
-import CSS from "./changePassword.module.css"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
@@ -35,15 +34,15 @@ export default function ChangePassword (props) {
     }
 
     return (
-        <div className={CSS.wrapper}>
-            <div className={CSS.content}>
-                <p>Change password</p>
-                <input onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Current password"/>
-                <input onChange={(e)=>{setNewPassword(e.target.value)}} type="password" placeholder="New password"/>
-                <input onChange={(e)=>{setNewPasswordR(e.target.value)}} type="password" placeholder="Repeat new password"/>
-                <div className={CSS.row}>
-                    <div onClick={()=>{navigate("/profile/edit")}} className={CSS.button}>Cancel</div>
-                    <div onClick={submit} className={CSS.button + " " + CSS.delete}>Submit</div>
+        <div className="centered-content-wrapper">
+            <div className="profile-form-content">
+                <div className="profile-form-heading">Change password</div>
+                <input onChange={(e)=>{setPassword(e.target.value)}} type="password" className="form-input" placeholder="Current password"/>
+                <input onChange={(e)=>{setNewPassword(e.target.value)}} type="password" className="form-input" placeholder="New password"/>
+                <input onChange={(e)=>{setNewPasswordR(e.target.value)}} type="password" className="form-input" placeholder="Repeat new password"/>
+                <div className="row">
+                    <div onClick={()=>{navigate("/profile/edit")}} className="profile-form-button">Cancel</div>
+                    <div onClick={submit} className="profile-form-button submit">Submit</div>
                 </div>
             </div>
         </div>

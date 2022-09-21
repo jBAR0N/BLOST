@@ -47,16 +47,16 @@ function Writers (props) {
 
     return (
         <div className={CSS.content}>
-        <div className={CSS.heading}>Writers</div>
+        <div className="content-heading">Writers</div>
         <div className={CSS.writers}>
             <div onClick={()=>{if(slider < 0) setSlider(slider + 1)}} className={CSS.moveSlider}>{"<"}</div>
             <div style={{justifyContent: writers.length === 0? "center": ""}} ref={sliderWr} className={CSS.sliderWr}>
                 <div style={{display: writers.length === 0 && !loading? "flex": "none"}} className={CSS.noUserWr}>
                     <img src={searchIcon} alt="nothing found" className={CSS.searchImg}/>
                     You haven't followed anyone!
-                    <div className={"call-to-home"} onClick={()=>{navigate("/")}}>Browse content</div>
+                    <div className="call-to-home" onClick={()=>{navigate("/")}}>Browse content</div>
                 </div>
-                <div className={CSS.loading}  style={{display: loading? "block": "none"}}/>
+                <div className="content-loading"  style={{display: loading? "block": "none"}}/>
                 <div style={{marginLeft: "calc(" + slider + " * 50%)"}} ref={userSlider} className={CSS.slider}>
                 {writers.map((item)=>
                     <Writer name={item.name} image={item.image}/>
@@ -65,7 +65,7 @@ function Writers (props) {
             </div>
             <div onClick={()=>{if(userSlider.current.clientWidth > sliderWr.current.clientWidth * ((-slider + 1) / 2)) setSlider(slider - 1)}} className={CSS.moveSlider}>{">"}</div>
         </div>
-        <div className={CSS.heading}>Posts</div>
+        <div className="content-heading">Posts</div>
         </div>
     )
 }

@@ -57,7 +57,7 @@ export default function Posts (props) {
             There is nothing more to show here!
             </div>
             <div style={{display: !finsihed? "flex": "none"}} className={CSS.loadingWr}>
-                <div className={CSS.loading}/>
+                <div className="content-loading"/>
             </div>
             <div style={{minHeight: "100px"}}></div>
         </div>

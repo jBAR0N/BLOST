@@ -3,19 +3,19 @@ import {Route, Routes} from "react-router-dom";
 import Nav from "./components/nav/nav";
 import Home from './components/home/home';
 import Followed from './components/followed/followed';
-import Bookmarks from './components/bookmarks/bookmarks';
+import Bookmarks from './components/bookmarks';
 import Profile from './components/profile/profile';
-import FourOFour from './components/404/404';
-import UserPosts from './components/userposts/userposts';
+import FourOFour from './components/404';
+import UserPosts from './components/userposts';
 import UserEdit from './components/useredit/useredit';
 import Login from './components/login/login';
 import NewUser from './components/newuser/newuser';
 import User from './components/user/user';
 import Error from './components/error/error';
 import Article from './components/article/article';
-import DeleteProfile from './components/deleteProfile/deleteProfile';
-import ChangePassword from './components/changePasword/changePassword';
-import UserDrafts from './components/userdrafts/userdrafts';
+import DeleteProfile from './components/deleteProfile';
+import ChangePassword from './components/changePassword';
+import UserDrafts from './components/userdrafts';
 
 function App() {
   const [user, setUser] = useState({loading: true})

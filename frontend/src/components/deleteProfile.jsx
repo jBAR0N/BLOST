@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import CSS from "./deleteProfile.module.css"
 
 export default function DeleteProfile (props) {
     const navigate = useNavigate()
@@ -32,14 +31,14 @@ export default function DeleteProfile (props) {
     }
 
     return (
-        <div className={CSS.wrapper}>
-            <div className={CSS.content}>
-                <p>Delete account</p>
-                <input onChange={(e)=>{setInput(e.target.value)}} type="password" placeholder="Pasword"/>
-                <p>Do you really want to delete your account? All your content will be gone!</p>
-                <div className={CSS.row}>
-                    <div onClick={()=>{navigate("/profile/edit")}} className={CSS.button}>Cancel</div>
-                    <div onClick={submit} className={CSS.button + " " + CSS.delete}>Delete</div>
+        <div className="centered-content-wrapper">
+            <div className="profile-form-content">
+                <div className="profile-form-heading">Delete account</div>
+                <input onChange={(e)=>{setInput(e.target.value)}} className="form-input" type="password" placeholder="Pasword"/>
+                <div className="profile-form-warning">Do you really want to delete your account? All your content will be gone!</div>
+                <div className="row">
+                    <div onClick={()=>{navigate("/profile/edit")}} className="profile-form-button">Cancel</div>
+                    <div onClick={submit} className="profile-form-button submit">Delete</div>
                 </div>
             </div>
         </div>

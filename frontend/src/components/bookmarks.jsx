@@ -1,5 +1,4 @@
-import CSS from "./bookmarks.module.css"
-import Posts from "../posts/posts"
+import Posts from "./posts/posts"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -14,7 +13,7 @@ export default function Bookmarks (props) {
     return (
         props.user.username?
         <Posts setError={props.setError} path={"bookmarks/"} children={
-            <div className={CSS.heading}>Bookmarks</div>
+            <div className="content-heading">Bookmarks</div>
         }/>
         :""
     )
