@@ -1,7 +1,6 @@
 import CSS from "./error.module.css"
 import xIcon from "./img/x.svg"
 import errorIcon from "./img/error.svg"
-import { useEffect } from "react"
 
 export default function Error (props) {
     return (

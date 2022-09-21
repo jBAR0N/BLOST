@@ -1,0 +1,10 @@
+code {
+    color: var(--color-gray-10);
+    font-size:  45px;
+    margin: 10px;
+}
+
+text {
+    color: var(--color-gray-10);
+    font-size: 18px;
+}

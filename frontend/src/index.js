@@ -5,9 +5,6 @@ import {BrowserRouter} from "react-router-dom"
 
 import './css/index.css';
 import './css/app.css';
-import './css/profile.css';
-import './css/404.css';
-import './css/profile-form.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

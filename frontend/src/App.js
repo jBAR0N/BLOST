@@ -5,7 +5,7 @@ import Home from './components/home/home';
 import Followed from './components/followed/followed';
 import Bookmarks from './components/bookmarks';
 import Profile from './components/profile/profile';
-import FourOFour from './components/404';
+import FourOFour from './components/404/404';
 import UserPosts from './components/userposts';
 import UserEdit from './components/useredit/useredit';
 import Login from './components/login/login';
@@ -46,7 +46,8 @@ function App() {
       <div className='content-wr'>
         <Routes>
           <Route path='/article/:article' element={<Article/>}/>
-          <Route path='/create/:id'element={<React.Fragment/>}/>
+          <Route path='/create/new'element={<React.Fragment/>}/>
+          <Route path='/create/article/:id'element={<React.Fragment/>}/>
           <Route path='/profile/delete' element={<DeleteProfile user={user} setError={setError}/>}/>
           <Route path='/profile/password' element={<ChangePassword user={user} setError={setError}/>}/>
           <Route path='/profile/new' element={<NewUser user={user} setError={setError} img={img}/>}/>
