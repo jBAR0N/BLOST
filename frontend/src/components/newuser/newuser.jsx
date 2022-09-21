@@ -50,7 +50,7 @@ export default function NewUser (props) {
     }
 
     return (
-        <div className={CSS.contentWr}>
+        <div className="centered-content-wrapper">
             <div className={CSS.content}>
                 <label htmlFor="file">
                     <div className={CSS.imgWr}>

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
+import CSS from "./profile-form.module.css"
 
 export default function ChangePassword (props) {
     const navigate = useNavigate()
@@ -35,14 +36,14 @@ export default function ChangePassword (props) {
 
     return (
         <div className="centered-content-wrapper">
-            <div className="profile-form-content">
-                <div className="profile-form-heading">Change password</div>
+            <div className={CSS.content}>
+                <div className={CSS.heading}>Change password</div>
                 <input onChange={(e)=>{setPassword(e.target.value)}} type="password" className="form-input" placeholder="Current password"/>
                 <input onChange={(e)=>{setNewPassword(e.target.value)}} type="password" className="form-input" placeholder="New password"/>
                 <input onChange={(e)=>{setNewPasswordR(e.target.value)}} type="password" className="form-input" placeholder="Repeat new password"/>
-                <div className="row">
-                    <div onClick={()=>{navigate("/profile/edit")}} className="profile-form-button">Cancel</div>
-                    <div onClick={submit} className="profile-form-button submit">Submit</div>
+                <div className={CSS.row}>
+                    <div onClick={()=>{navigate("/profile/edit")}} className={CSS.button}>Cancel</div>
+                    <div onClick={submit} className={CSS.button+ " "+ CSS.submit}>Submit</div>
                 </div>
             </div>
         </div>

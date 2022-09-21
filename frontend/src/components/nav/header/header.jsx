@@ -3,7 +3,7 @@ import CSS from "./header.module.css"
 import SearchIcon from "./img/search.svg"
 import bellIcon from "./img/bell.svg"
 import trashIcon from "./img/trash.svg"
-import { NavLink, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Header (props) {
     const navigate = useNavigate()
@@ -76,18 +76,19 @@ function Notification (props) {
     }, [])
 
     useEffect(()=>{
-        if (!notHidden)
-        var requestOptions = {
-            method: "POST"
+        if (!notHidden) {
+            let requestOptions = {
+                method: "POST"
+            }
+            fetch ("http://localhost:3000/set/notified", requestOptions)
         }
-        fetch ("http://localhost:3000/set/notified", requestOptions)
     }, [notHidden])
 
     function loadNotification () {
         fetch("http://localhost:3000/get/notifications")
         .then(res => res.json())
         .then(data => {
-            if (data.success) setNotifications(data)
+            if (data.success) setNotifications(data.content)
         })
     }
 
@@ -113,10 +114,10 @@ function Notification (props) {
             {
                 notifications.map((item)=>(
                     <div className={CSS.notRow}>
-                        <NavLink to={"article/" + item.id} className={CSS.notification}>
-                            <NavLink onClick={()=>{props.setNotHidden(true)}} to={"user/" + item.user}>{item.user}</NavLink> posted a new Article
-                            <div>{item.content}</div>
-                        </NavLink>
+                        <Link to={"article/" + item.id} className={CSS.notification}>
+                            <Link onClick={()=>{props.setNotHidden(true)}} to={"user/" + item.name}>{item.name}</Link> posted a new Article:
+                            <div>{item.title}</div>
+                        </Link>
                         <img onClick={()=>{deleteNot(item.id)}} src={trashIcon} alt="delete" />
                     </div>
                 ))

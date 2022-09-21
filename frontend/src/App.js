@@ -13,8 +13,8 @@ import NewUser from './components/newuser/newuser';
 import User from './components/user/user';
 import Error from './components/error/error';
 import Article from './components/article/article';
-import DeleteProfile from './components/deleteProfile';
-import ChangePassword from './components/changePassword';
+import DeleteProfile from './components/profile-form/deleteProfile';
+import ChangePassword from './components/profile-form/changePassword';
 import UserDrafts from './components/userdrafts';
 
 function App() {
