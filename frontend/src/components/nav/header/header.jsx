@@ -11,6 +11,7 @@ export default function Header (props) {
     const [menuHidden, setMenuHidden] = useState(true)
     const [notHidden, setNotHidden] = useState(true)
     const [search, setSearch] = useState("")
+    const [notIndicator, setNotIndicator] = useState(false)
 
     useEffect(()=>{
         document.body.addEventListener("click", hideMenu)
@@ -59,8 +60,11 @@ export default function Header (props) {
                 <input value={search} onKeyPress={(e)=>{const keyCode = e.code || e.key; if (keyCode == 'Enter') submitSearch()}} onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" type="text" className={CSS.search}/>
                 <img onClick={submitSearch} alt="Search" className={CSS.searchIcon} src={SearchIcon}/>
             </div>
-            <img src={bellIcon} onClick={showNot} className={CSS.notificationButton} alt="notifications"/>
-            <Notification setNotHidden={setNotHidden} notHidden={notHidden} user={props.user}/>
+            <div className={CSS.bellWr}>
+                <div style={{display: notIndicator? "block": "none"}} className={CSS.newNotIndicator}/>
+                <img src={bellIcon} onClick={showNot} className={CSS.notificationButton} alt="notifications"/>
+            </div>
+            <Notification setNotIndicator={setNotIndicator} setNotHidden={setNotHidden} notHidden={notHidden} user={props.user}/>
             <img onClick={showMenu} className={CSS.accountImg} src={props.img} alt="account" />
             <Menu setMenuHidden={setMenuHidden} menuHidden={menuHidden} user={props.user} img={props.img}/>
         </div>
@@ -81,6 +85,10 @@ function Notification (props) {
                 method: "POST"
             }
             fetch ("http://localhost:3000/set/notified", requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) props.setNotIndicator(false)
+            })
         }
     }, [notHidden])
 
@@ -89,6 +97,9 @@ function Notification (props) {
         .then(res => res.json())
         .then(data => {
             if (data.success) setNotifications(data.content)
+            for (let i = 0; i < data.content.length; i++) {
+                if(data.content[i].noticed === 0) props.setNotIndicator(true)
+            }
         })
     }
 

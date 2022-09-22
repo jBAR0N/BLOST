@@ -1,5 +1,4 @@
 const path = require("path")
-const con = require("../config/db-config")
 
 module.exports = (app)=>{
     app.get("/image/:image", (req, res)=>{

@@ -46,9 +46,9 @@ export default function Post (props) {
     }
 
     return(
-        <div onClick={()=>{navigate(props.draft?"/create/" + props.id:"/article/" + props.id)}} className={CSS.content}>
+        <div onClick={()=>{navigate(props.draft?"/article/edit/" + props.id:"/article/" + props.id)}} className={CSS.content}>
             <div className={CSS.row}>
-                <div className={CSS.heading}>{props.title}</div>
+                <div className={CSS.heading}>{props.title? props.title: "Untitled"}</div>
                 {bookmark?
                     <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkedIcon} alt={"remove bookmark"} />
                     :

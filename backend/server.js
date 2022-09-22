@@ -37,5 +37,6 @@ require("./routes/getArticles")(app)
 require("./routes/getUser")(app)
 require("./routes/main")(app)
 require("./routes/contentActions")(app)
+require("./routes/article")(app)
 
 app.listen(3000)

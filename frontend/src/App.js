@@ -16,6 +16,8 @@ import Article from './components/article/article';
 import DeleteProfile from './components/profile-form/deleteProfile';
 import ChangePassword from './components/profile-form/changePassword';
 import UserDrafts from './components/userdrafts';
+import EditArticle from './components/article-edit/article-edit';
+import NewArticle from './components/article-new/article-new';
 
 function App() {
   const [user, setUser] = useState({loading: true})
@@ -46,8 +48,8 @@ function App() {
       <div className='content-wr'>
         <Routes>
           <Route path='/article/:article' element={<Article/>}/>
-          <Route path='/create/new'element={<React.Fragment/>}/>
-          <Route path='/create/article/:id'element={<React.Fragment/>}/>
+          <Route path='/article/create/new'element={<NewArticle user={user}/>}/>
+          <Route path='/article/edit/:id'element={<EditArticle/>}/>
           <Route path='/profile/delete' element={<DeleteProfile user={user} setError={setError}/>}/>
           <Route path='/profile/password' element={<ChangePassword user={user} setError={setError}/>}/>
           <Route path='/profile/new' element={<NewUser user={user} setError={setError} img={img}/>}/>

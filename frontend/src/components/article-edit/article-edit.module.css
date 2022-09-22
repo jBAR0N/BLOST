@@ -1,0 +1,143 @@
+.header {
+    border-bottom: 1px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.publish {
+    font-size: 15px;
+    padding: 5px 10px;
+    color: var(--color-gray-100);
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-secondary);
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 50ms;
+}
+
+.publish:hover {
+    background-color: unset;
+    color: var(--color-secondary);
+}
+
+.title {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--color-gray-90);
+    background-color: var(--color-gray-100);
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 20px;
+    color: var(--color-gray-25);
+}
+
+.subtitle {
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    border-bottom: 1px solid var(--color-gray-90);
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-25);
+    height: 70px;
+    resize: vertical;
+    flex-shrink: 0;
+    line-height: 25px;
+}
+
+.addSection {
+    background-color: var(--color-primary);
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--color-gray-100);
+    border: 2px solid var(--color-primary);
+    font-size: 15px;
+    margin-top: 20px;
+    transition: background-color 50ms;
+    font-weight: 500;
+}
+
+.addSection:hover {
+    background-color: unset;
+    color: var(--color-primary);
+}
+
+.section {
+    border-bottom: 1px solid var(--color-gray-90);
+    padding: 20px 0px;
+    color: var(--color-gray-25);
+}
+
+.textInput {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-25);
+    font-size: 18px;
+    outline: none;
+    width: 100%;
+    border: none;
+    height: 150px;
+    resize: vertical;
+    line-height: 25px;
+}
+
+.sectionTitle {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-25);
+    font-size: 25px;
+    outline: none;
+    width: 100%;
+    font-weight: 500;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.row {
+    align-items: center;
+    display: flex;
+}
+
+.deleteSection {
+    padding: 5px;
+    border: 1px solid var(--color-gray-90);
+    cursor: pointer;
+    width: 22px;
+    border-radius: 100%;
+    margin-left: auto;
+}
+
+.deleteSection:hover {
+    background-color: var(--color-gray-95);
+}
+
+.typeSelect {
+    outline: none;
+    border: 1px solid var(--color-gray-90);
+    border-radius: 3px;
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-10);
+    font-size: 15px;
+    padding: 3px;
+    margin: 5px 0;
+}
+
+.typeSelect:hover {
+    background-color: var(--color-gray-95);
+}
