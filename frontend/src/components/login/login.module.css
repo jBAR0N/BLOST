@@ -25,13 +25,8 @@
     transition: 50ms background-color;
 }
 
-.headerLink:hover {
-    background-color: var(--color-gray-100);
-}
-
 .headerLink.active {
     border-bottom: 1px solid var(--color-secondary);
-    background-color: var(--color-gray-100);
 }
 
 .formsWr {

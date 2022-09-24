@@ -1,0 +1,12 @@
+.article-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--color-gray-25);
+}
+
+.article-font {
+    font-weight: 300;
+    font-family: "Roboto Slab";
+    font-size: 18px;
+    color: var(--color-gray-25);
+}

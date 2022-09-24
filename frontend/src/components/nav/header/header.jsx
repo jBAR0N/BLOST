@@ -97,6 +97,7 @@ function Notification (props) {
         .then(res => res.json())
         .then(data => {
             if (data.success) setNotifications(data.content)
+            if (data.content)
             for (let i = 0; i < data.content.length; i++) {
                 if(data.content[i].noticed === 0) props.setNotIndicator(true)
             }

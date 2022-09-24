@@ -12,7 +12,6 @@
     padding-left: 10px;
     font-size: 15px;
     color: var(--color-gray-25);
-    background-color: var(--color-gray-100);
     flex-grow: 1;
     height: 35px;
 }
@@ -53,7 +52,6 @@
     border-radius: 10px;
     position: absolute;
     top: 100%;
-    background-color: var(--color-gray-100);
     right: 10px;
     z-index: 100;
     flex-direction: column;
@@ -139,7 +137,6 @@
     border-radius: 5px;
     position: absolute;
     top: 100%;
-    background-color: var(--color-gray-100);
     right: 55px;
     z-index: 100;
     flex-direction: column;
@@ -196,9 +193,6 @@
     border-radius: 100%;
     padding: 5px;
     margin-left: 10px;
-}
-.notRow img:hover {
-    background-color: var(--color-gray-100);
 }
 
 .upToDate {

@@ -18,6 +18,7 @@ import ChangePassword from './components/profile-form/changePassword';
 import UserDrafts from './components/userdrafts';
 import EditArticle from './components/article-edit/article-edit';
 import NewArticle from './components/article-new/article-new';
+import PublishArticle from './components/article-publish/article-publish';
 
 function App() {
   const [user, setUser] = useState({loading: true})
@@ -47,8 +48,9 @@ function App() {
       <Error setError={setError} error={error}/>
       <div className='content-wr'>
         <Routes>
-          <Route path='/article/:article' element={<Article/>}/>
           <Route path='/article/create/new'element={<NewArticle user={user}/>}/>
+          <Route path='/article/publication/:id'element={<PublishArticle/>}/>
+          <Route path='/article/settings/:id'element={<PublishArticle/>}/>
           <Route path='/article/edit/:id'element={<EditArticle/>}/>
           <Route path='/profile/delete' element={<DeleteProfile user={user} setError={setError}/>}/>
           <Route path='/profile/password' element={<ChangePassword user={user} setError={setError}/>}/>
@@ -58,6 +60,7 @@ function App() {
             <Route index element={<Home mode="date" setError={setError}/>}/>
             <Route path='/search/:keyword' element={<Home mode="search" setError={setError}/>}/>
             <Route path='/tag/:keyword' element={<Home mode="tag" setError={setError}/>}/>
+            <Route path='/article/:article' element={<Article/>}/>
             <Route path="/followed" element={<Followed setError={setError} user={user}/>}/>
             <Route path='/user/:name' element={<User setError={setError}/>}/>
             <Route path="/bookmarks" element={<Bookmarks setError={setError} user={user}/>}/>

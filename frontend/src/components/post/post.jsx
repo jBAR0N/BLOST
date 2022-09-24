@@ -30,6 +30,8 @@ export default function Post (props) {
 
     function submitBookmark (e) {
         e.stopPropagation();
+        const original = bookmark
+        setBookmark(!bookmark)
         let requestOptions = {
             method: "POST",
             headers: {
@@ -40,8 +42,9 @@ export default function Post (props) {
         fetch("http://localhost:3000/bookmark", requestOptions)
         .then(res => res.json())
         .then(data =>{
-            if (data.success) setBookmark(data.action)
-            else props.setError(data.message)
+            if (!data.success) setBookmark(original)
+        }).catch(()=>{
+            setBookmark(original)
         })
     }
 
