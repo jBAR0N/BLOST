@@ -52,3 +52,7 @@
     padding: 10px;
     color: var(--color-gray-25);
 }
+
+input[type="file"] {
+    display: none;
+}

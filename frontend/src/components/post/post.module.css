@@ -1,11 +1,6 @@
 .content {
     margin: 10px;
-    cursor: pointer;
     border-bottom: 1px solid var(--color-gray-90);
-}
-
-.content:hover {
-    border-color: var(--color-primary);
 }
 
 .row {
@@ -15,45 +10,40 @@
 
 .heading {
     margin: 0px 10px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     color: var(--color-gray-25);
+    cursor: pointer;
 }
 
 .bookmark {
     height: 25px;
-    padding: 5px;
-    border-radius: 100%;
-    margin: 10px;
     margin-left: auto;
-    border: 1px solid var(--color-gray-90);
-}
-
-.bookmark:hover {
-    background-color: var(--color-gray-95);
+    cursor: pointer;
 }
 
 .description {
     margin: 10px;
     color: var(--color-gray-25);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
+    line-height: 24px;
+    cursor: pointer;
+    font-family: "Roboto Slab";
 }
 
 .info {
     margin: 10px;
     color: var(--color-secondary);
-    font-size: 13px;
-}
-
-.writer {
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 300;
+    margin-left: auto;
 }
 
 .img {
-    width: 30px;
-    height: 30px;
-    margin-left: 10px;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
     border-radius: 100%;
     overflow: hidden;
 }
@@ -62,14 +52,17 @@
     display: flex;
     align-items: center;
     margin: 10px;
-    margin-left: auto;
-    border: 1px solid var(--color-gray-90);
-    padding-left: 10px;
-    border-radius: 20px;
+    cursor: pointer;
 }
 
-.writerWr:hover {
-    background-color: var(--color-gray-95);
+.writer {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--color-gray-0);
+}
+
+.writerWr:hover .writer {
+    text-decoration: underline;
 }
 
 .row:last-child {

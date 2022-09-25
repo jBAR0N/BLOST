@@ -10,7 +10,7 @@ export default function Section (props) {
     useEffect(()=>{
         if (props.content.type === "image") {
             if (props.content.content)
-            fetch("http://localhost:3000/image/" + props.content.content)
+            fetch("http://192.168.0.42:3000/image/" + props.content.content)
             .then(res => res.blob())
             .then(data => {
                 setImg(URL.createObjectURL(data))
@@ -44,7 +44,7 @@ export default function Section (props) {
             method: 'POST',
             body: formData
         }
-        fetch("http://localhost:3000/set/article/image", requestOptions)
+        fetch("http://192.168.0.42:3000/set/article/image", requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.success) set(data.file, "content")
@@ -64,12 +64,12 @@ export default function Section (props) {
                 </label>
                 <img onClick={deleteSection} className={CSS.deleteSection} src={trashIcon} alt="delete" />
             </div>
-            <textarea className={CSS.sectionTitle + " " + CSS.input} placeholder="Add title (optional)" type="text" value={props.content.title} onChange={(e)=>{set(e.target.value, "title")}}/>
+            <textarea className="a-input subtitle font-a-subtitle" placeholder="Add title (optional)" type="text" value={props.content.title} onChange={(e)=>{set(e.target.value, "title")}}/>
             {
                 props.content.type === "text"?
-                <textarea className={CSS.textInput + " " + CSS.input} placeholder="Add text" type="text" value={props.content.content} onChange={(e)=>{set(e.target.value, "content")}}/>
+                <textarea className="a-input text font-a-text" placeholder="Add text" type="text" value={props.content.content} onChange={(e)=>{set(e.target.value, "content")}}/>
                 :props.content.type === "image" ?
-                <img className={CSS.sectionImg} src={img} alt="" />
+                <img className="a-image" src={img} alt="" />
                 :""
             }
         </div>

@@ -4,8 +4,10 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom"
 
 import './index.css';
-import './app.css';
+import './css/app.css';
 import './css/fonts.css';
+import './css/input.css';
+import './css/cards.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

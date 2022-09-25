@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import CSS from "./useredit.module.css"
-import ProfileHeader from "../profile-header/profile-header"
 
 export default function UserEdit (props) {
     const navigate = useNavigate()
@@ -12,7 +11,7 @@ export default function UserEdit (props) {
             method: 'POST',
             body: formData
         }
-        fetch("http://localhost:3000/set/image", requestOptions)
+        fetch("http://192.168.0.42:3000/set/image", requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.success) window.location.reload()
@@ -24,7 +23,6 @@ export default function UserEdit (props) {
 
     return (
         <div className={CSS.contentWr}>
-            <ProfileHeader title="Edit profile"/>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Name" current={props.user.username}/>
             <InfoRow inputHeight={"20px"} setError={props.setError} name="Email" current={props.user.email}/>
             <InfoRow inputHeight={"100px"} setError={props.setError} name="Description" current={props.user.description}/>
@@ -52,7 +50,7 @@ function InfoRow (props) {
                 },
                 body: JSON.stringify({object: input})
             }
-            fetch("http://localhost:3000/set/" + props.name.toLowerCase(), requestOptions)
+            fetch("http://192.168.0.42:3000/set/" + props.name.toLowerCase(), requestOptions)
             .then(res => res.json())
             .then(data =>{
                 if (data.success) window.location.reload()

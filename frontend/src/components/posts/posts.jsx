@@ -25,7 +25,7 @@ export default function Posts (props) {
     function loadContent () {
         const steps = Math.round((window.innerHeight / 140)*2)
         setLoading(true)
-        fetch("http://localhost:3000/get/articles/"+ props.path + (last + 1) +"/" + (last + steps))
+        fetch("http://192.168.0.42:3000/get/articles/"+ props.path + (last + 1) +"/" + (last + steps))
         .then(res => res.json())
         .then(data => {
             if (data.success) {

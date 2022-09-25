@@ -44,7 +44,7 @@ export default function Login (props) {
                 "password": password
             })
         }
-        fetch("http://localhost:3000/" + path, requestOptions)
+        fetch("http://192.168.0.42:3000/" + path, requestOptions)
         .then(res=>res.json())
         .then(data=>{
             if (data.success) document.location.replace(redirect);
@@ -69,7 +69,7 @@ export default function Login (props) {
                         <div className={CSS.formRow}>
                             <input type="checkbox" className={CSS.privacyCheckbox} onChange={()=>{SetPrivacyAccepted(!privacyAccepted)}} value={privacyAccepted}/>
                             <div className={CSS.privacyText}>
-                                I agree to the <a rel="noreferrer" target="_blank" className={CSS.privacyLink} href="http:/localhost:3000">privacy policy</a>
+                                I agree to the <a rel="noreferrer" target="_blank" className={CSS.privacyLink} href="http:/192.168.0.42:3000">privacy policy</a>
                             </div>
                         </div>
                         <input onClick={(e)=>{submitUp(e)}} className={CSS.submit} value={"Sign up"} type="submit"/>

@@ -18,7 +18,7 @@ export default function NewUser (props) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({object: input})
         }
-        fetch("http://localhost:3000/set/name", requestOptions)
+        fetch("http://192.168.0.42:3000/set/name", requestOptions)
         .then(res => res.json())
         .then((data)=>{
             if (data.success) document.location.replace("/")
@@ -29,7 +29,7 @@ export default function NewUser (props) {
     }
 
     function logOut () {
-        fetch("http://localhost:3000/logOut").then(document.location.replace("/"))
+        fetch("http://192.168.0.42:3000/logOut").then(document.location.replace("/"))
     }
 
     function uploadFile (file) {
@@ -39,7 +39,7 @@ export default function NewUser (props) {
             method: 'POST',
             body: formData
         }
-        fetch("http://localhost:3000/set/image", requestOptions)
+        fetch("http://192.168.0.42:3000/set/image", requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.success) window.location.reload()

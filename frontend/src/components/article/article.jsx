@@ -11,7 +11,7 @@ export default function Article () {
     const [sections, setSections] = useState([])
 
     useEffect(()=>{
-        fetch("http://localhost:3000/get/article/" + article)
+        fetch("http://192.168.0.42:3000/get/article/" + article)
         .then(res => res.json())
         .then(data=>{
             setTitle(data.title)
@@ -25,8 +25,8 @@ export default function Article () {
             <div className={CSS.infoRow}>
 
             </div>
-            <div className={CSS.title}>{title}</div>
-            <div className={CSS.subtitle}>{subtitle}</div>
+            <div className="font-a-title">{title}</div>
+            <div className="font-a-text">{subtitle}</div>
             {
                 sections.map(item => (
                     <Section item={item}/>
@@ -41,7 +41,7 @@ function Section (props) {
 
     useEffect(()=>{
         if(props.item.type === "image" && props.item.content) {
-            fetch("http://localhost:3000/image/" + props.item.content)
+            fetch("http://192.168.0.42:3000/image/" + props.item.content)
             .then(res => res.blob())
             .then(data=>{
                 setImg(URL.createObjectURL(data))
@@ -51,11 +51,11 @@ function Section (props) {
 
     return (
         <div className={CSS.section}>
-            <div className={CSS.sectionTitle}>{props.item.title}</div>
+            <div className="font-a-subtitle">{props.item.title}</div>
             {props.item.type === "text"?
-            <div className={CSS.sectionContent}>{props.item.content}</div>
+            <div className="font-a-text">{props.item.content}</div>
             :props.item.type === "image"?
-            <img alt="" className={CSS.sectionImg} src={img}></img>
+            <img alt="" className="a-image" src={img}></img>
             :""
             }
         </div>

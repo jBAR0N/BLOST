@@ -14,7 +14,7 @@
 
 div.content-wr {
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
   position: relative;
   flex-grow: 1;
   min-height: 0;
@@ -35,6 +35,13 @@ div.content-wr {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-90);
+}
+
+img text{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 :root {

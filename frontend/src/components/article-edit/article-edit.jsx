@@ -21,7 +21,7 @@ export default function EditArticle () {
     }, [subtitle, title, sections])
 
     useEffect(()=>{
-        fetch("http://localhost:3000/get/draft/" + id)
+        fetch("http://192.168.0.42:3000/get/draft/" + id)
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -50,7 +50,7 @@ export default function EditArticle () {
                 id: id
             })
         }
-        fetch("http://localhost:3000/set/article", requestOptions)
+        fetch("http://192.168.0.42:3000/set/article", requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.success) return callback()
@@ -61,8 +61,8 @@ export default function EditArticle () {
         !loading?
         <div className={CSS.wrapper}>
             <div className={CSS.main}>
-                <textarea onChange={(e)=>{setTitle(e.target.value)}} value={title} type="text" placeholder="Add title" className={CSS.title + " "+ CSS.input}/>
-                <textarea onChange={(e)=>{setSubtitle(e.target.value)}} value={subtitle} type="text" placeholder="Add description" className={CSS.subtitle + " " + CSS.input}/>
+                <textarea onChange={(e)=>{setTitle(e.target.value)}} value={title} type="text" placeholder="Add title" className="a-input title font-a-title"/>
+                <textarea onChange={(e)=>{setSubtitle(e.target.value)}} value={subtitle} type="text" placeholder="Add description" className="a-input description font-a-text"/>
                 {
                     sections.map((item)=>(
                         <Section id={id} setSections={setSections} sections={sections} content={item}/>

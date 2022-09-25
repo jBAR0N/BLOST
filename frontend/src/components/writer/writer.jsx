@@ -12,7 +12,7 @@ export default function User (props) {
 
     useEffect(()=>{
         if(props.image)
-        fetch("http://localhost:3000/image/"+ props.image)
+        fetch("http://192.168.0.42:3000/image/"+ props.image)
         .then(res => res.blob())
         .then(data=>{
             setImg(URL.createObjectURL(data))

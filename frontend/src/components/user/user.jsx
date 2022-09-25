@@ -13,7 +13,7 @@ export default function User (props) {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        fetch("http://localhost:3000/get/user/" + name)
+        fetch("http://192.168.0.42:3000/get/user/" + name)
         .then(res => res.json())
         .then(res=> {
             if (res.success && res.content) {
@@ -22,7 +22,7 @@ export default function User (props) {
                 setFollowers(res.content.followers)
                 setFollowed(res.content.followed)
                 if (res.content.image) {
-                    fetch("http://localhost:3000/image/" + res.content.image)
+                    fetch("http://192.168.0.42:3000/image/" + res.content.image)
                     .then(res => res.blob())
                     .then(data => {
                         setImg(URL.createObjectURL(data))
@@ -41,7 +41,7 @@ export default function User (props) {
             },
             body: JSON.stringify({user: credentials.name})
         }
-        fetch("http://localhost:3000/follow", requestOptions)
+        fetch("http://192.168.0.42:3000/follow", requestOptions)
         .then(res => res.json())
         .then(data =>{
             if (data.success) {

@@ -1,6 +1,6 @@
 {
   "name": "application",
-  "homepage": "http://localhost:3000/",
+  "homepage": "http://192.168.0.42:3000/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
