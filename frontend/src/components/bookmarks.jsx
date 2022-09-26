@@ -1,5 +1,5 @@
 import Posts from "./posts/posts"
-import { useEffect } from "react"
+import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function Bookmarks (props) {
@@ -11,10 +11,13 @@ export default function Bookmarks (props) {
     }, [props])
 
     return (
-        props.user.username?
-        <Posts setError={props.setError} path={"bookmarks/"} children={
-            <div className="content-heading">Bookmarks</div>
-        }/>
-        :""
+        <React.Fragment>
+            <div className="page-heading-wrapper">
+                <div className="page-heading">Reading list</div>
+            </div>
+            {props.user.username?
+            <Posts setError={props.setError} path={"bookmarks/"}/>
+            :""}
+        </React.Fragment>
     )
 }

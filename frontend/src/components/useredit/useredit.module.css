@@ -60,7 +60,3 @@
 	position: absolute;
 	z-index: -1;
 }
-
-.contentWr {
-    overflow: auto;
-}

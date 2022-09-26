@@ -1,12 +1,6 @@
 const con = require("../config/db-config")
 
 module.exports = (app)=>{
-    app.get("/get/tags", (req, res) =>{
-        con.query("SELECT name FROM tags",(err, result)=>{
-            if(err) res.send({success: false, message: "Failed to load tags!"})
-            else res.send({success: true, content: result})
-        })
-    })
 
     app.get("/get/articles/date/:from/:to",(req, res)=>{
         con.query(`
@@ -102,31 +96,6 @@ module.exports = (app)=>{
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
         `, [req.user? req.user.id: null, "%" + req.params.keyword.toLowerCase()+ "%", req.params.from , req.params.to], (err, result)=>{
-            if(err) res.send({success: false, message: "Failed to load content!"})
-            else res.send({success: true, content: result})
-        })
-    })
-
-    app.get("/get/articles/tag/:keyword/:from/:to",(req, res)=>{
-        con.query(`
-        SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
-        (
-            SELECT
-                ROW_NUMBER() OVER(ORDER BY c.date DESC) AS row,
-                c.date, c.title, c.subtitle, c.id,
-                u.image, u.name,
-                IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
-            FROM
-                content AS c
-                JOIN users AS u
-                ON u.id = c.user_id
-                JOIN tagged AS td
-                ON c.id = td.content AND td.tag IN (SELECT id FROM tags WHERE name = ?)
-            WHERE c.published = 1
-        ) t
-        WHERE row >= ? AND row <= ?
-        ORDER BY date DESC
-        `, [req.user? req.user.id: null,req.params.keyword, req.params.from , req.params.to], (err, result)=>{
             if(err) res.send({success: false, message: "Failed to load content!"})
             else res.send({success: true, content: result})
         })

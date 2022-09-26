@@ -7,7 +7,7 @@ import './index.css';
 import './css/app.css';
 import './css/fonts.css';
 import './css/input.css';
-import './css/cards.css';
+import './css/header.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

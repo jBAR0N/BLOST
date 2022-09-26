@@ -47,19 +47,14 @@ export default function Posts (props) {
 
     return (
         <div onScroll={(e)=>{if (e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight + 100 && !finsihed && !loading) loadContent()}} className={CSS.content}>
-            {props.children}
             {
                 articles.map((item)=>(
                     <Post setError={props.setError} draft={props.draft? true: false} id={item.id} name={item.name} bookmarked={item.bookmarked} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
                 ))
             }
-            <div style={{display: !finsihed? "none": "flex"}} className={CSS.end}>
-            There is nothing more to show here!
+            <div style={{display: finsihed && articles.length === 0? "flex": "none"}} className={CSS.end}>
+                {/** no posts found */}
             </div>
-            <div style={{display: !finsihed? "flex": "none"}} className={CSS.loadingWr}>
-                <div className="content-loading"/>
-            </div>
-            <div style={{minHeight: "100px"}}></div>
         </div>
     )
 }

@@ -4,44 +4,17 @@
   text-decoration: none;
 }
 
-#root {
-  height: 100vh;
-  width: 100%;
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-div.content-wr {
+#root {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   position: relative;
   flex-grow: 1;
-  min-height: 0;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-gray-100);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-gray-75);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gray-90);
-}
-
-img text{
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 :root {

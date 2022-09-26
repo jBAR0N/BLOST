@@ -2,7 +2,6 @@ import CSS from "./nav.module.css"
 import Logo from "./img/Logo.svg"
 import {NavLink, Outlet, useNavigate} from "react-router-dom"
 import React from "react"
-import Header from "./header/header"
 import homeIcon from "./img/home.svg"
 import bookmarkIcon from "./img/bookmarks.svg"
 import storyIcon from "./img/stories.svg"
@@ -29,7 +28,6 @@ export default function Nav (props) {
                 </NavLink>
             </div>
             <div className={CSS.main}>
-                <Header img={props.img} user={props.user}/>
                 <div className={CSS.content}>
                     <Outlet/>
                 </div>
