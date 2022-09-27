@@ -34,13 +34,9 @@ export default function Posts (props) {
                 setLoading(false)
                 if(data.content.length < steps) setFinished(true)
             }
-            else {
-                props.setError(data.message)
-                setFinished(true)
-            }
+            else setFinished(true)
         })
         .catch(()=>{
-            props.setError("Failed to load content!")
             setFinished(true)
         })
     }

@@ -28,8 +28,32 @@
 }
 
 .page-heading {
-    font-size: 36px;
-    font-weight: 600;
+    font-size: 42px;
+    font-weight: 900;
     color: var(--color-gray-10);
-    margin: 30px 20px;
+    margin: 30px 0;
+    flex-grow: 100;
+    margin-right: 20px;
+}
+
+.page-heading-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    flex-wrap: wrap;
+}
+
+.page-heading-cta {
+    flex-grow: 1;
+    background-color: var(--color);
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--color-gray-100);
+    text-align: center;
+    font-size: 16px;
+    border-radius: 100px;
+}
+
+.page-heading-cta:hover {
+    background-color: var(--color-dark);
 }

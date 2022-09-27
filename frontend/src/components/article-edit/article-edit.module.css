@@ -21,7 +21,7 @@
     font-size: 15px;
     color: var(--color-gray-100);
     border-radius: 50px;
-    background-color: var(--color-primary);
+    background-color: var(--color);
     cursor: pointer;
     margin: 5px;
     transition: width 200ms;
@@ -50,13 +50,13 @@
 }
 
 .addSection {
-    background-color: var(--color-primary);
+    background-color: var(--color);
     border-radius: 5px;
     text-align: center;
     padding: 5px;
     cursor: pointer;
     color: var(--color-gray-100);
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color);
     font-size: 15px;
     margin-top: 20px;
     margin-bottom: 50px;
@@ -66,7 +66,7 @@
 
 .addSection:hover {
     background-color: unset;
-    color: var(--color-primary);
+    color: var(--color);
 }
 
 .section {

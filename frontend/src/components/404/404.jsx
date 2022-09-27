@@ -1,12 +1,14 @@
 import CSS from "./404.module.css"
 import {Link} from "react-router-dom"
+import React from "react"
 
 export default function FourOFour () {
     return (
         <div className="centered-content-wrapper">
-            <p className={CSS.code}>404</p>
-            <p className={CSS.text}>Page not found</p>
-            <Link className="call-to-home" to="/">Back to home</Link>
+            <div className={CSS.margin}></div>
+            <div className="page-heading">404: Not found</div>
+            <div className={CSS.infoText}>Looks like the page you're looking for doesn't exist. Maybe a story or an user was deleted or we've changed something on our site.</div>
+            <Link to="/" className="page-heading-cta">Browse content</Link>
         </div>
     )
 }

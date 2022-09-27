@@ -18,8 +18,8 @@ body {
 }
 
 :root {
-  --color-primary: #9F3A77;
-  --color-secondary: #AB4335;
+  --color: #F7614D;
+  --color-dark: #AB4335;
 
   --color-gray-0: #000000;
   --color-gray-10: #1A1A1A;

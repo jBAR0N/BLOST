@@ -52,7 +52,7 @@ export default function Post (props) {
     return(
         <div className={CSS.content}>
             <div className={CSS.row}>
-                <div onClick={openArticle} className={CSS.heading}>{props.title? props.title: "Untitled"}</div>
+                <div onClick={openArticle} className={CSS.heading}>{props.title? props.title: "Untitled story"}</div>
                 {
                 props.draft? "": 
                 bookmark?

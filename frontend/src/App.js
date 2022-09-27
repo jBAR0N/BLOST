@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import Nav from "./components/nav/nav";
-import Home from './components/home/home';
+import Home from './components/home';
 import Bookmarks from './components/bookmarks';
 import Stories from './components/stories/stories';
 import FourOFour from './components/404/404';
-import UserPosts from './components/profile-published';
-import UserDrafts from './components/profile-drafts';
 import Login from './components/login/login';
-import NewUser from './components/newuser/newuser';
 import User from './components/user/user';
 import Article from './components/article/article';
 import EditArticle from './components/article-edit/article-edit';
 import PublishArticle from './components/article-publish/article-publish';
+import Posts from './components/posts/posts';
+import Notifications from './components/notifications/notifications';
 
 function App() {
   const [user, setUser] = useState({loading: true})
@@ -37,26 +36,32 @@ function App() {
   }, [])
 
   return (
-      <Routes>
-        <Route path='/article/publication/:id'element={<PublishArticle/>}/>
-        <Route path='/article/settings/:id'element={<PublishArticle/>}/>
-        <Route path='/article/edit/:id'element={<EditArticle/>}/>
-        <Route path='/profile/new' element={<NewUser user={user} img={img}/>}/>
-        <Route path='/login' element={<Login user={user}/>}/>
-        <Route path='/' element={<Nav img={img} user={user}/>}>
-          <Route index element={<Home mode="date" user={user}/>}/>
-          <Route path='/search/:keyword' element={<Home mode="search" user={user}/>}/>
-          <Route path="/followed" element={<Home mode="followed" user={user}/>}/>
-          <Route path="/bookmarks" element={<Bookmarks user={user}/>}/>
-          <Route path="/stories" element={<Stories img={img} user={user}/>}>
-            <Route path="/stories" element={<UserDrafts user={user}/>}/>
-            <Route path="/stories/published" element={<UserPosts user={user}/>}/>
-          </Route>
-          <Route path='/user/:name' element={<User/>}/>
-          <Route path='/article/:article' element={<Article/>}/>
-          <Route path="*" element={<FourOFour/>}/>
+    <Routes>
+      
+      <Route path='/article/publish/:id'element={<PublishArticle/>}/>
+      <Route path='/article/edit/:id'element={<EditArticle/>}/>
+      <Route path='/login' element={<Login user={user}/>}/>
+
+      <Route path='/' element={<Nav img={img} user={user}/>}>
+        <Route index element={<Home user={user}/>}/>
+        <Route path='/user/:name' element={<User/>}/>
+        <Route path='/user/:name/about' element={<User about/>}/>
+        <Route path='/article/:article' element={<Article/>}/>
+        <Route path="*" element={<FourOFour/>}/>
+      </Route>
+
+      <Route path='/me' element={<Nav me img={img} user={user}/>}>
+        <Route path="/me/following" element={<Home following/>}/>
+        <Route path="/me/stories" element={<Stories/>}>
+          <Route index element={<Navigate to="/me/stories/drafts" replace/>}/>
+          <Route path="/me/stories/drafts" element={<Posts draft path={"drafts/"}/>}/>
+          <Route path="/me/stories/public" element={<Posts draft path={"user/" + user.username + "/"}/>}/>
         </Route>
-      </Routes>
+        <Route path="/me/list" element={<Bookmarks/>}/>
+        <Route path="/me/notifications" element={<Notifications/>}/>
+      </Route>
+
+    </Routes>
   );
 }
 
