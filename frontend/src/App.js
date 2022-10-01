@@ -11,6 +11,7 @@ import Article from './components/article/article';
 import EditArticle from './components/article-edit/article-edit';
 import Posts from './components/posts/posts';
 import Notifications from './components/notifications/notifications';
+import Search from './components/search/search';
 
 function App() {
   const [user, setUser] = useState({loading: true})
@@ -41,6 +42,7 @@ function App() {
 
       <Route path='/' element={<Nav unread={unread} img={img} user={user}/>}>
         <Route index element={<Home user={user}/>}/>
+        <Route path='/search/:keyword' element={<Search/>}/>
         <Route path='/user/:name' element={<User/>}/>
         <Route path='/user/:name/about' element={<User about/>}/>
         <Route path='/article/:article' element={<Article/>}/>

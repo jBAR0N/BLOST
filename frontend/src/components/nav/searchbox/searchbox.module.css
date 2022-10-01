@@ -29,3 +29,16 @@
     cursor: pointer;
     background-color: var(--color-gray-100);
 }
+
+@media screen and (max-width: 800px) {
+    .content {
+        position: fixed;
+        bottom: 55px;
+        left: 0px;
+        right: 0px;
+    }
+
+    .input {
+        width: 100%;
+    }
+}

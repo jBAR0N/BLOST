@@ -34,7 +34,7 @@ export default function Nav (props) {
                 </NavLink>
                 <div onClick={()=>{setTimeout(()=>{setSearch(!search)})}} className={search? CSS.link + " " + CSS.active: CSS.link}>
                     <img src={searchIcon} alt="search" />
-                    <SearchBox search={search} />
+                    <SearchBox setSearch={setSearch} search={search} />
                 </div>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/list"} >
                     <img src={listIcon} alt="list" />

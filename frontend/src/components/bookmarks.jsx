@@ -8,7 +8,7 @@ export default function Bookmarks (props) {
                 <div className="page-heading">Reading list</div>
             </div>
             <div className="card-wrapper"/>
-            <Posts setError={props.setError} path={"bookmarks/"}/>
+            <Posts path={"bookmarks/"}/>
         </React.Fragment>
     )
 }

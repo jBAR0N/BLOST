@@ -61,7 +61,7 @@ export default function Post (props) {
             <div onClick={openArticle}  className={CSS.description}>{props.item.subtitle}</div>
             <div className={CSS.row}>
                 <div onClick={()=>{navigate("/user/" + props.item.name)}} className={CSS.writerWr}>
-                    <img alt="account-img" src={img? img: "img/user.png"} className={CSS.img}/>
+                    <img alt="account-img" src={img? img: "/img/user.png"} className={CSS.img}/>
                     <div className={CSS.writer}>{props.item.name}</div>
                 </div>
                 <div className={CSS.info}>{date}</div>
