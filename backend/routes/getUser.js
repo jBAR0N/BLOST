@@ -36,10 +36,10 @@ module.exports = (app)=>{
         }
     })
 
-    app.get("/get/notifications", (req, res)=>{
+    app.post("/get/notifications", (req, res)=>{
         if (req.isAuthenticated()) {
             con.query(`
-            SELECT u.name, c.title, c.id, n.noticed
+            SELECT u.name, c.title, c.id
             FROM
                  notifications AS n
                  JOIN content AS c
@@ -48,23 +48,14 @@ module.exports = (app)=>{
                  ON u.id = c.user_id
             WHERE n.user_id = ?
             `, [req.user.id], (err, result)=>{
-                if (err) res.send({success: false})
-                else res.send({success: true, content: result})
+                if (err) res.send({success: false}) 
+                else 
+                con.query("UPDATE notifications SET noticed = 1 WHERE user_id = ?", [req.user.id], (err)=>{
+                    if (err) res.send({success: false})
+                    res.send({success: true, content: result})
+                })
             })
-        } else {
-            res.send({success: false})
-        }
-    })
-
-    app.post("/set/notified", (req, res)=>{
-        if (req.isAuthenticated()) {
-            con.query(`UPDATE notifications SET noticed = 1 WHERE user_id = ?`, [req.user.id], (err)=>{
-                if (err) res.send({success: false})
-                else res.send({success: true})
-            })
-        } else {
-            res.send({success: false})
-        }
+        } else res.send({success: false})
     })
 
     app.post("/delete/notification", (req, res)=>{
@@ -73,8 +64,6 @@ module.exports = (app)=>{
                 if (err) res.send({success: false})
                 else res.send({success: true})
             })
-        } else {
-            res.send({success: false})
-        }
+        } else res.send({success: false})
     })
 }

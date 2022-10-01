@@ -8,19 +8,18 @@ export default function Post (props) {
     const navigate = useNavigate()
     const [img, setImg] = useState(null)
     const [date, setDate] = useState()
-    const [bookmark, setBookmark] = useState(props.bookmarked)
+    const [bookmark, setBookmark] = useState(props.item.bookmarked)
 
     useEffect(()=>{
-        const creationDate = new Date (props.date)
-        const currentDate = new Date
+        const creationDate = new Date (props.item.date)
         const formatDate = 
         creationDate.toLocaleString('default', { month: 'short' }) + 
         " " + creationDate.getDate() +
-        ", " + currentDate.getFullYear()
+        ", " + creationDate.getFullYear()
         setDate(formatDate)
 
-        if(props.image) {
-            fetch("http://192.168.0.42:3000/image/" + props.image)
+        if(props.item.image) {
+            fetch("http://192.168.0.42:3000/image/" + props.item.image)
             .then(res => res.blob())
             .then(data => {setImg(URL.createObjectURL(data))})
         }
@@ -34,7 +33,7 @@ export default function Post (props) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({content: props.id})
+            body: JSON.stringify({content: props.item.id})
         }
         fetch("http://192.168.0.42:3000/bookmark", requestOptions)
         .then(res => res.json())
@@ -46,26 +45,24 @@ export default function Post (props) {
     }
 
     function openArticle () {
-        navigate(props.draft?"/article/edit/" + props.id:"/article/" + props.id)
+        navigate("/article/" + props.item.id)
     }
 
     return(
         <div className={CSS.content}>
             <div className={CSS.row}>
-                <div onClick={openArticle} className={CSS.heading}>{props.title? props.title: "Untitled story"}</div>
-                {
-                props.draft? "": 
-                bookmark?
+                <div onClick={openArticle} className={CSS.heading}>{props.item.title? props.item.title: "Untitled story"}</div>
+                {bookmark?
                     <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkedIcon} alt={"remove bookmark"} />
                     :
                     <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkIcon} alt={"bookmark"} />
                 }
             </div>
-            <div onClick={openArticle}  className={CSS.description}>{props.subtitle}</div>
+            <div onClick={openArticle}  className={CSS.description}>{props.item.subtitle}</div>
             <div className={CSS.row}>
-                <div onClick={()=>{navigate("/user/" + props.name)}} className={CSS.writerWr}>
+                <div onClick={()=>{navigate("/user/" + props.item.name)}} className={CSS.writerWr}>
                     <img alt="account-img" src={img? img: "img/user.png"} className={CSS.img}/>
-                    <div className={CSS.writer}>{props.name}</div>
+                    <div className={CSS.writer}>{props.item.name}</div>
                 </div>
                 <div className={CSS.info}>{date}</div>
             </div>

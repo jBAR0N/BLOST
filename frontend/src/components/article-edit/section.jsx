@@ -53,17 +53,20 @@ export default function Section (props) {
 
     return (
         <div className={CSS.section}>
-            <div className={CSS.row}>
-                <select onChange={(e)=>{set(e.target.value, "type")}} value={props.content.type} className={CSS.typeSelect}>
-                    <option value="text">Text</option>
-                    <option value="image">Image</option>
-                </select>
-                <label style={{display: props.content.type === "image"? "block": "none"}} className={CSS.fileLabel}>
-                    Choose file
-                    <input onChange={setImage} type="file" accept="image/png, image/jpg"/>
-                </label>
-                <img onClick={deleteSection} className={CSS.deleteSection} src={trashIcon} alt="delete" />
-            </div>
+            {!props.published?
+                <div className={CSS.row}>
+                    <select onChange={(e)=>{set(e.target.value, "type")}} value={props.content.type} className={CSS.typeSelect}>
+                        <option value="text">Text</option>
+                        <option value="image">Image</option>
+                    </select>
+                    <label style={{display: props.content.type === "image"? "block": "none"}} className={CSS.fileLabel}>
+                        Choose file
+                        <input onChange={setImage} type="file" accept="image/png, image/jpg"/>
+                    </label>
+                    <img onClick={deleteSection} className={CSS.deleteSection} src={trashIcon} alt="delete" />
+                </div>
+                :""
+            }
             <textarea className="a-input subtitle font-a-subtitle" placeholder="Add title (optional)" type="text" value={props.content.title} onChange={(e)=>{set(e.target.value, "title")}}/>
             {
                 props.content.type === "text"?

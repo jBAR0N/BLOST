@@ -1,16 +1,29 @@
 import CSS from "./nav.module.css"
 import Logo from "./img/Logo.svg"
 import {Navigate, NavLink, Outlet, useNavigate} from "react-router-dom"
-import React, {useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import homeIcon from "./img/home.svg"
 import listIcon from "./img/list.svg"
 import storyIcon from "./img/stories.svg"
 import userIcon from "./img/user.svg"
 import bellIcon from "./img/bell.svg"
 import searchIcon from "./img/search.svg"
+import SearchBox from "./searchbox/searchbox"
 
 export default function Nav (props) {
     const navigate = useNavigate()
+
+    const [search, setSearch] = useState(false)
+    const [menu, setMenu] = useState(false)
+
+    useEffect(()=>{
+        function handleClick () {
+            if (menu) setMenu(false)
+            if (search) setSearch (false)
+        }
+        window.addEventListener("click", handleClick)
+        return ()=>{window.removeEventListener("click", handleClick)}
+    })
 
     return (
         <div className={CSS.wrapper}>
@@ -19,13 +32,15 @@ export default function Nav (props) {
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/"} >
                     <img src={homeIcon} alt="home" />
                 </NavLink>
-                <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/search"} >
+                <div onClick={()=>{setTimeout(()=>{setSearch(!search)})}} className={search? CSS.link + " " + CSS.active: CSS.link}>
                     <img src={searchIcon} alt="search" />
-                </NavLink>
+                    <SearchBox search={search} />
+                </div>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/list"} >
                     <img src={listIcon} alt="list" />
                 </NavLink>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/notifications"} >
+                    <div style={{display: props.unread? "block": "none"}} className={CSS.notIndicator}/>
                     <img src={bellIcon} alt="notifications" />
                 </NavLink>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/stories"} >

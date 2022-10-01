@@ -2,71 +2,61 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
-.wrapper {
-    height: 100%;
-    position: relative;
-}
-
-.nav {
+.header {
+    padding: 10px;
+    position: sticky;
+    top: 0px;
     display: flex;
-    position: fixed;
-    left: 50%;
-    bottom: 10px;
-    transform: translate(-50%);
-}
-
-.navButton {
-    font-size: 15px;
-    color: var(--color-gray-100);
-    border-radius: 50px;
-    background-color: var(--color);
-    cursor: pointer;
-    margin: 5px;
-    transition: width 200ms;
-    height: 45px;
-    width: 45px;
-    display: flex;
+    background-color: var(--color-gray-100);
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
 }
 
-.navButton p {
-    display: none;
+.publish {
+    background-color: var(--color);
+    padding: 5px 10px;
+    font-size: 14px;
+    color: var(--color-gray-100);
+    margin-left: auto;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 1px solid var(--color);
 }
 
-.navButton:hover {
-    width: 130px;
+.published {
+    background-color: unset;
+    color: var(--color);
 }
 
-.navButton:hover p {
-    display: block;
+.back {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
 
-.navButton img {
-    width: 30px;
+.publish:hover {
+    border: 1px solid var(--color-dark);
+    background-color: var(--color-dark);
+}
+
+.published:hover {
+    background-color: unset;
+    border: 1px solid var(--color);
 }
 
 .addSection {
-    background-color: var(--color);
-    border-radius: 5px;
+    background-color: var(--color-gray-10);
+    border-radius: 20px;
     text-align: center;
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     color: var(--color-gray-100);
-    border: 2px solid var(--color);
     font-size: 15px;
-    margin-top: 20px;
-    margin-bottom: 50px;
-    transition: background-color 50ms;
+    margin: 20px 0;
     font-weight: 500;
-}
-
-.addSection:hover {
-    background-color: unset;
-    color: var(--color);
 }
 
 .section {
@@ -83,47 +73,48 @@
 
 .deleteSection {
     padding: 5px;
-    border: 1px solid var(--color-gray-90);
+    background-color: var(--color-gray-10);
     cursor: pointer;
     width: 22px;
     border-radius: 100%;
     margin-left: auto;
 }
 
-.deleteSection:hover {
-    background-color: var(--color-gray-95);
-}
-
 .typeSelect {
     outline: none;
-    border: 1px solid var(--color-gray-90);
+    border: none;
     border-radius: 3px;
-    color: var(--color-gray-10);
+    background-color: var(--color-gray-10);
+    color: var(--color-gray-100);
     font-size: 15px;
-    padding: 3px;
+    padding: 3px 5px;
     margin: 5px 0;
 }
 
-.typeSelect:hover {
-    background-color: var(--color-gray-95);
-}
-
 .loading {
-    font-size: 15px;
+    font-size: 32px;
+    font-weight: 900;
     color: var(--color-gray-10);
+    margin-top: 100px;
 }
 
 .fileLabel {
-    border: 1px solid var(--color-gray-90);
-    padding: 4px;
+    padding: 4px 10px;
     cursor: pointer;
     margin: 10px 0px;
     border-radius: 3px;
-    color: var(--color-gray-10);
+    background-color: var(--color-gray-10);
+    color: var(--color-gray-100);
     font-size: 15px;
     margin: 0 5px;
 }
 
-.fileLabel:hover {
-    background-color: var(--color-gray-95);
+.headerInfo {
+    font-size: 16px;
+    color: var(--color-gray-10);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    font-weight: 300;
 }

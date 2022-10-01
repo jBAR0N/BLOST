@@ -7,7 +7,7 @@ module.exports = (app, passport)=>{
         passport.authenticate('local-signup', (err, user, info) => {
           if (err) { return next(err); }
           if (!user) { 
-              res.send({ success: false, message: info.message});
+              res.send({ success: false });
               return;
           }
           req.login(user, loginErr => {
@@ -23,7 +23,7 @@ module.exports = (app, passport)=>{
         passport.authenticate('local-signin', (err, user, info) => {
           if (err) { return next(err); }
           if (!user) { 
-              res.send({ success: false, message: info.message});
+              res.send({ success: false });
               return;
           }
           req.login(user, loginErr => {
@@ -40,20 +40,28 @@ module.exports = (app, passport)=>{
           con.query(`
           SELECT 
           COUNT(DISTINCT f.follower) AS followers, 
-          COUNT(DISTINCT c.id) AS posts
-          FROM 
-            followed AS f
+          COUNT(DISTINCT c.id) AS posts,
+          COUNT(DISTINCT d.id) AS drafts,
+          IF(u.id IN (SELECT user_id FROM notifications WHERE noticed = 0), true, false) AS unread
+          FROM
+            users AS u
+            LEFT JOIN followed AS f
+            ON f.user = u.id
             LEFT JOIN content AS c
-            ON c.user_id = ? AND c.published = 1
-          WHERE f.user = ?`
-          ,[req.user.id, req.user.id], (err, result)=>{
+            ON c.user_id = u.id AND c.published = 1
+            LEFT JOIN content AS d
+            ON d.user_id = u.id AND d.published = 0
+          WHERE u.id = ?
+          `,[req.user.id], (err, result)=>{
             res.send({
               email: req.user.email,
               username: req.user.name,
               description: req.user.description,
               image: req.user.image,
               followers: result[0].followers,
-              posts: result[0].posts
+              posts: result[0].posts,
+              drafts: result[0].drafts,
+              unread: result[0].unread
             })
           })
         } else {

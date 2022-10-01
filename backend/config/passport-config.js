@@ -22,19 +22,19 @@ module.exports = function (passport) {
             passReqToCallback : true
         },
         (req, email, password, done)=>{
-            con.query("SELECT * FROM users WHERE email = ?", [email], (err, rows)=>{
+            con.query("SELECT * FROM users WHERE email = ? OR name = ?", [email, req.body.name], (err, rows)=>{
                 if (err)
                     return done(err)
                 if (rows.length) {
-                    return done(null, false, {message: 'Email is already in use!'});
-                } if (email.length > 255) {
-                    return done(null, false, {message: 'Maximum email length is 255 characters!'})
+                    return done(null, false)
+                } if (email.length > 255 || req.body.name.length > 100) {
+                    return done(null, false)
                 } else {
                     var newUser = {
                         email: email,
                         password: bcrypt.hashSync(password, 10)
                     }
-                    con.query("INSERT INTO users ( email, hash ) values (?,?)", [newUser.email, newUser.password], (err, rows)=>{
+                    con.query("INSERT INTO users ( email, hash, name ) values (?,?,?)", [newUser.email, newUser.password, req.body.name], (err, rows)=>{
                         newUser.id = rows.insertId;
                         return done(null, newUser)
                     })

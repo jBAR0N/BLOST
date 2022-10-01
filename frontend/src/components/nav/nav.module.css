@@ -28,6 +28,17 @@
     justify-content: center;
     align-items: center;
     border: 1px solid transparent;
+    position: relative;
+}
+
+.notIndicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: var(--color);
+    position: absolute;
+    top: 20px;
+    right: 15px;
 }
 
 .link img {

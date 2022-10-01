@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from "react"
-import Post from "../post/post"
+import { useNavigate } from "react-router-dom"
+import Draft from "./draft/draft"
+import Post from "./post/post"
 import CSS from "./posts.module.css"
 
 export default function Posts (props) {
+    const navigate = useNavigate()
+
     const {path} = props
     const [last, setLast] = useState(0)
     const [articles, setArticles] = useState([])
@@ -17,9 +21,12 @@ export default function Posts (props) {
     }, [path])
 
     useEffect(()=>{
-        if (articles.length === 0 && finsihed === false && loading === false && last === 0) {
-            loadContent();
+        if (articles.length === 0 && finsihed === false && loading === false && last === 0) loadContent();
+        function handleScroll () {
+            if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) && !loading && !finsihed) loadContent()
         }
+        window.addEventListener("scroll", handleScroll)
+        return ()=>{window.removeEventListener("scroll", handleScroll)}
     })
 
     function loadContent () {
@@ -42,14 +49,19 @@ export default function Posts (props) {
     }
 
     return (
-        <div onScroll={(e)=>{if (e.target.scrollHeight - e.target.scrollTop < e.target.clientHeight + 100 && !finsihed && !loading) loadContent()}} className={CSS.content}>
-            {
-                articles.map((item)=>(
-                    <Post setError={props.setError} draft={props.draft? true: false} id={item.id} name={item.name} bookmarked={item.bookmarked} title={item.title} subtitle={item.subtitle} image={item.image} date={item.date} />
+        <div className={CSS.content}>
+            {props.draft?
+                articles.map(item=>(
+                    <Draft item={item} public={props.public}/>
+                ))
+            :
+                articles.map(item=>(
+                    <Post item={item}/>
                 ))
             }
-            <div style={{display: finsihed && articles.length === 0? "flex": "none"}} className={CSS.end}>
-                {/** no posts found */}
+            <div style={{display: finsihed && articles.length === 0? "flex": "none"}} className={CSS.nothing}>
+                <p>Looks like there are no stories to read here.</p>
+                <div onClick={()=>{navigate("/")}}>Browse content</div>
             </div>
         </div>
     )
