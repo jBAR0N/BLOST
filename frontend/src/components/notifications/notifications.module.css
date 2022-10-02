@@ -8,7 +8,6 @@
 .notification a:first-child {
     font-size: 16px;
     font-weight: 300;
-    color: var(--color-gray-10);
     padding-bottom: 0px;
     flex-grow: 0;
     overflow: hidden;
@@ -22,7 +21,6 @@
 .notification a {
     font-size: 22px;
     font-weight: 700;
-    color: var(--color-gray-10);
     padding-bottom: 10px;
     flex-grow: 1;
 
@@ -51,5 +49,4 @@
     font-weight: 300;
     font-size: 16px;
     margin-top: 40px;
-    color: var(--color-gray-10);
 }

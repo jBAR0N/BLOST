@@ -9,6 +9,7 @@ import userIcon from "./img/user.svg"
 import bellIcon from "./img/bell.svg"
 import searchIcon from "./img/search.svg"
 import SearchBox from "./searchbox/searchbox"
+import Menu from "./menu/menu"
 
 export default function Nav (props) {
     const navigate = useNavigate()
@@ -27,6 +28,7 @@ export default function Nav (props) {
 
     return (
         <div className={CSS.wrapper}>
+            <Menu user={props.user} setMenu={setMenu} menu={menu} />
             <div className={CSS.nav}>
                 <img onClick={()=>{navigate("/")}} style={{marginBottom: "auto"}} src={Logo} alt="Logo" className={CSS.logo}/>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/"} >
@@ -46,7 +48,7 @@ export default function Nav (props) {
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/stories"} >
                     <img src={storyIcon} alt="stories" />
                 </NavLink>
-                <div className={CSS.link}>
+                <div onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} className={CSS.link}>
                     <img src={userIcon} alt="profile" />
                 </div>
             </div>

@@ -48,9 +48,9 @@ module.exports = (app, passport)=>{
             LEFT JOIN followed AS f
             ON f.user = u.id
             LEFT JOIN content AS c
-            ON c.user_id = u.id AND c.published = 1
+            ON c.user_id = u.id AND c.published = 1 AND c.about = 0 
             LEFT JOIN content AS d
-            ON d.user_id = u.id AND d.published = 0
+            ON d.user_id = u.id AND d.published = 0 AND d.about = 0 
           WHERE u.id = ?
           `,[req.user.id], (err, result)=>{
             res.send({
@@ -71,7 +71,7 @@ module.exports = (app, passport)=>{
     
     app.get("/logout", (req, res)=>{
         req.logout(()=>{
-            res.redirect('/')
+            res.send({success: true})
         })
     })
 }

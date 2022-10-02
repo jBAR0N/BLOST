@@ -81,6 +81,7 @@
         width: 100%;
         justify-content: space-around;
         border-top: 1px solid var(--color-gray-90);
+        z-index: 1000;
     }
 
     .logo {
@@ -94,6 +95,7 @@
 }
 
 @media screen and (min-width: 800px) {
+
     .link:nth-child(5) {
         border-bottom: 1px solid var(--color-gray-90);
         padding-bottom: 15px;

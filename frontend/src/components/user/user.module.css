@@ -17,7 +17,6 @@
 .headerName {
     font-size: 22px;
     font-weight: 900;
-    color: var(--color-gray-10);
     text-overflow: ellipsis;
 }
 

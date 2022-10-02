@@ -1,0 +1,73 @@
+.content {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 27px;
+    border-bottom: 1px solid var(--color-gray-90);
+    padding-bottom: 10px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.inputSection {
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.inputMain {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 450px;
+    margin-right: auto;
+}
+
+.inputTitle {
+    font-weight: 500;
+    font-size: 21px;
+}
+
+.inputInput {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--color-gray-90);
+    resize: vertical;
+    font-size: 18px;
+    height: 24px;
+    padding: 5px 0;
+    font-weight: 300;
+}
+
+.inputButton {
+    padding: 6px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--color-gray-75);
+    color: var(--color-gray-50);
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.inputButton:first-child {
+    margin-right: 10px;
+}
+
+.inputButton:hover {
+    border: 1px solid var(--color-gray-50);
+}
+
+.inputControl {
+    display: flex;
+}
+
+.inputDescription {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 20px;
+}

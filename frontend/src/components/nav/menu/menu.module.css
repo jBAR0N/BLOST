@@ -1,0 +1,113 @@
+.content {
+    background-color: var(--color-gray-100);
+    border: 1px solid var(--color-gray-90);
+    position: fixed;
+    bottom: 55px;
+    margin-left: 10px;
+    z-index: 500;
+    border-radius: 3px;
+    flex-direction: column;
+    width: 250px;
+    padding-top: 10px;
+}
+
+.seperator {
+    border-bottom: 1px solid var(--color-gray-90);
+    margin: 10px 0;
+}
+
+.row {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.name {
+    font-size: 14px;
+    margin: 10px;
+    margin-bottom: 0px;
+}
+
+.email {
+    font-size: 14px;
+    margin: 10px;
+    margin-top: 2px;
+    font-weight: 300;
+}
+
+.view {
+    cursor: pointer;
+    border: 1px solid var(--color-gray-10);
+    padding: 5px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    margin: 10px 15px;
+}
+
+.about {
+    font-size: 12px;
+    text-align: center;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.about a:hover {
+    text-decoration: underline;
+}
+
+.mobile {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .mobile {
+        display: flex;
+    }
+
+    .content {
+        position: absolute;
+        width: 100%;
+        top: 0px;
+        bottom: 0px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        height: max-content;
+        padding-bottom: 55px;
+        min-height: calc(100% - 55px);
+    }
+
+    .email, .name, .row, .view {
+        font-size: 16px;
+    }
+
+    .row {
+        margin: 15px;
+    }
+
+    .seperator {
+        margin: 20px 0;
+    }
+
+    .name {
+        margin: 20px;
+        margin-bottom: 0px;
+    }
+
+    .email {
+        margin: 20px;
+        margin-top: 2px;
+    }
+
+    .view {
+        margin: 10px 25px;
+    }
+
+    .signin {
+        margin-top: 30px;
+    }
+}

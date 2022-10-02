@@ -7,7 +7,7 @@ module.exports = (app)=>{
 
     app.post("/set/name",(req, res)=>{
         if (req.isAuthenticated()) {
-            if (req.body.length <= 100) {
+            if (req.body.object.length <= 50) {
                 con.query("SELECT * FROM users WHERE name = ?", [req.body.object], (err, result)=>{
                     if (result.length === 0) {
                         con.query("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
@@ -16,24 +16,24 @@ module.exports = (app)=>{
                         })
                     } else res.send({success: false, message: "Name is already in use!"})
                 })
-            } else res.send({success: false, message: "Maximum length is 100 characters!"})
+            } else res.send({success: false, message: "Maximum length is 50 characters!"})
         } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
     
     app.post("/set/description",(req, res)=>{
         if (req.isAuthenticated()) {
-            if (req.body.length <= 5000) {
+            if (req.body.object.length <= 160) {
                 con.query("UPDATE users SET description = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
                     if (err) res.send({success: false, message: "Something went wrong. Try again!"})
                     else res.send({success: true})
                 })
-            } else res.send({success: false, message: "Maximum length is 5000 characters!"})
+            } else res.send({success: false, message: "Maximum length is 160 characters!"})
         } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
     
     app.post("/set/email",(req, res)=>{
         if (req.isAuthenticated()) {
-            if (req.body.length <= 5000) {
+            if (req.body.object.length <= 255) {
                 con.query("SELECT * FROM users WHERE email = ?", [req.body.object], (err, result)=>{
                     if (result.length === 0) {
                         con.query("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{

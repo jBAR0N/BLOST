@@ -2,6 +2,7 @@
   margin: 0;
   font-family: "Roboto";
   text-decoration: none;
+  color: var(--color-gray-10);
 }
 
 body {

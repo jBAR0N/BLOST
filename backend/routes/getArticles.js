@@ -15,7 +15,7 @@ module.exports = (app)=>{
                 content AS c
                 JOIN users AS u
                 ON u.id = c.user_id
-            WHERE c.published = 1
+            WHERE c.published = 1 AND c.about = 0
         ) t
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
@@ -40,7 +40,7 @@ module.exports = (app)=>{
                     ON u.id = c.user_id
                     JOIN bookmarked AS b
                     ON c.id = b.content_id AND b.user_id = ?
-                WHERE c.published = 1
+                WHERE c.published = 1 AND c.about = 0
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
@@ -67,7 +67,7 @@ module.exports = (app)=>{
                     ON u.id = c.user_id
                     JOIN followed AS f
                     ON c.user_id = f.user AND f.follower = ?
-                WHERE c.published = 1
+                WHERE c.published = 1 AND c.about = 0
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
@@ -91,7 +91,7 @@ module.exports = (app)=>{
                 content AS c
                 JOIN users AS u
                 ON u.id = c.user_id
-            WHERE c.published = 1 AND LOWER(c.title) LIKE ?
+            WHERE c.published = 1 AND LOWER(c.title) LIKE ? AND c.about = 0
         ) t
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
@@ -114,7 +114,7 @@ module.exports = (app)=>{
                     content AS c
                     JOIN users AS u
                     ON u.id = c.user_id AND u.name = ?
-                WHERE c.published = 1
+                WHERE c.published = 1 AND c.about = 0
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
@@ -138,7 +138,7 @@ module.exports = (app)=>{
                     content AS c
                     JOIN users AS u
                     ON u.id = c.user_id AND u.id = ?
-                WHERE c.published = 0
+                WHERE c.published = 0 AND c.about = 0
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC

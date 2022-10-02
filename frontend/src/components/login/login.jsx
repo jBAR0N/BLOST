@@ -13,7 +13,7 @@ export default function Login (props) {
 
     useEffect(()=>{
         if (props.user.email) navigate("/", {replace: true})
-    }, [props])
+    }, [props, navigate])
 
     function submitUp(e) {
         e.preventDefault()

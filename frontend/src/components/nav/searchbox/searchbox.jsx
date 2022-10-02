@@ -16,7 +16,7 @@ export default function SearchBox (props) {
     return (
         <div style={{display: props.search? "flex":"none" }} onClick={(e)=>{e.stopPropagation()}} className={CSS.content}>
             <input onChange={(e)=>{setSearch(e.target.value)}} value={search} onKeyDown={(e)=>{if (e.key === "Enter") redirect()}} placeholder="Search" type="text" className={CSS.input}/>
-            <img onClick={redirect} className={CSS.icon} src={arrowIcon}/>
+            <img alt="submit" onClick={redirect} className={CSS.icon} src={arrowIcon}/>
         </div>
     )
 }

@@ -1,10 +1,8 @@
 import React from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import Posts from "../posts/posts"
-import CSS from "./search.module.css"
+import { useParams } from "react-router-dom"
+import Posts from "./posts/posts"
 
 export default function Search (props) {
-    const navigate = useNavigate()
     const {keyword} = useParams()
 
     return (

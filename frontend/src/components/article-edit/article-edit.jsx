@@ -25,7 +25,7 @@ export default function EditArticle (props) {
         }).catch(()=>{
             navigate("/", {replace: true})
         })
-    }, [id])
+    }, [id, navigate])
 
     function addSection () {
         setSections([...sections, {type: "text", content: "", title: ""}])
