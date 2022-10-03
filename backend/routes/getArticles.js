@@ -8,14 +8,13 @@ module.exports = (app)=>{
         (
             SELECT 
                 ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                c.date, c.title, c.subtitle, c.id,
-                u.image, u.name,
+                c.date, c.title, c.subtitle, c.id, u.image, u.name,
                 IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
             FROM
                 content AS c
                 JOIN users AS u
                 ON u.id = c.user_id
-            WHERE c.published = 1 AND c.about = 0
+            WHERE c.roll = 'public'
         ) t
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
@@ -32,15 +31,14 @@ module.exports = (app)=>{
             (
                 SELECT 
                     ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                    c.date, c.title, c.subtitle, c.id,
-                    u.image, u.name, TRUE AS bookmarked
+                    c.date, c.title, c.subtitle, c.id, u.image, u.name, TRUE AS bookmarked
                 FROM
                     content AS c
                     JOIN users AS u
                     ON u.id = c.user_id
                     JOIN bookmarked AS b
                     ON c.id = b.content_id AND b.user_id = ?
-                WHERE c.published = 1 AND c.about = 0
+                WHERE c.roll = 'public'
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
@@ -58,8 +56,7 @@ module.exports = (app)=>{
             (
                 SELECT 
                     ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                    c.date, c.title, c.subtitle, c.id,
-                    u.image, u.name,
+                    c.date, c.title, c.subtitle, c.id, u.image, u.name,
                     IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
                 FROM
                     content AS c
@@ -67,7 +64,7 @@ module.exports = (app)=>{
                     ON u.id = c.user_id
                     JOIN followed AS f
                     ON c.user_id = f.user AND f.follower = ?
-                WHERE c.published = 1 AND c.about = 0
+                WHERE c.roll = 'public'
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
@@ -84,14 +81,13 @@ module.exports = (app)=>{
         (
             SELECT 
                 ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                c.date, c.title, c.subtitle, c.id,
-                u.image, u.name,
+                c.date, c.title, c.subtitle, c.id, u.image, u.name,
                 IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
             FROM
                 content AS c
                 JOIN users AS u
                 ON u.id = c.user_id
-            WHERE c.published = 1 AND LOWER(c.title) LIKE ? AND c.about = 0
+            WHERE c.roll = 'public' AND LOWER(c.title) LIKE ?
         ) t
         WHERE row >= ? AND row <= ?
         ORDER BY date DESC
@@ -107,14 +103,13 @@ module.exports = (app)=>{
             (
                 SELECT 
                     ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                    c.date, c.title, c.subtitle, c.id,
-                    u.image, u.name,
+                    c.date, c.title, c.subtitle, c.id, u.image, u.name,
                     IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
                 FROM
                     content AS c
                     JOIN users AS u
                     ON u.id = c.user_id AND u.name = ?
-                WHERE c.published = 1 AND c.about = 0
+                WHERE c.roll = 'public'
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC
@@ -131,14 +126,13 @@ module.exports = (app)=>{
             (
                 SELECT 
                     ROW_NUMBER() OVER(ORDER BY c.date DESC) row,
-                    c.date, c.title, c.subtitle, c.id,
-                    u.image, u.name,
+                    c.date, c.title, c.subtitle, c.id, u.image, u.name,
                     IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
                 FROM
                     content AS c
                     JOIN users AS u
                     ON u.id = c.user_id AND u.id = ?
-                WHERE c.published = 0 AND c.about = 0
+                WHERE c.roll = 'draft'
             ) t
             WHERE row >= ? AND row <= ?
             ORDER BY date DESC

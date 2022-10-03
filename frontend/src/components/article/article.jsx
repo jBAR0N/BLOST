@@ -36,25 +36,25 @@ export default function Article () {
     )
 }
 
-function Section (props) {
+function Section ({item: {type, content, title}}) {
     const [img, setImg] = useState("/img/placeholder.jpg")
 
     useEffect(()=>{
-        if(props.item.type === "image" && props.item.content) {
-            fetch("http://192.168.0.42:3000/image/" + props.item.content)
+        if(type === "image" && content) {
+            fetch("http://192.168.0.42:3000/image/" + content)
             .then(res => res.blob())
             .then(data=>{
                 setImg(URL.createObjectURL(data))
             })
         }
-    }, [])
+    }, [content, type])
 
     return (
         <div className={CSS.section}>
-            <div className="font-a-subtitle">{props.item.title}</div>
-            {props.item.type === "text"?
-            <div className="font-a-text">{props.item.content}</div>
-            :props.item.type === "image"?
+            <div className="font-a-subtitle">{title}</div>
+            {type === "text"?
+            <div className="font-a-text">{content}</div>
+            :type === "image"?
             <img alt="" className="a-image" src={img}></img>
             :""
             }

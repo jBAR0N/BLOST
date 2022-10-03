@@ -2,6 +2,9 @@
   margin: 0;
   font-family: "Roboto";
   text-decoration: none;
+}
+
+div, p, input, a {
   color: var(--color-gray-10);
 }
 

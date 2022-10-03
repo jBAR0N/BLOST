@@ -26,11 +26,6 @@
     border: 1px solid var(--color);
 }
 
-.published {
-    background-color: unset;
-    color: var(--color);
-}
-
 .back {
     width: 20px;
     height: 20px;
@@ -40,11 +35,6 @@
 .publish:hover {
     border: 1px solid var(--color-dark);
     background-color: var(--color-dark);
-}
-
-.published:hover {
-    background-color: unset;
-    border: 1px solid var(--color);
 }
 
 .addSection {

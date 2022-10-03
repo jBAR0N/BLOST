@@ -42,7 +42,7 @@ export default function Nav (props) {
                     <img src={listIcon} alt="list" />
                 </NavLink>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/notifications"} >
-                    <div style={{display: props.unread? "block": "none"}} className={CSS.notIndicator}/>
+                    {props.unread && <div className={CSS.notIndicator}/>}
                     <img src={bellIcon} alt="notifications" />
                 </NavLink>
                 <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/stories"} >
