@@ -9,9 +9,6 @@ export default function Settings ({user, img}) {
             <InputSection path="name" title="Name" field={user.username} 
             description="Your name appears on your Profile page and as your byline and domain. It is a required field. Max 50 characters."
             />
-            <InputSection path="description" title="Short bio" field={user.description} 
-            description="Your short bio appears on your Profile and over your stories. Max 160 characters."
-            />
             <ImageSection img={img}/>
             <AboutSection story={user.about}/>
             <div className={CSS.title}>Security</div>

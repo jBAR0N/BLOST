@@ -2,21 +2,13 @@ import CSS from "./draft.module.css"
 import moreIcon from "./img/more.svg"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import useFormatDate from "../../../hooks/useFormatDate"
 
 export default function Draft (props) {
     const navigate = useNavigate()
-    const [date, setDate] = useState()
+    const formatDate = useFormatDate()
     const [menu, setMenu] = useState(false)
     const [deleted, setDeleted] = useState(false)
-
-    useEffect(()=>{
-        const creationDate = new Date (props.item.date)
-        const formatDate = 
-        creationDate.toLocaleString('default', { month: 'short' }) + 
-        " " + creationDate.getDate() +
-        ", " + creationDate.getFullYear()
-        setDate(formatDate)
-    }, [])
 
     useEffect(()=>{
         function handleClick () {
@@ -48,7 +40,7 @@ export default function Draft (props) {
         <div className={CSS.content} style={{display: deleted? "none": "block"}}>
             <div onClick={openArticle} className={CSS.heading}>{props.item.title? props.item.title: "Untitled story"}</div>
             <div className={CSS.row}>
-                <div className={CSS.info}>{props.public? "Published ": "Last edited "}{date}</div>
+                <div className={CSS.info}>{props.public? "Published ": "Last edited "}{formatDate(props.item.date)}</div>
                 <img onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} alt="more" src={moreIcon} className={CSS.menuIcon}></img>
             </div>
             <div style={{display: menu? "block":"none"}} className={CSS.menu}>

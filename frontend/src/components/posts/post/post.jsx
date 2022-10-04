@@ -3,26 +3,19 @@ import bookmarkIcon from "./img/bookmark.svg"
 import bookmarkedIcon from "./img/bookmarked.svg"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
+import useFormatDate from "../../../hooks/useFormatDate"
 
 export default function Post (props) {
     const navigate = useNavigate()
+    const formatDate = useFormatDate()
     const [img, setImg] = useState(null)
-    const [date, setDate] = useState()
     const [bookmark, setBookmark] = useState(props.item.bookmarked)
 
     useEffect(()=>{
-        const creationDate = new Date (props.item.date)
-        const formatDate = 
-        creationDate.toLocaleString('default', { month: 'short' }) + 
-        " " + creationDate.getDate() +
-        ", " + creationDate.getFullYear()
-        setDate(formatDate)
-
-        if(props.item.image) {
-            fetch("http://192.168.0.42:3000/image/" + props.item.image)
-            .then(res => res.blob())
-            .then(data => {setImg(URL.createObjectURL(data))})
-        }
+        if(props.item.image) 
+        fetch("http://192.168.0.42:3000/image/" + props.item.image)
+        .then(res => res.blob())
+        .then(data => {setImg(URL.createObjectURL(data))})
     }, [])
 
     function submitBookmark () {
@@ -64,7 +57,7 @@ export default function Post (props) {
                     <img alt="account-img" src={img? img: "/img/user.png"} className={CSS.img}/>
                     <div className={CSS.writer}>{props.item.name}</div>
                 </div>
-                <div className={CSS.info}>{date}</div>
+                <div className={CSS.info}>{formatDate(props.item.date)}</div>
             </div>
         </div>
     )

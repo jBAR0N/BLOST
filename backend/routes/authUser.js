@@ -52,7 +52,6 @@ module.exports = (app, passport)=>{
             res.send({
               email: req.user.email,
               username: req.user.name,
-              description: req.user.description,
               image: req.user.image,
               about: req.user.about,
               ...result[0]

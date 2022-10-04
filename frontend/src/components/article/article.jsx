@@ -1,34 +1,41 @@
 import React , {useEffect} from "react"
 import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import useFormatDate from "../../hooks/useFormatDate"
 import CSS from "./article.module.css"
 
 export default function Article () {
+    const formatDate = useFormatDate()
     const {article} = useParams()
     const navigate = useNavigate()
-    const [title, setTitle] = useState("")
-    const [subtitle, setSubtitle] = useState("")
-    const [sections, setSections] = useState([])
+    const [{content, title, subtitle, name, date}, setData] = useState({})
+    const [img, setImg] = useState("/img/user.png")
 
     useEffect(()=>{
         fetch("http://192.168.0.42:3000/get/article/" + article)
         .then(res => res.json())
         .then(data=>{
-            setTitle(data.title)
-            setSubtitle(data.subtitle)
-            setSections(data.content)
+            setData({...data, date: formatDate(data.date)})
+            if (data.image)
+            fetch("http://192.168.0.42:3000/image/")
+            .then(res => res.blob())
+            .then(data=>{setImg(URL.createObjectURL(data))})
         })
     }, [article])
 
     return(
         <div className={CSS.contentWr}>
             <div className={CSS.infoRow}>
-
+                <img src={img} alt="" className={CSS.userImg} />
+                <div className={CSS.infoWr}>
+                    <div className={CSS.username}>{name}</div>
+                    <div className={CSS.date}>{date}</div>
+                </div>
             </div>
             <div className="font-a-title">{title}</div>
             <div className="font-a-text">{subtitle}</div>
-            {
-                sections.map(item => (
+            { content &&
+                content.map(item => (
                     <Section item={item}/>
                 ))
             }

@@ -20,17 +20,6 @@ module.exports = (app)=>{
         } else res.send({success: false, message: "Something went wrong. Try again!"})
     })
     
-    app.post("/set/description",(req, res)=>{
-        if (req.isAuthenticated()) {
-            if (req.body.object.length <= 160) {
-                con.query("UPDATE users SET description = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
-                    if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                    else res.send({success: true})
-                })
-            } else res.send({success: false, message: "Maximum length is 160 characters!"})
-        } else res.send({success: false, message: "Something went wrong. Try again!"})
-    })
-    
     app.post("/set/email",(req, res)=>{
         if (req.isAuthenticated()) {
             if (req.body.object.length <= 255) {

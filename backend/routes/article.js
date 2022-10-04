@@ -87,13 +87,12 @@ module.exports = (app)=>{
     })
 
     app.get("/get/article/:id", (req,res)=>{
-        con.query("SELECT title, subtitle FROM content WHERE id = ? AND roll = 'public'", [req.params.id], (err, mainInfo)=>{
+        con.query("SELECT c.title, c.subtitle, c.date, u.name, u.image FROM content AS c JOIN users AS u ON u.id = c.user_id WHERE c.id = ? AND c.roll = 'public'", [req.params.id], (err, mainInfo)=>{
             if (err || mainInfo.length === 0) res.send({success: false})
             else con.query("SELECT type, title, content FROM content_sections WHERE content_id = ? ORDER BY position", [req.params.id], (err, result)=>{
                 if (err) res.send({success: false})
                 else res.send({
-                    title: mainInfo[0].title,
-                    subtitle: mainInfo[0].subtitle,
+                    ...mainInfo[0],
                     content: result,
                     success: true
                 })
