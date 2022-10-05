@@ -35,8 +35,12 @@ module.exports = function (passport) {
                         password: bcrypt.hashSync(password, 10)
                     }
                     con.query("INSERT INTO users ( email, hash, name ) values (?,?,?)", [newUser.email, newUser.password, req.body.name], (err, rows)=>{
-                        newUser.id = rows.insertId;
-                        return done(null, newUser)
+                        con.query("INSERT INTO content ( date, user_id ) VALUES ( NOW(), ? )", [rows.insertId], (err, result)=>{
+                            con.query("UPDATE users SET about = ? WHERE id = ?", [result.insertId, rows.insertId], ()=>{
+                                newUser.id = rows.insertId;
+                                return done(null, newUser)
+                            })
+                        })
                     })
                 }
             })

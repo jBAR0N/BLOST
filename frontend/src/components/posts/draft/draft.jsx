@@ -2,11 +2,9 @@ import CSS from "./draft.module.css"
 import moreIcon from "./img/more.svg"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import useFormatDate from "../../../hooks/useFormatDate"
 
 export default function Draft (props) {
     const navigate = useNavigate()
-    const formatDate = useFormatDate()
     const [menu, setMenu] = useState(false)
     const [deleted, setDeleted] = useState(false)
 
@@ -17,6 +15,11 @@ export default function Draft (props) {
         window.addEventListener("click", handleClick)
         return ()=>{window.removeEventListener("click", handleClick)}
     })
+
+    const formatDate = (date)=>{
+        const creationDate = new Date (date)
+        return creationDate.toLocaleString('default', { month: 'short' }) + " " + creationDate.getDate() + ", " + creationDate.getFullYear()
+    }
 
     function openArticle () {
         if (props.public) navigate("/article/" + props.item.id)

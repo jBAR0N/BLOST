@@ -1,5 +1,8 @@
 .infoRow {
     display: flex;
+    margin: 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-gray-90);
 }
 
 .contentWr {
@@ -8,4 +11,39 @@
     flex-direction: column;
     max-width: 700px;
     margin: 0 auto;
+}
+
+.infoWr {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+
+.username {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.date {
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.userImg {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.userWr {
+    display: flex;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.bookmark {
+    height: 28px;
+    cursor: pointer;
 }

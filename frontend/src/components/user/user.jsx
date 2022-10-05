@@ -2,21 +2,25 @@ import CSS from "./user.module.css"
 import {useParams, Link} from "react-router-dom"
 import Posts from "../posts/posts"
 import React, { useState, useEffect } from "react"
+import Article from "../article/article"
+import FourOFour from "../404/404"
 
 export default function User (props) {
     const [img, setImg] = useState("/img/user.png")
     const [info, setInfo] = useState({})
     const [followed, setFollowed] = useState(false)
     const [followers, setFollowers] = useState(0)
+    const [status, setStatus] = useState("")
     const {name} = useParams()
 
     useEffect(()=>{
         fetch("http://192.168.0.42:3000/get/user/" + name)
         .then(res => res.json())
         .then(data => {
-            if (data.success) {
+            if (data.success && data.content.name) {
                 setInfo(data.content)
                 setFollowers(data.content.followers)
+                setStatus("done")
                 if (data.content.followed) setFollowed(true)
                 else setFollowed(false)
                 if(data.content.image)
@@ -25,7 +29,9 @@ export default function User (props) {
                 .then(data => {
                     setImg(URL.createObjectURL(data))
                 })
-            }
+            } else setStatus ("notFound")
+        }).catch(()=>{
+            setStatus ("notFound")
         })
     }, [name])
 
@@ -55,22 +61,26 @@ export default function User (props) {
     }
 
     return (
+        status === "done"?
         <React.Fragment>
             <div className={CSS.header}>
-                <img className={CSS.headerImg} src={img} alt="" />
-                <div className={CSS.headerInfoWr}>
-                    <div className={CSS.headerName}>{info.name}</div>
-                    <div className={CSS.headerFollower}>{followers}{followers === 1? " Follower": " Followers"}</div>
-                </div>
-                <div onClick={follow} className={CSS.follow + " " + (followed? CSS.unfollow :"")}>{followed? "Unfollow": "Follow"}</div>
+            <img className={CSS.headerImg} src={img} alt="" />
+            <div className={CSS.headerInfoWr}>
+                <div className={CSS.headerName}>{info.name}</div>
+                <div className={CSS.headerFollower}>{followers}{followers === 1? " Follower": " Followers"}</div>
+            </div>
+            <div onClick={follow} className={CSS.follow + " " + (followed? CSS.unfollow :"")}>{followed? "Unfollow": "Follow"}</div>
             </div>
             <div className="card-wrapper">
                 <Link to={"/user/" + name} className={props.about? "card": "card active"}>Stories {"("}{info.posts}{")"}</Link>
                 <Link to={"/user/" + name + "/about"} className={props.about? "card active": "card"}>About</Link>
             </div>
-            {props.about? "":
+            {props.about?
+            info.about && <Article about={info.about}/>
+            :
             <Posts path={"user/" + name + "/"}/>
             }
         </React.Fragment>
+        :status === "notFound" && <FourOFour/>
     )
 }

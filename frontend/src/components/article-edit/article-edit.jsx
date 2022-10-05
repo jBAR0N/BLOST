@@ -7,6 +7,7 @@ import arrowIcon from "./img/arrow.svg"
 export default function EditArticle (props) {
     const navigate = useNavigate()
     const {id} = useParams()
+    const [roll, setRoll] = useState("draft")
     const [sections, setSections] = useState([])
     const [title, setTitle] = useState("")
     const [subtitle, setSubtitle] = useState("")
@@ -20,6 +21,7 @@ export default function EditArticle (props) {
                 setTitle(data.title)
                 setSections(data.content)
                 setSubtitle(data.subtitle)
+                setRoll(data.roll)
                 setLoading(false)
             } else navigate("/", {replace: true})
         }).catch(()=>{
@@ -54,15 +56,13 @@ export default function EditArticle (props) {
             const requestOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    id: id
-                })
+                body: JSON.stringify({id: id})
             }
-            if (title && subtitle && sections.length > 0)
+            if ((title && subtitle && sections.length) || roll === "about")
             fetch("http://192.168.0.42:3000/set/article/public", requestOptions)
             .then(res => res.json())
             .then(data => {
-                if (data.success) navigate("/article/" + id, {replace: true})
+                if (data.success) navigate(roll === "about"? "/me/settings":("/article/" + id), {replace: true})
             })
         })
     }
@@ -71,9 +71,9 @@ export default function EditArticle (props) {
         !loading?
         <React.Fragment>
             <div className={CSS.header}>
-                <img alt="back" onClick={()=>{save(()=>{navigate("/me/stories/drafts")})}} src={arrowIcon} className={CSS.back}/>
-                <div className={CSS.headerInfo}>Draft in {props.user.username}</div>
-                <div onClick={publish} className={CSS.publish}>Publish</div>
+                {roll === "draft" &&<img alt="back" onClick={()=>{save(()=>{navigate("/me/stories/drafts")})}} src={arrowIcon} className={CSS.back}/>}
+                <div className={CSS.headerInfo}>{roll === "about"? "About ":"Draft in "}{props.user.username}</div>
+                <div onClick={publish} className={CSS.publish}>{roll === "about"? "Save":"Publish"}</div>
             </div>
             <div className={CSS.main}>
                 <textarea onChange={(e)=>{setTitle(e.target.value)}} value={title} type="text" placeholder="Add title" className="a-input title font-a-title"/>

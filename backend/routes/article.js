@@ -24,7 +24,7 @@ module.exports = (app)=>{
                                 con.query("DELETE FROM img_upload WHERE filename = ? AND content_id = ?", [item.filename, req.body.id])
                             }
                         })
-                        con.query("UPDATE content SET title = ?, subtitle = ? WHERE id = ?", [req.body.title, req.body.subtitle, req.body.id], (err)=>{
+                        con.query("UPDATE content SET title = ?, subtitle = ?, date = NOW() WHERE id = ?", [req.body.title, req.body.subtitle, req.body.id], (err)=>{
                             if (!err)
                             con.query("DELETE FROM content_sections WHERE content_id = ?", [req.body.id], (err)=>{
                                 if (err) res.send({success: false})
@@ -59,7 +59,7 @@ module.exports = (app)=>{
     app.post("/set/article/public", (req, res)=>{
         con.query("SELECT user_id FROM content WHERE id = ?", [req.body.id], (err, result)=>{
             if ((result[0]? result[0].user_id: undefined === (req.user? req.user.id: null)) && req.isAuthenticated())
-                con.query("UPDATE content SET roll = 'public' WHERE id = ?", [req.body.id], (err, result)=>{
+                con.query("UPDATE content SET roll = 'public' WHERE id = ? AND roll = 'draft'", [req.body.id], (err, result)=>{
                     if (err) res.send({success: false})
                     else res.send({success: true, action: true})
                 })
@@ -87,7 +87,16 @@ module.exports = (app)=>{
     })
 
     app.get("/get/article/:id", (req,res)=>{
-        con.query("SELECT c.title, c.subtitle, c.date, u.name, u.image FROM content AS c JOIN users AS u ON u.id = c.user_id WHERE c.id = ? AND c.roll = 'public'", [req.params.id], (err, mainInfo)=>{
+        con.query(`
+            SELECT 
+                c.title, c.subtitle, c.date, u.name, u.image,
+                IF((c.id, ?) IN (SELECT content_id, user_id FROM bookmarked), true, false) AS bookmarked
+            FROM 
+                content AS c 
+                JOIN users AS u 
+                ON u.id = c.user_id 
+            WHERE c.id = ? AND (c.roll = 'public' OR c.roll = 'about')
+        `, [req.isAuthenticated()? req.user.id: null, req.params.id], (err, mainInfo)=>{
             if (err || mainInfo.length === 0) res.send({success: false})
             else con.query("SELECT type, title, content FROM content_sections WHERE content_id = ? ORDER BY position", [req.params.id], (err, result)=>{
                 if (err) res.send({success: false})

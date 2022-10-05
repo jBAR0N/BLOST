@@ -8,9 +8,11 @@ export default function SearchBox (props) {
     const [search, setSearch] = useState("")
 
     function redirect () {
-        setSearch("")
-        navigate("/search/" + search)
-        props.setSearch(false)
+        if (search) {
+            setSearch("")
+            navigate("/search/" + search)
+            props.setSearch(false)
+        }
     }
 
     return (

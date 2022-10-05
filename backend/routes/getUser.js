@@ -3,7 +3,7 @@ const con = require("../config/db-config")
 module.exports = (app)=>{
     app.get("/get/user/:name",(req, res)=>{
         con.query(`
-        SELECT u.name, u.image,
+        SELECT u.name, u.image, u.about,
         IF((u.id, ?) IN (SELECT user, follower FROM followed), true, false) AS followed,
         COUNT(DISTINCT f.follower) AS followers,
         COUNT(DISTINCT c.id) AS posts
