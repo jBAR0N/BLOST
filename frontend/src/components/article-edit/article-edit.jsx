@@ -71,7 +71,7 @@ export default function EditArticle (props) {
         !loading?
         <React.Fragment>
             <div className={CSS.header}>
-                {roll === "draft" &&<img alt="back" onClick={()=>{save(()=>{navigate("/me/stories/drafts")})}} src={arrowIcon} className={CSS.back}/>}
+                {roll !== "about" &&<img alt="back" onClick={()=>{save(()=>{navigate("/me/stories/drafts")})}} src={arrowIcon} className={CSS.back}/>}
                 <div className={CSS.headerInfo}>{roll === "about"? "About ":"Draft in "}{props.user.username}</div>
                 <div onClick={publish} className={CSS.publish}>{roll === "about"? "Save":"Publish"}</div>
             </div>

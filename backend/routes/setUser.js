@@ -63,12 +63,20 @@ module.exports = (app)=>{
     app.post("/delete/profile", (req, res)=>{
         if (req.isAuthenticated()) {
             if (bcrypt.compareSync(req.body.password, req.user.hash)) {
-                con.query("DELETE FROM users WHERE id = ?", [req.user.id], (err)=>{
-                    if (err) {res.send({success: false, message: "Something went wrong. Try again!"})}
+                con.query("SELECT filename FROM img_upload WHERE content_id IN (SELECT id FROM content WHERE user_id = ?)", [req.user.id], (err, result)=>{
+                    if (err) res.send({success: false})
                     else {
-                        if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
-                        req.logout(()=>{
-                            res.send({success: true})  
+                        result.map(item => {
+                            if (item.filename) { if (fs.existsSync("files/img/" + item.filename)) fs.unlinkSync("files/img/" + item.filename) }
+                        })
+                        con.query("DELETE FROM users WHERE id = ?", [req.user.id], (err)=>{
+                            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
+                            else {
+                                if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
+                                req.logout(()=>{
+                                    res.send({success: true})  
+                                })
+                            }
                         })
                     }
                 })

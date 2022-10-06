@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react"
 import homeIcon from "./img/home.svg"
 import listIcon from "./img/list.svg"
 import storyIcon from "./img/stories.svg"
-import userIcon from "./img/user.svg"
 import bellIcon from "./img/bell.svg"
 import searchIcon from "./img/search.svg"
 import SearchBox from "./searchbox/searchbox"
@@ -49,7 +48,7 @@ export default function Nav (props) {
                     <img src={storyIcon} alt="stories" />
                 </NavLink>
                 <div onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} className={CSS.link}>
-                    <img src={userIcon} alt="profile" />
+                    <img className={CSS.userImg} src={props.img} alt="profile" />
                 </div>
             </div>
             <div className={CSS.main}>

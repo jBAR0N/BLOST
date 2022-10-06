@@ -3,7 +3,7 @@ import {Route, Routes, Navigate} from "react-router-dom";
 import Nav from "./components/nav/nav";
 import Home from './components/home';
 import Bookmarks from './components/bookmarks';
-import Stories from './components/stories/stories';
+import Stories from './components/stories';
 import FourOFour from './components/404/404';
 import Login from './components/login/login';
 import User from './components/user/user';

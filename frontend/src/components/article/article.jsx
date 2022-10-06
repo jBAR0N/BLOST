@@ -55,7 +55,7 @@ const Article = ({about}) => {
     return(
         status === "done"?
         <div className={CSS.contentWr}>
-            {!about && !about === 0 &&
+            {!about && about !== 0 &&
                 <div className={CSS.infoRow}>
                     <Link to={"/user/" + name} className={CSS.userWr}>
                         <img src={img} alt="" className={CSS.userImg} />

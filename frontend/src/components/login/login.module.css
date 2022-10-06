@@ -30,7 +30,7 @@
 .privacyLink {
     text-decoration: underline;
     color: var(--color-gray-25);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .privacyCheckbox {
@@ -42,7 +42,7 @@
 
 .privacyText {
     color: var(--color-gray-25);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .input {

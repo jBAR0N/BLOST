@@ -44,7 +44,7 @@
     padding: 10px;
     cursor: pointer;
     color: var(--color-gray-100);
-    font-size: 15px;
+    font-size: 14px;
     margin: 20px 0;
     font-weight: 500;
 }
@@ -76,7 +76,7 @@
     border-radius: 3px;
     background-color: var(--color-gray-10);
     color: var(--color-gray-100);
-    font-size: 15px;
+    font-size: 14px;
     padding: 3px 5px;
     margin: 5px 0;
 }
@@ -94,7 +94,7 @@
     border-radius: 3px;
     background-color: var(--color-gray-10);
     color: var(--color-gray-100);
-    font-size: 15px;
+    font-size: 14px;
     margin: 0 5px;
 }
 

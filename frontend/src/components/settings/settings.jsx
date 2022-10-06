@@ -122,7 +122,7 @@ function DeleteSection () {
         <div className={CSS.inputSection}>
             <div className={CSS.inputMain}>
                 <div className={CSS.inputTitle}>Delete account</div>
-                <input onChange={(e)=>{setInput(e.target.value)}} value={input} placeholder="Password" className={CSS.inputInput}/>
+                <input type="password" onChange={(e)=>{setInput(e.target.value)}} value={input} placeholder="Password" className={CSS.inputInput}/>
                 <div className={CSS.inputDescription}>Deleting your account will permanently delete all content and other data you've created.</div>
             </div>
             <div onClick={submit} className={CSS.inputButton}>Delete</div>

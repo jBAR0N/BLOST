@@ -1,4 +1,4 @@
-import CSS from "./stories.module.css"
+import React from "react"
 import { useNavigate, NavLink, Outlet} from "react-router-dom"
 
 export default function Stories (props) {
@@ -13,7 +13,7 @@ export default function Stories (props) {
     }
 
     return (
-        <div className={CSS.content}>
+        <React.Fragment>
             <div className="page-heading-wrapper">
                 <div className="page-heading">Your stories</div>
                 <div onClick={newStorie} className="page-heading-cta">Write a story</div>
@@ -23,6 +23,6 @@ export default function Stories (props) {
                 <NavLink className={({isActive})=>{return isActive? "card active": "card"}} to={"/me/stories/public"}>Published {"("}{props.user.posts}{")"}</NavLink>
             </div>
             <Outlet/>
-        </div>
+        </React.Fragment>
     )
 }

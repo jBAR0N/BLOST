@@ -61,7 +61,12 @@ module.exports = (app)=>{
             if ((result[0]? result[0].user_id: undefined === (req.user? req.user.id: null)) && req.isAuthenticated())
                 con.query("UPDATE content SET roll = 'public' WHERE id = ? AND roll = 'draft'", [req.body.id], (err, result)=>{
                     if (err) res.send({success: false})
-                    else res.send({success: true, action: true})
+                    else res.send({success: true})
+                    con.query("SELECT id FROM users WHERE id IN (SELECT follower FROM followed WHERE user = ?)", [req.user.id], (err, result)=>{
+                        result.map(item => {
+                            con.query("INSERT INTO notifications (content_id, user_id) VALUES (?, ?)", [req.body.id, item.id], ()=>{})
+                        })
+                    })
                 })
             else res.send({success: false})
         })
@@ -119,10 +124,14 @@ module.exports = (app)=>{
                     else 
                     con.query("UPDATE content SET roll = 'draft' WHERE id = ? AND roll='public'", [req.params.id],(err)=>{
                         if (err) res.send({success: false})
-                        else res.send({
-                            ...mainInfo[0],
-                            content: result,
-                            success: true
+                        else
+                        con.query("DELETE FROM notifications WHERE content_id = ?", [req.params.id], (err)=>{
+                            if (err) res.send({success: false})
+                            else res.send({
+                                ...mainInfo[0],
+                                content: result,
+                                success: true
+                            })
                         })
                     })
                 })
