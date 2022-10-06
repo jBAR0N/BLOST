@@ -5,6 +5,7 @@
     left: 100%;
     background-color: var(--color-gray-100);
     cursor: auto;
+    display: flex;
 }
 
 .input {

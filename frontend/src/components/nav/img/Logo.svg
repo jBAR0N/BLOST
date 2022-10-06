@@ -1,6 +1,6 @@
 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect y="5.00001" width="25" height="25" rx="3" fill="#404040"/>
-<rect x="5" width="25" height="25" rx="3" fill="#404040"/>
+<rect y="5.00001" width="25" height="25" rx="3" fill="#1A1A1A"/>
+<rect x="5" width="25" height="25" rx="3" fill="#1A1A1A"/>
 <path d="M5 24L20 24" stroke="white"/>
 <path d="M5 20L20 20" stroke="white"/>
 <path d="M5 16L20 16" stroke="white"/>

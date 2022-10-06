@@ -6,12 +6,17 @@
 
 div, p, input, a {
   color: var(--color-gray-10);
+  overflow-wrap: break-word;
 }
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+input[type="file"] {
+  display: none;
 }
 
 #root {
