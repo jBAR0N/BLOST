@@ -57,7 +57,7 @@ module.exports = (app)=>{
     })
 
     app.post("/set/article/public", (req, res)=>{
-        con.query("SELECT user_id FROM content WHERE id = ?", [req.body.id], (err, result)=>{
+        con.query("SELECT user_id FROM content WHERE id = ? AND NOT roll='about'", [req.body.id], (err, result)=>{
             if ((result[0]? result[0].user_id: undefined === (req.user? req.user.id: null)) && req.isAuthenticated())
                 con.query("UPDATE content SET roll = 'public' WHERE id = ? AND roll = 'draft'", [req.body.id], (err, result)=>{
                     if (err) res.send({success: false})
@@ -73,7 +73,7 @@ module.exports = (app)=>{
     })
 
     app.post("/delete/article", (req, res)=>{
-        con.query("SELECT user_id FROM content WHERE id = ?", [req.body.id], (err, result)=>{
+        con.query("SELECT user_id FROM content WHERE id = ? AND NOT roll='about'", [req.body.id], (err, result)=>{
             if ((result[0]? result[0].user_id: undefined === (req.user? req.user.id: null)) && req.isAuthenticated())
             con.query("SELECT filename FROM img_upload WHERE content_id = ?", [req.body.id], (err, result)=>{
                 if (err) res.send({success: false})

@@ -62,7 +62,7 @@ export default function EditArticle (props) {
             fetch("http://192.168.0.42:3000/set/article/public", requestOptions)
             .then(res => res.json())
             .then(data => {
-                if (data.success) navigate(roll === "about"? "/me/settings":("/article/" + id), {replace: true})
+                if (data.success) navigate("/article/" + id, {replace: true})
             })
         })
     }
@@ -73,7 +73,9 @@ export default function EditArticle (props) {
             <div className={CSS.header}>
                 {roll !== "about" &&<img alt="back" onClick={()=>{save(()=>{navigate("/me/stories/drafts")})}} src={arrowIcon} className={CSS.back}/>}
                 <div className={CSS.headerInfo}>{roll === "about"? "About ":"Draft in "}{props.user.username}</div>
-                <div onClick={publish} className={CSS.publish}>{roll === "about"? "Save":"Publish"}</div>
+                {roll === "about" ? 
+                <div onClick={()=>{save(()=>{navigate("/me/settings")})}} className={CSS.publish}>Save</div>
+                :<div onClick={publish} className={CSS.publish}>Publish</div>}
             </div>
             <div className={CSS.main}>
                 <textarea onChange={(e)=>{setTitle(e.target.value)}} value={title} type="text" placeholder="Add title" className="a-input title font-a-title"/>
