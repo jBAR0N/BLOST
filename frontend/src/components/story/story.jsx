@@ -1,12 +1,12 @@
 import React , {useEffect} from "react"
 import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import CSS from "./article.module.css"
+import CSS from "./story.module.css"
 import FourOFour from "../404/404"
 import bookmarkIcon from "./img/bookmark.svg"
 import bookmarkedIcon from "./img/bookmarked.svg"
 
-const Article = ({about}) => {
+const Story = ({about}) => {
     const {article} = useParams()
     const [{content, title, subtitle, name, date}, setData] = useState({})
     const [bookmarked, setBookmarked] = useState(false)
@@ -105,4 +105,4 @@ function Section ({item: {type, content, title}}) {
     )
 }
 
-export default Article
+export default Story

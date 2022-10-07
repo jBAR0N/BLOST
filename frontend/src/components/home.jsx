@@ -1,18 +1,31 @@
-import Posts from "./posts/posts"
+import Posts from "./previews/previews"
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation, Navigate } from "react-router-dom"
+import { useEffect, useState } from "react";
 
-const Home = props => (
-    <React.Fragment>
-        <div className="page-heading-wrapper">
-            <div className="page-heading">Your feed</div>
-        </div>
-        <div className="card-wrapper">
-            <Link to={"/"} className={props.following? "card": "card active"}>For you</Link>
-            <Link to={"/me/following"} className={props.following? "card active": "card"}>Following</Link>
-        </div>     
-        <Posts path={props.following? "followed/" : "date/"}/>
-    </React.Fragment>
-)
+const Home = ({user}) => {
+    const [feed, setFeed] = useState(null)
+    const location = useLocation()
+
+    useEffect(()=>{
+        setFeed(((new URL(document.location)).searchParams).get('feed'))
+    }, [location])
+
+    return (
+        (!user.email && !user.loading && feed === "following")?
+        <Navigate to="/login" replace />
+        :
+        <React.Fragment>
+            <div className="page-heading-wrapper">
+                <div className="page-heading">Your feed</div>
+            </div>
+            <div className="card-wrapper">
+                <Link to={"/"} className={feed === "following"? "card": "card active"}>For you</Link>
+                <Link to={"/?feed=following"} className={feed === "following"? "card active": "card"}>Following</Link>
+            </div>     
+            <Posts path={feed==="following"? "followed/" : "date/"}/>
+        </React.Fragment>
+    )
+}
 
 export default Home

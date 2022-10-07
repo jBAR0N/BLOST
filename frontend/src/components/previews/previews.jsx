@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom"
-import Draft from "./draft/draft"
-import Post from "./post/post"
-import CSS from "./posts.module.css"
+import Draft from "../previews-draft/draft"
+import Post from "../previews-story/post"
+import CSS from "./previews.module.css"
 
-export default function Posts (props) {
+export default function Previews ({path, draft, published}) {
     const navigate = useNavigate()
 
-    const {path} = props
     const [last, setLast] = useState(0)
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(false)
@@ -32,7 +31,7 @@ export default function Posts (props) {
     function loadContent () {
         const steps = Math.round((window.innerHeight / 140)*2)
         setLoading(true)
-        fetch("http://192.168.0.42:3000/get/articles/"+ props.path + (last + 1) +"/" + (last + steps))
+        fetch("http://192.168.0.42:3000/get/articles/"+ path + (last + 1) +"/" + (last + steps))
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -50,9 +49,9 @@ export default function Posts (props) {
 
     return (
         <div className={CSS.content}>
-            {props.draft?
+            {draft?
                 articles.map(item=>(
-                    <Draft item={item} public={props.public}/>
+                    <Draft item={item} published={published}/>
                 ))
             :
                 articles.map(item=>(

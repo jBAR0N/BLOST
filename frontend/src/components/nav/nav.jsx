@@ -1,16 +1,24 @@
 import CSS from "./nav.module.css"
-import Logo from "./img/Logo.svg"
-import {Navigate, NavLink, Outlet, useNavigate} from "react-router-dom"
+import Logo from "./img/logo.svg"
+import {Navigate, Link, Outlet, useNavigate, useMatch} from "react-router-dom"
 import React, { useState, useEffect } from "react"
-import homeIcon from "./img/home.svg"
-import listIcon from "./img/list.svg"
-import storyIcon from "./img/stories.svg"
-import bellIcon from "./img/bell.svg"
-import searchIcon from "./img/search.svg"
 import SearchBox from "./searchbox/searchbox"
 import Menu from "./menu/menu"
 
-export default function Nav (props) {
+import homeIcon from "./img/inactive/home.svg"
+import listIcon from "./img/inactive/list.svg"
+import storyIcon from "./img/inactive/stories.svg"
+import bellIcon from "./img/inactive/bell.svg"
+import searchIcon from "./img/inactive/search.svg"
+
+import activeHome from "./img/active/home.svg"
+import activeList from "./img/active/list.svg"
+import activeStory from "./img/active/stories.svg"
+import activeBell from "./img/active/bell.svg"
+import activeSearch from "./img/active/search.svg"
+
+
+export default function Nav ({user, unread, img, me}) {
     const navigate = useNavigate()
 
     const [search, setSearch] = useState(false)
@@ -27,38 +35,40 @@ export default function Nav (props) {
 
     return (
         <div className={CSS.wrapper}>
-            <Menu user={props.user} setMenu={setMenu} menu={menu} />
+            <Menu user={user} setMenu={setMenu} menu={menu} />
             <div className={CSS.nav}>
                 <img onClick={()=>{navigate("/")}} style={{marginBottom: "auto"}} src={Logo} alt="Logo" className={CSS.logo}/>
-                <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/"} >
-                    <img src={homeIcon} alt="home" />
-                </NavLink>
-                <div onClick={()=>{setTimeout(()=>{setSearch(!search)})}} className={search? CSS.link + " " + CSS.active: CSS.link}>
-                    <img src={searchIcon} alt="search" />
+                <NavLink to="/" end icon={homeIcon} active={activeHome}/>
+                <div onClick={()=>{setTimeout(()=>{setSearch(!search)})}} className={CSS.link}>
+                    <img src={search? activeSearch: searchIcon} alt="search" />
                     <SearchBox setSearch={setSearch} search={search} />
                 </div>
-                <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/list"} >
-                    <img src={listIcon} alt="list" />
-                </NavLink>
-                <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/notifications"} >
-                    {props.unread && <div className={CSS.notIndicator}/>}
-                    <img src={bellIcon} alt="notifications" />
-                </NavLink>
-                <NavLink className={(({isActive})=>(isActive? CSS.link + " " + CSS.active: CSS.link))} to={"/me/stories"} >
-                    <img src={storyIcon} alt="stories" />
-                </NavLink>
+                <NavLink to="/me/list" icon={listIcon} active={activeList}/>
+                <NavLink to="/me/notifications" icon={bellIcon} active={activeBell} unread={unread}/>
+                <NavLink to="/me/stories/" icon={storyIcon} active={activeStory}/>
                 <div onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} className={CSS.link}>
-                    <img className={CSS.userImg} src={props.img} alt="profile" />
+                    <img className={CSS.userImg} src={img} alt="profile" />
                 </div>
             </div>
             <div className={CSS.main}>
                 <div className={CSS.content}>
-                    {!props.user.email && !props.user.loading && props.me?
+                    {(!user.email && !user.loading && me)?
                         <Navigate to="/login" replace/>:
                         <Outlet/>
                     }
                 </div>
             </div>
         </div>
+    )
+}
+
+function NavLink ({to, end, icon, active, unread}) {
+    const match = useMatch({path: to, end: (end? true: false)})
+
+    return (
+        <Link className={CSS.link} to={to}>
+            {unread && <div className={CSS.notIndicator}/>}
+            <img src={match? active: icon} alt="" />
+        </Link>
     )
 }

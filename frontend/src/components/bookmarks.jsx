@@ -1,4 +1,4 @@
-import Posts from "./posts/posts"
+import Posts from "./previews/previews"
 import React from "react"
 
 const Bookmarks = () => (

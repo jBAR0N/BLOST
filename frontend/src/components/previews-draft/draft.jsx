@@ -22,7 +22,7 @@ export default function Draft (props) {
     }
 
     function openArticle () {
-        if (props.public) navigate("/article/" + props.item.id)
+        if (props.published) navigate("/article/" + props.item.id)
         else navigate("/article/edit/" + props.item.id)
     }
 
@@ -43,7 +43,7 @@ export default function Draft (props) {
         <div className={CSS.content} style={{display: deleted? "none": "block"}}>
             <div onClick={openArticle} className={CSS.heading}>{props.item.title? props.item.title: "Untitled story"}</div>
             <div className={CSS.row}>
-                <div className={CSS.info}>{props.public? "Published ": "Last edited "}{formatDate(props.item.date)}</div>
+                <div className={CSS.info}>{props.published? "Published ": "Last edited "}{formatDate(props.item.date)}</div>
                 <img onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} alt="more" src={moreIcon} className={CSS.menuIcon}></img>
             </div>
             <div style={{display: menu? "block":"none"}} className={CSS.menu}>

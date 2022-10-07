@@ -7,9 +7,9 @@ import Stories from './components/stories';
 import FourOFour from './components/404/404';
 import Login from './components/login/login';
 import User from './components/user/user';
-import Article from './components/article/article';
+import Story from './components/story/story';
 import EditArticle from './components/article-edit/article-edit';
-import Posts from './components/posts/posts';
+import Posts from './components/previews/previews';
 import Notifications from './components/notifications/notifications';
 import Search from './components/search';
 import Settings from './components/settings/settings';
@@ -41,22 +41,21 @@ function App() {
       <Route path='/article/edit/:id'element={<EditArticle user={user}/>}/>
 
       <Route path='/' element={<Nav unread={unread} user={user} img={img}/>}>
-        <Route index element={<Home/>}/>
+        <Route index element={<Home user={user}/>}/>
         <Route path='/search/:keyword' element={<Search/>}/>
         <Route path='/user/:name' element={<User/>}/>
         <Route path='/user/:name/about' element={<User about/>}/>
-        <Route path='/article/:article' element={<Article/>}/>
+        <Route path='/article/:article' element={<Story/>}/>
         <Route path='/login' element={<Login user={user}/>}/>
         <Route path="*" element={<FourOFour/>}/>
       </Route>
 
       <Route path='/me' element={<Nav me user={user} img={img}/>}>
         <Route index element={<Navigate to={user.username? "/user/" + user.username: "/"}/>}/>
-        <Route path="/me/following" element={<Home following/>}/>
         <Route path="/me/stories" element={<Stories user={user}/>}>
           <Route index element={<Navigate to="/me/stories/drafts" replace/>}/>
           <Route path="/me/stories/drafts" element={<Posts draft path="drafts/"/>}/>
-          <Route path="/me/stories/public" element={<Posts draft public path={"user/" + user.username + "/"}/>}/>
+          <Route path="/me/stories/public" element={<Posts draft published path={"user/" + user.username + "/"}/>}/>
         </Route>
         <Route path="/me/list" element={<Bookmarks/>}/>
         <Route path="/me/notifications" element={<Notifications setUnread={setUnread}/>}/>

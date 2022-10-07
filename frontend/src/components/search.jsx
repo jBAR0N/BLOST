@@ -1,6 +1,6 @@
 import React from "react"
 import { useParams } from "react-router-dom"
-import Posts from "./posts/posts"
+import Posts from "./previews/previews"
 
 export default function Search () {
     const {keyword} = useParams()

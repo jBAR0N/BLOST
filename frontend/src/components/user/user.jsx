@@ -1,11 +1,11 @@
 import CSS from "./user.module.css"
 import {useParams, Link} from "react-router-dom"
-import Posts from "../posts/posts"
+import Posts from "../previews/previews"
 import React, { useState, useEffect } from "react"
-import Article from "../article/article"
+import Story from "../story/story"
 import FourOFour from "../404/404"
 
-export default function User (props) {
+export default function User ({about}) {
     const [img, setImg] = useState("/img/user.png")
     const [info, setInfo] = useState({})
     const [followed, setFollowed] = useState(false)
@@ -72,11 +72,11 @@ export default function User (props) {
             <div onClick={follow} className={CSS.follow + " " + (followed? CSS.unfollow :"")}>{followed? "Unfollow": "Follow"}</div>
             </div>
             <div className="card-wrapper">
-                <Link to={"/user/" + name} className={props.about? "card": "card active"}>Stories {"("}{info.posts}{")"}</Link>
-                <Link to={"/user/" + name + "/about"} className={props.about? "card active": "card"}>About</Link>
+                <Link to={"/user/" + name} className={about? "card": "card active"}>Stories {"("}{info.posts}{")"}</Link>
+                <Link to={"/user/" + name + "/about"} className={about? "card active": "card"}>About</Link>
             </div>
-            {props.about?
-            info.about && <Article about={info.about}/>
+            {about?
+            info.about && <Story about={info.about}/>
             :
             <Posts path={"user/" + name + "/"}/>
             }
