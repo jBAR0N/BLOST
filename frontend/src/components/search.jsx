@@ -2,7 +2,7 @@ import React from "react"
 import { useParams } from "react-router-dom"
 import Posts from "./previews/previews"
 
-export default function Search () {
+const Search = () => {
     const {keyword} = useParams()
 
     return (
@@ -15,3 +15,5 @@ export default function Search () {
         </React.Fragment>
     )
 }
+
+export default Search

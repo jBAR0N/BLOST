@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react"
 import Story from "../story/story"
 import FourOFour from "../404/404"
 
-export default function User ({about}) {
+const User = ({about}) => {
     const [img, setImg] = useState("/img/user.png")
     const [info, setInfo] = useState({})
     const [followed, setFollowed] = useState(false)
@@ -35,7 +35,7 @@ export default function User ({about}) {
         })
     }, [name])
 
-    function follow () {
+    const follow = () => {
         const original = followed
         const originalCount = followers
         if (followed) setFollowers(followers - 1)
@@ -84,3 +84,5 @@ export default function User ({about}) {
         :status === "notFound" && <FourOFour/>
     )
 }
+
+export default User

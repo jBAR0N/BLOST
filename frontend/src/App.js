@@ -8,7 +8,7 @@ import FourOFour from './components/404/404';
 import Login from './components/login/login';
 import User from './components/user/user';
 import Story from './components/story/story';
-import EditArticle from './components/article-edit/article-edit';
+import EditArticle from './components/story-edit/story-edit';
 import Posts from './components/previews/previews';
 import Notifications from './components/notifications/notifications';
 import Search from './components/search';

@@ -25,9 +25,7 @@ const Story = ({about}) => {
                 fetch("http://192.168.0.42:3000/image/" + data.image)
                 .then(res => res.blob())
                 .then(data=>{setImg(URL.createObjectURL(data))})
-            } else {
-                setStatus("notFound")
-            }
+            } else setStatus("notFound")
         }).catch(()=>{setStatus("notFound")})
     }, [article, about])
 
@@ -48,11 +46,9 @@ const Story = ({about}) => {
             .catch(()=>{setBookmarked(original)})
     }
 
-    const formatDate = (date)=> (
-        new Date(date).toLocaleString('default', { month: 'short' }) + " " + new Date(date).getDate() + ", " + new Date(date).getFullYear()
-    )
+    const formatDate = (date)=> ( new Date(date).toLocaleString('default', { month: 'short' }) + " " + new Date(date).getDate() + ", " + new Date(date).getFullYear() )
 
-    return(
+    return (
         status === "done"?
         <div className={CSS.contentWr}>
             {!about && about !== 0 &&
@@ -79,7 +75,7 @@ const Story = ({about}) => {
     )
 }
 
-function Section ({item: {type, content, title}}) {
+const Section = ({item: {type, content, title}}) => {
     const [img, setImg] = useState("/img/placeholder.jpg")
 
     useEffect(()=>{

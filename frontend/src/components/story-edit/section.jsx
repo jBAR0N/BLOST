@@ -1,9 +1,9 @@
-import CSS from "./article-edit.module.css"
+import CSS from "./story-edit.module.css"
 import React from "react"
 import trashIcon from "./img/trash.svg"
 import { useState, useEffect } from "react"
 
-export default function Section ({content, sections, setSections, id}) {
+const Section = ({content, sections, setSections, id}) => {
     const [img, setImg] = useState("/img/placeholder.jpg")
 
     useEffect(()=>{
@@ -20,22 +20,22 @@ export default function Section ({content, sections, setSections, id}) {
         }
     }, [content])
 
-    function deleteSection () {
+    const deleteSection = () => {
         setSections(sections.filter(item=>(
             sections.indexOf(item) !== sections.indexOf(content)
         )))
     }
 
-    function set(value, object) {
+    const set = (value, object) => {
         setSections(
             sections.map(item=>{
-                if (sections.indexOf(item) === sections.indexOf(content)) return({...item, content: object === "type"?null:item.content , [object]: value})
+                if (sections.indexOf(item) === sections.indexOf(content)) return({...item, content: object === "type"? null : item.content , [object]: value})
                 else return item
             })
         )
     }
 
-    function setImage (e) {
+    const setImage = e => {
         const formData = new FormData()
         formData.append('image', e.target.files[0])
         formData.append('id', id)
@@ -76,3 +76,5 @@ export default function Section ({content, sections, setSections, id}) {
         </div>
     )
 }
+
+export default Section

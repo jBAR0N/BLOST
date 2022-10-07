@@ -1,8 +1,8 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import CSS from "./menu.module.css"
+import CSS from "./nav-menu.module.css"
 
-export default function Menu (props) {
+const Menu = ({setMenu, menu, user: {email, username}}) => {
     const navigate = useNavigate()
 
     function logout () {
@@ -15,12 +15,13 @@ export default function Menu (props) {
 
     function redirect (path) {
         navigate(path)
-        props.setMenu(false)
+        setMenu(false)
     }
 
     return (
-        <div className={CSS.content} onClick={(e)=>{e.stopPropagation()}} style={{display: props.menu? "flex":"none"}}>
-            {props.user.email?
+        menu &&
+        <div className={CSS.content} onClick={(e)=>{e.stopPropagation()}}>
+            {email?
                 <React.Fragment>
                     <div className={CSS.mobile}>
                         <div onClick={()=>{redirect("/me/list")}} className={CSS.row}>Reading list</div>
@@ -30,8 +31,8 @@ export default function Menu (props) {
                     <div onClick={logout} className={CSS.row}>Sign out</div>
                     <div onClick={()=>{redirect("/me/settings")}} className={CSS.row}>Settings</div>
                     <div className={CSS.seperator}/>
-                    <div className={CSS.name}>{props.user.username}</div>
-                    <div className={CSS.email}>{props.user.email}</div>
+                    <div className={CSS.name}>{username}</div>
+                    <div className={CSS.email}>{email}</div>
                     <div onClick={()=>{redirect("/me")}} className={CSS.view}>View profile</div>
                 </React.Fragment>
                 :
@@ -42,3 +43,5 @@ export default function Menu (props) {
         </div>
     )
 }
+
+export default Menu

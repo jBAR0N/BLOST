@@ -2,9 +2,8 @@ import React, {useState, useEffect} from "react"
 import CSS from "./login.module.css"
 import { useNavigate } from "react-router-dom"
 
-export default function Login (props) {
+const Login = ({user: {email}}) => {
     const navigate = useNavigate()
-
     const [signUp, setSignUp] = useState(true)
     const [Email, SetEmail] = useState("")
     const [Password, SetPassword] = useState("")
@@ -12,8 +11,8 @@ export default function Login (props) {
     const [privacyAccepted, SetPrivacyAccepted] = useState(false)
 
     useEffect(()=>{
-        if (props.user.email) navigate("/", {replace: true})
-    }, [props, navigate])
+        if (email) navigate("/", {replace: true})
+    }, [email, navigate])
 
     function submitUp(e) {
         e.preventDefault()
@@ -30,9 +29,9 @@ export default function Login (props) {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                "email": Email,
-                "password": Password,
-                "name": name
+                email: Email,
+                password: Password,
+                name: name
             })
         }
         fetch("http://192.168.0.42:3000/" + path, requestOptions)
@@ -54,8 +53,7 @@ export default function Login (props) {
             <form className={CSS.form}>
                 <input onChange={(e)=>{SetEmail(e.target.value)}} className={CSS.input} placeholder="Email" type="email"/>
                 <input onChange={(e)=>{SetPassword(e.target.value)}} className={CSS.input} placeholder="Password" type="password" />
-                {
-                    signUp?
+                {signUp?
                     <React.Fragment>
                         <input onChange={(e)=>{setName(e.target.value)}} value={name} className={CSS.input} placeholder="Username" type="text" />
                         <div className={CSS.formRow}>
@@ -77,3 +75,5 @@ export default function Login (props) {
         </div>
     )
 }
+
+export default Login

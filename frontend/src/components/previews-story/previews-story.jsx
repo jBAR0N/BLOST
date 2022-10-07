@@ -1,10 +1,10 @@
-import CSS from "./post.module.css"
+import CSS from "./previews-story.module.css"
 import bookmarkIcon from "./img/bookmark.svg"
 import bookmarkedIcon from "./img/bookmarked.svg"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
-export default function Post ({item: {bookmarked, image, id, title, subtitle, name, date}}) {
+const Post = ({item: {bookmarked, image, id, title, subtitle, name, date}}) => {
     const navigate = useNavigate()
     const [img, setImg] = useState(null)
     const [bookmark, setBookmark] = useState(bookmarked)
@@ -16,12 +16,9 @@ export default function Post ({item: {bookmarked, image, id, title, subtitle, na
         .then(data => {setImg(URL.createObjectURL(data))})
     }, [image])
 
-    const formatDate = (date)=>{
-        const creationDate = new Date (date)
-        return creationDate.toLocaleString('default', { month: 'short' }) + " " + creationDate.getDate() + ", " + creationDate.getFullYear()
-    }
+    const formatDate = date => ( new Date(date).toLocaleString('default', { month: 'short' }) + " " + new Date(date).getDate() + ", " + new Date(date).getFullYear() )
 
-    function submitBookmark () {
+    const submitBookmark = () => {
         const original = bookmark
         setBookmark(!bookmark)
         let requestOptions = {
@@ -38,9 +35,7 @@ export default function Post ({item: {bookmarked, image, id, title, subtitle, na
         .catch(()=>{setBookmark(original)})
     }
 
-    function openArticle () {
-        navigate("/article/" + id)
-    }
+    const openArticle = () => { navigate("/article/" + id) }
 
     return(
         <div className={CSS.content}>
@@ -63,3 +58,5 @@ export default function Post ({item: {bookmarked, image, id, title, subtitle, na
         </div>
     )
 }
+
+export default Post

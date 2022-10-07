@@ -2,8 +2,8 @@ import CSS from "./nav.module.css"
 import Logo from "./img/logo.svg"
 import {Navigate, Link, Outlet, useNavigate, useMatch} from "react-router-dom"
 import React, { useState, useEffect } from "react"
-import SearchBox from "./searchbox/searchbox"
-import Menu from "./menu/menu"
+import SearchBox from "../nav-search/nav-search"
+import Menu from "../nav-menu/nav-menu"
 
 import homeIcon from "./img/inactive/home.svg"
 import listIcon from "./img/inactive/list.svg"
@@ -18,7 +18,7 @@ import activeBell from "./img/active/bell.svg"
 import activeSearch from "./img/active/search.svg"
 
 
-export default function Nav ({user, unread, img, me}) {
+const Nav = ({user, unread, img, me}) => {
     const navigate = useNavigate()
 
     const [search, setSearch] = useState(false)
@@ -72,3 +72,5 @@ function NavLink ({to, end, icon, active, unread}) {
         </Link>
     )
 }
+
+export default Nav

@@ -2,39 +2,35 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import CSS from "./settings.module.css"
 
-export default function Settings ({user, img}) {
-    return (
-        <div className={CSS.content}>
-            <div className={CSS.title}>About you</div>
-            <InputSection path="name" title="Name" field={user.username} 
-            description="Your name appears on your Profile page and as your byline and domain. It is a required field. Max 50 characters."
-            />
-            <ImageSection img={img}/>
-            <AboutSection story={user.about}/>
-            <div className={CSS.title}>Security</div>
-            <InputSection path="email" title="Email" field={user.email} 
-            description="Your email is used for signing in and sending notifications to you. It won't appear publicly."
-            />
-            <PasswordSection />
-            <DeleteSection />
-        </div>
-    )
-}
+const Settings = ({user, img}) => (
+    <div className={CSS.content}>
+        <div className={CSS.title}>About you</div>
+        <InputSection path="name" title="Name" field={user.username} 
+        description="Your name appears on your Profile page and as your byline and domain. It is a required field. Max 50 characters."
+        />
+        <ImageSection img={img}/>
+        <AboutSection story={user.about}/>
+        <div className={CSS.title}>Security</div>
+        <InputSection path="email" title="Email" field={user.email} 
+        description="Your email is used for signing in and sending notifications to you. It won't appear publicly."
+        />
+        <PasswordSection />
+        <DeleteSection />
+    </div>
+)
 
-function AboutSection ({story}) {
-    return (
-        <div className={CSS.inputSection}>
-            <div className={CSS.inputMain}>
-                <div className={CSS.inputTitle}>About page</div>
-                <div className={CSS.inputDescription}>This is a story, that appears in the about tab on your Profile page.</div>
-            </div>
-            <Link className={CSS.inputButton} to={"/article/edit/" + story}>Edit</Link>
+const AboutSection = ({story}) => (
+    <div className={CSS.inputSection}>
+        <div className={CSS.inputMain}>
+            <div className={CSS.inputTitle}>About page</div>
+            <div className={CSS.inputDescription}>This is a story, that appears in the about tab on your Profile page.</div>
         </div>
-    )
-}
+        <Link className={CSS.inputButton} to={"/article/edit/" + story}>Edit</Link>
+    </div>
+)
 
-function ImageSection ({img}) {
-    function submit (e) {
+const ImageSection = ({img}) => {
+    const submit = e => {
         var data = new FormData()
         data.append("image", e.target.files[0])
         const requestOptions = {
@@ -65,12 +61,12 @@ function ImageSection ({img}) {
     )
 }
 
-function PasswordSection () {
+const PasswordSection = () => {
     const [current, setCurrent] = useState("")
     const [newP, setNewP] = useState("")
     const [rNewP, setRNewP] = useState("")
 
-    function submit () {
+    const submit = () => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -101,10 +97,10 @@ function PasswordSection () {
     )
 }
 
-function DeleteSection () {
+const DeleteSection = () => {
     const [input, setInput] = useState("")
 
-    function submit () {
+    const submit = () => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -130,7 +126,7 @@ function DeleteSection () {
     )
 }
 
-function InputSection ({title, description, field, path}) {
+const InputSection = ({title, description, field, path}) => {
     const [input, setInput] = useState("")
     const [edit, setEdit] = useState(false)
 
@@ -138,13 +134,13 @@ function InputSection ({title, description, field, path}) {
         setInput(field)
     }, [edit, field])
 
-    function submit () {
+    const submit = () => {
+        if (!input) return;
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({object: input})
         }
-        if (input)
         fetch("http://192.168.0.42:3000/set/" + path, requestOptions)
         .then(res=>res.json())
         .then(data=>{
@@ -170,3 +166,5 @@ function InputSection ({title, description, field, path}) {
         </div>
     )
 }
+
+export default Settings

@@ -1,10 +1,10 @@
-import CSS from "./article-edit.module.css"
+import CSS from "./story-edit.module.css"
 import { useNavigate, useParams } from "react-router-dom"
 import React, { useState, useEffect } from "react"
 import Section from "./section"
 import arrowIcon from "./img/arrow.svg"
 
-export default function EditArticle (props) {
+const StoryEdit = ({user: {username}}) => {
     const navigate = useNavigate()
     const {id} = useParams()
     const [roll, setRoll] = useState("draft")
@@ -29,11 +29,9 @@ export default function EditArticle (props) {
         })
     }, [id, navigate])
 
-    function addSection () {
-        setSections([...sections, {type: "text", content: "", title: ""}])
-    }
+    const addSection = () => { setSections([...sections, {type: "text", content: "", title: ""}]) }
 
-    function save (callback) {
+    const save = callback => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -51,7 +49,7 @@ export default function EditArticle (props) {
         })
     }
 
-    function publish () {
+    const publish = () => {
         save(()=>{
             const requestOptions = {
                 method: 'POST',
@@ -72,7 +70,7 @@ export default function EditArticle (props) {
         <React.Fragment>
             <div className={CSS.header}>
                 {roll !== "about" &&<img alt="back" onClick={()=>{save(()=>{navigate("/me/stories/drafts")})}} src={arrowIcon} className={CSS.back}/>}
-                <div className={CSS.headerInfo}>{roll === "about"? "About ":"Draft in "}{props.user.username}</div>
+                <div className={CSS.headerInfo}>{roll === "about"? "About ":"Draft in "}{username}</div>
                 {roll === "about" ? 
                 <div onClick={()=>{save(()=>{navigate("/me/settings")})}} className={CSS.publish}>Save</div>
                 :<div onClick={publish} className={CSS.publish}>Publish</div>}
@@ -94,3 +92,5 @@ export default function EditArticle (props) {
         </div>
     )
 }
+
+export default StoryEdit

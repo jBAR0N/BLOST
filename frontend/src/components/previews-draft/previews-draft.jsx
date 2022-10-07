@@ -1,36 +1,28 @@
-import CSS from "./draft.module.css"
+import CSS from "./previews-draft.module.css"
 import moreIcon from "./img/more.svg"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export default function Draft (props) {
+const PreviewsDraft = ({published, item: {id, title, date}}) => {
     const navigate = useNavigate()
     const [menu, setMenu] = useState(false)
     const [deleted, setDeleted] = useState(false)
 
     useEffect(()=>{
-        function handleClick () {
-            if (menu) setMenu(false)
-        }
+        const handleClick = () => { if (menu) setMenu(false) }
         window.addEventListener("click", handleClick)
         return ()=>{window.removeEventListener("click", handleClick)}
     })
 
-    const formatDate = (date)=>{
-        const creationDate = new Date (date)
-        return creationDate.toLocaleString('default', { month: 'short' }) + " " + creationDate.getDate() + ", " + creationDate.getFullYear()
-    }
+    const formatDate = date => ( new Date(date).toLocaleString('default', { month: 'short' }) + " " + new Date(date).getDate() + ", " + new Date(date).getFullYear() )
 
-    function openArticle () {
-        if (props.published) navigate("/article/" + props.item.id)
-        else navigate("/article/edit/" + props.item.id)
-    }
+    const openArticle = () => { navigate((published? "/article/": "/article/edit/") + id) }
 
-    function deleteArticle () {
-        let requestOptions = {
+    const deleteArticle = () => {
+        const requestOptions = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({id: props.item.id})
+            body: JSON.stringify({id: id})
         }
         fetch("http://192.168.0.42:3000/delete/article", requestOptions)
         .then(res => res.json())
@@ -41,15 +33,17 @@ export default function Draft (props) {
 
     return (
         <div className={CSS.content} style={{display: deleted? "none": "block"}}>
-            <div onClick={openArticle} className={CSS.heading}>{props.item.title? props.item.title: "Untitled story"}</div>
+            <div onClick={openArticle} className={CSS.heading}>{title? title: "Untitled story"}</div>
             <div className={CSS.row}>
-                <div className={CSS.info}>{props.published? "Published ": "Last edited "}{formatDate(props.item.date)}</div>
+                <div className={CSS.info}>{published? "Published ": "Last edited "}{formatDate(date)}</div>
                 <img onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} alt="more" src={moreIcon} className={CSS.menuIcon}></img>
             </div>
             <div style={{display: menu? "block":"none"}} className={CSS.menu}>
-                <div onClick={()=>{navigate("/article/edit/" + props.item.id)}} className={CSS.menuRow}>Edit</div>
+                <div onClick={()=>{navigate("/article/edit/" + id)}} className={CSS.menuRow}>Edit</div>
                 <div onClick={deleteArticle} className={CSS.menuRow}>Delete</div>
             </div>
         </div>
     )
 }
+
+export default PreviewsDraft

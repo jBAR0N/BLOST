@@ -1,10 +1,10 @@
 import React from "react"
 import { useNavigate, NavLink, Outlet} from "react-router-dom"
 
-export default function Stories (props) {
+const Stories = props => {
     const navigate = useNavigate()
 
-    function newStorie () {
+    const newStorie = () => {
         fetch("http://192.168.0.42:3000/set/article/new", {method: "POST"})
         .then(res => res.json())
         .then(data => {
@@ -26,3 +26,5 @@ export default function Stories (props) {
         </React.Fragment>
     )
 }
+
+export default Stories

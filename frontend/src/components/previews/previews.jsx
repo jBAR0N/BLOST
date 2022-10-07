@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom"
-import Draft from "../previews-draft/draft"
-import Post from "../previews-story/post"
+import Draft from "../previews-draft/previews-draft"
+import Post from "../previews-story/previews-story"
 import CSS from "./previews.module.css"
 
-export default function Previews ({path, draft, published}) {
+const Previews = ({path, draft, published}) => {
     const navigate = useNavigate()
 
     const [last, setLast] = useState(0)
@@ -49,14 +49,11 @@ export default function Previews ({path, draft, published}) {
 
     return (
         <div className={CSS.content}>
-            {draft?
-                articles.map(item=>(
-                    <Draft item={item} published={published}/>
-                ))
-            :
-                articles.map(item=>(
-                    <Post item={item}/>
-                ))
+            {
+                articles.map(item => {
+                    if (draft) return <Draft item={item} published={published}/>
+                    else return <Post item={item}/>
+                })
             }
             <div style={{display: finsihed && articles.length === 0? "flex": "none"}} className={CSS.nothing}>
                 <p>Looks like there are no stories to read here.</p>
@@ -65,3 +62,5 @@ export default function Previews ({path, draft, published}) {
         </div>
     )
 }
+
+export default Previews
