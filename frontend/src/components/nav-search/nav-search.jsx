@@ -3,7 +3,7 @@ import arrowIcon from "./img/arrow.svg"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
-export default function SearchBox ({search, setSearch}) {
+const SearchBox = ({search, setSearch}) => {
     const navigate = useNavigate()
     const [input, setInput] = useState("")
 
@@ -22,3 +22,5 @@ export default function SearchBox ({search, setSearch}) {
         </div>
     )
 }
+
+export default SearchBox

@@ -5,7 +5,7 @@ import CSS from "./nav-menu.module.css"
 const Menu = ({setMenu, menu, user: {email, username}}) => {
     const navigate = useNavigate()
 
-    function logout () {
+    const logout = () => {
         fetch("http://192.168.0.42:3000/logout")
         .then(res => res.json())
         .then(data =>{
@@ -13,7 +13,7 @@ const Menu = ({setMenu, menu, user: {email, username}}) => {
         })
     }
 
-    function redirect (path) {
+    const redirect = path => {
         navigate(path)
         setMenu(false)
     }

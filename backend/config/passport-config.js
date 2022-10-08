@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const con = require('./db-config')
 
 
-module.exports = function (passport) {
+module.exports = passport => {
 
     passport.serializeUser((user, done) => done(null, user))
 

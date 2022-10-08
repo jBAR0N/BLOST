@@ -21,14 +21,14 @@ const Previews = ({path, draft, published}) => {
 
     useEffect(()=>{
         if (articles.length === 0 && finsihed === false && loading === false && last === 0) loadContent();
-        function handleScroll () {
+        const handleScroll = () => {
             if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) && !loading && !finsihed) loadContent()
         }
         window.addEventListener("scroll", handleScroll)
         return ()=>{window.removeEventListener("scroll", handleScroll)}
     })
 
-    function loadContent () {
+    const loadContent = () => {
         const steps = Math.round((window.innerHeight / 140)*2)
         setLoading(true)
         fetch("http://192.168.0.42:3000/get/articles/"+ path + (last + 1) +"/" + (last + steps))

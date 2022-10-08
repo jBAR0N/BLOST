@@ -14,17 +14,17 @@ const Login = ({user: {email}}) => {
         if (email) navigate("/", {replace: true})
     }, [email, navigate])
 
-    function submitUp(e) {
+    const submitUp = e => {
         e.preventDefault()
         if (Password && name && privacyAccepted && Email) sendForm("signUp")
     }
 
-    function submitIn(e) {
+    const submitIn = (e) => {
         e.preventDefault()
         if(Email && Password) sendForm("signIn")
     }
 
-    function sendForm (path) {
+    const sendForm = path => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -66,10 +66,10 @@ const Login = ({user: {email}}) => {
                                 </a>
                             </div>
                         </div>
-                        <input onClick={(e)=>{submitUp(e)}} className={CSS.submit} value={"Sign up"} type="submit"/>
+                        <input onClick={submitUp} className={CSS.submit} value={"Sign up"} type="submit"/>
                     </React.Fragment>
                     :
-                    <input onClick={(e)=>{submitIn(e)}} className={CSS.submit} value="Sign in" type="submit"/>
+                    <input onClick={submitIn} className={CSS.submit} value="Sign in" type="submit"/>
                 }
             </form>
         </div>

@@ -14,7 +14,7 @@ import Notifications from './components/notifications/notifications';
 import Search from './components/search';
 import Settings from './components/settings/settings';
 
-function App() {
+const App = () => {
   const [user, setUser] = useState({loading: true})
   const [img, setImg] = useState("/img/user.png")
   const [unread, setUnread] = useState(false)

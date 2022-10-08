@@ -25,7 +25,7 @@ const Nav = ({user, unread, img, me}) => {
     const [menu, setMenu] = useState(false)
 
     useEffect(()=>{
-        function handleClick () {
+        const handleClick = () => {
             if (menu) setMenu(false)
             if (search) setSearch (false)
         }
@@ -62,7 +62,7 @@ const Nav = ({user, unread, img, me}) => {
     )
 }
 
-function NavLink ({to, end, icon, active, unread}) {
+const NavLink = ({to, end, icon, active, unread}) => {
     const match = useMatch({path: to, end: (end? true: false)})
 
     return (

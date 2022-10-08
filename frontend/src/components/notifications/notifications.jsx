@@ -39,7 +39,7 @@ const Notifications = ({setUnread}) => {
 const Notification = ({item: {id, name, title}}) => {
     const [deleted, setDeleted] = useState(false)
 
-    function deleteNot () {
+    const deleteNot = () => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
