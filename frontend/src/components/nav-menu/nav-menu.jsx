@@ -13,6 +13,7 @@ const Menu = ({setMenu, menu, user: {email, username}}) => {
         })
     }
 
+    // hide menu and navigate to path
     const redirect = path => {
         navigate(path)
         setMenu(false)

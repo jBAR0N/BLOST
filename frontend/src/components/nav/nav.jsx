@@ -24,6 +24,7 @@ const Nav = ({user, unread, img, me}) => {
     const [search, setSearch] = useState(false)
     const [menu, setMenu] = useState(false)
 
+    // hide menus when user clicks anywhere in the page
     useEffect(()=>{
         const handleClick = () => {
             if (menu) setMenu(false)

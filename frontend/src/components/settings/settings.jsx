@@ -25,7 +25,7 @@ const AboutSection = ({story}) => (
             <div className={CSS.inputTitle}>About page</div>
             <div className={CSS.inputDescription}>This is a story, that appears in the about tab on your Profile page.</div>
         </div>
-        <Link className={CSS.inputButton} to={"/article/edit/" + story}>Edit</Link>
+        <Link className={CSS.inputButton} to={"/story/edit/" + story}>Edit</Link>
     </div>
 )
 

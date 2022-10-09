@@ -35,19 +35,19 @@ const Post = ({item: {bookmarked, image, id, title, subtitle, name, date}}) => {
         .catch(()=>{setBookmark(original)})
     }
 
-    const openArticle = () => { navigate("/article/" + id) }
+    const openStory = () => { navigate("/story/" + id) }
 
     return(
         <div className={CSS.content}>
             <div className={CSS.row}>
-                <div onClick={openArticle} className={CSS.heading}>{title? title: "Untitled story"}</div>
+                <div onClick={openStory} className={CSS.heading}>{title? title: "Untitled story"}</div>
                 {bookmark?
                     <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkedIcon} alt={"remove bookmark"} />
                     :
                     <img onClick={submitBookmark} className={CSS.bookmark} src={bookmarkIcon} alt={"bookmark"} />
                 }
             </div>
-            <div onClick={openArticle}  className={CSS.description}>{subtitle}</div>
+            <div onClick={openStory}  className={CSS.description}>{subtitle}</div>
             <div className={CSS.row}>
                 <div onClick={()=>{navigate("/user/" + name)}} className={CSS.writerWr}>
                     <img alt="account-img" src={img? img: "/img/user.png"} className={CSS.img}/>

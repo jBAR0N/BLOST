@@ -7,14 +7,14 @@ import bookmarkIcon from "./img/bookmark.svg"
 import bookmarkedIcon from "./img/bookmarked.svg"
 
 const Story = ({about}) => {
-    const {article} = useParams()
+    const {story} = useParams()
     const [{content, title, subtitle, name, date}, setData] = useState({})
     const [bookmarked, setBookmarked] = useState(false)
     const [img, setImg] = useState("/img/user.png")
     const [status, setStatus] = useState("")
 
     useEffect(()=>{
-        fetch("http://192.168.0.42:3000/get/article/" + (about || about === 0? about: article))
+        fetch("http://192.168.0.42:3000/get/story/" + (about || about === 0? about: story))
         .then(res => res.json())
         .then(data=>{
             if (data.success) {
@@ -27,7 +27,7 @@ const Story = ({about}) => {
                 .then(data=>{setImg(URL.createObjectURL(data))})
             } else setStatus("notFound")
         }).catch(()=>{setStatus("notFound")})
-    }, [article, about])
+    }, [story, about])
 
     const bookmark = () => {
         const original = bookmarked
@@ -35,7 +35,7 @@ const Story = ({about}) => {
         let requestOptions = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({content: article})
+            body: JSON.stringify({content: story})
         }
         fetch("http://192.168.0.42:3000/bookmark", requestOptions)
             .then(res => res.json())
@@ -78,6 +78,7 @@ const Story = ({about}) => {
 const Section = ({item: {type, content, title}}) => {
     const [img, setImg] = useState("/img/placeholder.jpg")
 
+    //load image in the section contains one
     useEffect(()=>{
         if(type === "image" && content) {
             fetch("http://192.168.0.42:3000/image/" + content)

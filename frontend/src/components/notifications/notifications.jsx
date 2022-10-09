@@ -6,6 +6,7 @@ const Notifications = ({setUnread}) => {
     const [notifications, setNotificaions] = useState([])
     const [finished, setFinished] = useState(false)
 
+    //load notification
     useEffect(()=>{
         fetch("http://192.168.0.42:3000/get/notifications", {method: "POST"})
         .then(res => res.json())
@@ -39,6 +40,7 @@ const Notifications = ({setUnread}) => {
 const Notification = ({item: {id, name, title}}) => {
     const [deleted, setDeleted] = useState(false)
 
+    // delete notification and hide it
     const deleteNot = () => {
         const requestOptions = {
             method: 'POST',
@@ -59,7 +61,7 @@ const Notification = ({item: {id, name, title}}) => {
                 <Link to={"/user/" + name}>{name}</Link>
                 <div onClick={deleteNot} className={CSS.delete}>Delete</div>
             </div>
-            <Link to={"/article/" + id}>{title}</Link>
+            <Link to={"/story/" + id}>{title}</Link>
         </div>
     )
 }

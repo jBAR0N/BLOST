@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 const Section = ({content, sections, setSections, id}) => {
     const [img, setImg] = useState("/img/placeholder.jpg")
 
+    //load image
     useEffect(()=>{
         if (content.type === "image") {
             if (content.content)
@@ -43,7 +44,7 @@ const Section = ({content, sections, setSections, id}) => {
             method: 'POST',
             body: formData
         }
-        fetch("http://192.168.0.42:3000/set/article/image", requestOptions)
+        fetch("http://192.168.0.42:3000/set/story/image", requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.success) set(data.file, "content")

@@ -10,6 +10,7 @@ const Login = ({user: {email}}) => {
     const [name, setName] = useState("")
     const [privacyAccepted, SetPrivacyAccepted] = useState(false)
 
+    // if user already exists: navigate to homepage
     useEffect(()=>{
         if (email) navigate("/", {replace: true})
     }, [email, navigate])

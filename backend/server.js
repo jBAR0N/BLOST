@@ -32,9 +32,9 @@ app.use('/img', express.static(path.join('public', "img")));
 
 require("./routes/authUser")(app, passport)
 require("./routes/setUser")(app)
-require("./routes/getArticles")(app)
+require("./routes/getStories")(app)
 require("./routes/getUser")(app)
-require("./routes/article")(app)
+require("./routes/story")(app)
 require("./routes/contentActions")(app)
 require("./routes/main")(app)
 

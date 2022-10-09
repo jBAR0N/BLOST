@@ -5,10 +5,10 @@ const Stories = props => {
     const navigate = useNavigate()
 
     const newStorie = () => {
-        fetch("http://192.168.0.42:3000/set/article/new", {method: "POST"})
+        fetch("http://192.168.0.42:3000/add/story", {method: "POST"})
         .then(res => res.json())
         .then(data => {
-            if (data.success) navigate("/article/edit/" + data.story)
+            if (data.success) navigate("/story/edit/" + data.story)
         })
     }
 

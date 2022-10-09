@@ -6,9 +6,8 @@ import CSS from "./previews.module.css"
 
 const Previews = ({path, draft, published}) => {
     const navigate = useNavigate()
-
     const [last, setLast] = useState(0)
-    const [articles, setArticles] = useState([])
+    const [stories, setStories] = useState([])
     const [loading, setLoading] = useState(false)
     const [finsihed, setFinished] = useState(false)
 
@@ -16,11 +15,12 @@ const Previews = ({path, draft, published}) => {
         setLoading(false)
         setLast(0)
         setFinished(false)
-        setArticles([])
+        setStories([])
     }, [path])
 
+    //load stories at beginning and on scroll to bottom
     useEffect(()=>{
-        if (articles.length === 0 && finsihed === false && loading === false && last === 0) loadContent();
+        if (!stories.length && !finsihed && !loading && !last) loadContent();
         const handleScroll = () => {
             if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) && !loading && !finsihed) loadContent()
         }
@@ -31,12 +31,12 @@ const Previews = ({path, draft, published}) => {
     const loadContent = () => {
         const steps = Math.round((window.innerHeight / 140)*2)
         setLoading(true)
-        fetch("http://192.168.0.42:3000/get/articles/"+ path + (last + 1) +"/" + (last + steps))
+        fetch("http://192.168.0.42:3000/get/stories/"+ path + (last + 1) +"/" + (last + steps))
         .then(res => res.json())
         .then(data => {
             if (data.success) {
                 setLast(last + steps)
-                setArticles([...articles, ...data.content])
+                setStories([...stories, ...data.content])
                 setLoading(false)
                 if(data.content.length < steps) setFinished(true)
             }
@@ -50,12 +50,12 @@ const Previews = ({path, draft, published}) => {
     return (
         <div className={CSS.content}>
             {
-                articles.map(item => {
+                stories.map(item => {
                     if (draft) return <Draft item={item} published={published}/>
                     else return <Post item={item}/>
                 })
             }
-            <div style={{display: finsihed && articles.length === 0? "flex": "none"}} className={CSS.nothing}>
+            <div style={{display: finsihed && stories.length === 0? "flex": "none"}} className={CSS.nothing}>
                 <p>Looks like there are no stories to read here.</p>
                 <div onClick={()=>{navigate("/")}}>Browse content</div>
             </div>

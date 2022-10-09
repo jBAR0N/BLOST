@@ -8,7 +8,7 @@ import FourOFour from './components/404/404';
 import Login from './components/login/login';
 import User from './components/user/user';
 import Story from './components/story/story';
-import EditArticle from './components/story-edit/story-edit';
+import StoryEdit from './components/story-edit/story-edit';
 import Posts from './components/previews/previews';
 import Notifications from './components/notifications/notifications';
 import Search from './components/search';
@@ -38,14 +38,14 @@ const App = () => {
   return (
     <Routes>
       
-      <Route path='/article/edit/:id'element={<EditArticle user={user}/>}/>
+      <Route path='/story/edit/:id'element={<StoryEdit user={user}/>}/>
 
       <Route path='/' element={<Nav unread={unread} user={user} img={img}/>}>
         <Route index element={<Home user={user}/>}/>
         <Route path='/search/:keyword' element={<Search/>}/>
         <Route path='/user/:name' element={<User/>}/>
         <Route path='/user/:name/about' element={<User about/>}/>
-        <Route path='/article/:article' element={<Story/>}/>
+        <Route path='/story/:story' element={<Story/>}/>
         <Route path='/login' element={<Login user={user}/>}/>
         <Route path="*" element={<FourOFour/>}/>
       </Route>

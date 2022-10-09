@@ -9,8 +9,8 @@ const SearchBox = ({search, setSearch}) => {
 
     const redirect = () => {
         if (!input) return;
-        setSearch("")
         navigate("/search/" + input)
+        setInput("")
         setSearch(false)
     }
 

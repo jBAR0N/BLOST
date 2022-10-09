@@ -2,7 +2,7 @@ const con = require("../config/db-config")
 
 module.exports = (app)=>{
 
-    app.get("/get/articles/date/:from/:to",(req, res)=>{
+    app.get("/get/stories/date/:from/:to",(req, res)=>{
         con.query(`
         SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
         (
@@ -24,7 +24,7 @@ module.exports = (app)=>{
         })
     })
 
-    app.get("/get/articles/bookmarks/:from/:to",(req, res)=>{
+    app.get("/get/stories/bookmarks/:from/:to",(req, res)=>{
         if (req.isAuthenticated()) {
             con.query(`
             SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
@@ -49,7 +49,7 @@ module.exports = (app)=>{
         } else res.send({success: false, message: "Failed to load content!"})
     })
 
-    app.get("/get/articles/followed/:from/:to",(req, res)=>{
+    app.get("/get/stories/followed/:from/:to",(req, res)=>{
         if (req.isAuthenticated()) {
             con.query(`
             SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
@@ -75,7 +75,7 @@ module.exports = (app)=>{
         } else res.send({success: false, message: "Failed to load content!"})
     })
 
-    app.get("/get/articles/search/:keyword/:from/:to",(req, res)=>{
+    app.get("/get/stories/search/:keyword/:from/:to",(req, res)=>{
         con.query(`
         SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
         (
@@ -97,7 +97,7 @@ module.exports = (app)=>{
         })
     })
 
-    app.get("/get/articles/user/:user/:from/:to",(req, res)=>{
+    app.get("/get/stories/user/:user/:from/:to",(req, res)=>{
             con.query(`
             SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM
             (
@@ -119,7 +119,7 @@ module.exports = (app)=>{
             })
     })
 
-    app.get("/get/articles/drafts/:from/:to",(req, res)=>{
+    app.get("/get/stories/drafts/:from/:to",(req, res)=>{
         if (req.isAuthenticated()) {
             con.query(`
             SELECT t.date, t.title, t.subtitle, t.image, t.bookmarked, t.name, t.id FROM

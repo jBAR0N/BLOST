@@ -7,6 +7,7 @@ const Home = ({user}) => {
     const [feed, setFeed] = useState(null)
     const location = useLocation()
 
+    //get feed param (* | followed)
     useEffect(()=>{
         setFeed(((new URL(document.location)).searchParams).get('feed'))
     }, [location])

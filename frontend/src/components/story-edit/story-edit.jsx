@@ -42,7 +42,7 @@ const StoryEdit = ({user: {username}}) => {
                 id: id
             })
         }
-        fetch("http://192.168.0.42:3000/set/article", requestOptions)
+        fetch("http://192.168.0.42:3000/set/story", requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.success) return callback()
@@ -57,10 +57,10 @@ const StoryEdit = ({user: {username}}) => {
                 body: JSON.stringify({id: id})
             }
             if ((title && subtitle && sections.length) || roll === "about")
-            fetch("http://192.168.0.42:3000/set/article/public", requestOptions)
+            fetch("http://192.168.0.42:3000/set/story/public", requestOptions)
             .then(res => res.json())
             .then(data => {
-                if (data.success) navigate("/article/" + id, {replace: true})
+                if (data.success) navigate("/story/" + id, {replace: true})
             })
         })
     }
