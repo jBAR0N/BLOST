@@ -7,7 +7,7 @@ const Bookmarks = () => (
             <div className="page-heading">Reading list</div>
         </div>
         <div className="card-wrapper"/>
-        <Posts path={"bookmarks/"}/>
+        <Posts path={"bookmarks/null/"}/>
     </React.Fragment>
 )
 

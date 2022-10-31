@@ -54,7 +54,7 @@ const App = () => {
         <Route index element={<Navigate to={user.username? "/user/" + user.username: "/"}/>}/>
         <Route path="/me/stories" element={<Stories user={user}/>}>
           <Route index element={<Navigate to="/me/stories/drafts" replace/>}/>
-          <Route path="/me/stories/drafts" element={<Posts draft path="drafts/"/>}/>
+          <Route path="/me/stories/drafts" element={<Posts draft path="drafts/null/"/>}/>
           <Route path="/me/stories/public" element={<Posts draft published path={"user/" + user.username + "/"}/>}/>
         </Route>
         <Route path="/me/list" element={<Bookmarks/>}/>
