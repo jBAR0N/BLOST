@@ -1,18 +1,19 @@
 const LocalStrategy = require('passport-local').Strategy
 
 const bcrypt = require('bcrypt')
-const con = require('./db-config')
+const { dbQuery } = require('./db-config')
 
 
 module.exports = passport => {
 
     passport.serializeUser((user, done) => done(null, user))
 
-    passport.deserializeUser((user, done) => 
-        con.query("SELECT * FROM users WHERE id = ?", [user.id], (err, rows)=>{
-            done(err, rows[0]);
-        })
-    )
+    passport.deserializeUser(async (user, done) => {
+        try {
+            let result = await dbQuery("SELECT * FROM users WHERE id = ?", [user.id])
+            done(null, result[0]);
+        } catch(err) { done(err, false) }
+    })
 
     passport.use(
         'local-signup',
@@ -21,29 +22,23 @@ module.exports = passport => {
             passwordField : 'password',
             passReqToCallback : true
         },
-        (req, email, password, done)=>{
-            con.query("SELECT * FROM users WHERE email = ? OR name = ?", [email, req.body.name], (err, rows)=>{
-                if (err)
-                    return done(err)
-                if (rows.length) {
-                    return done(null, false)
-                } if (email.length > 255 || req.body.name.length > 100) {
-                    return done(null, false)
-                } else {
-                    var newUser = {
+        async (req, email, password, done)=>{
+            try {
+                sameCreds = await dbQuery("SELECT * FROM users WHERE email = ? OR name = ?", [email, req.body.name])
+                if (sameCreds.length) return done(null, false)
+                if (email.length > 255) return done(null, false)
+                else {
+                    let newUser = {
                         email: email,
                         password: bcrypt.hashSync(password, 10)
                     }
-                    con.query("INSERT INTO users ( email, hash, name ) values (?,?,?)", [newUser.email, newUser.password, req.body.name], (err, rows)=>{
-                        con.query("INSERT INTO content ( date, user_id, roll ) VALUES ( NOW(), ?, 'about' )", [rows.insertId], (err, result)=>{
-                            con.query("UPDATE users SET about = ? WHERE id = ?", [result.insertId, rows.insertId], ()=>{
-                                newUser.id = rows.insertId;
-                                return done(null, newUser)
-                            })
-                        })
-                    })
+                    let user = await dbQuery("INSERT INTO users ( email, hash, name ) values (?,?,?)", [newUser.email, newUser.password, req.body.name])
+                    let about = await dbQuery("INSERT INTO content ( date, user_id, roll ) VALUES ( NOW(), ?, 'about' )", [user.insertId])
+                    await dbQuery("UPDATE users SET about = ? WHERE id = ?", [about.insertId, user.insertId])
+                    newUser.id = user.insertId;
+                    return done(null, newUser)
                 }
-            })
+            } catch(err) {console.log(err); return done(err)}
         })
     )
 
@@ -53,17 +48,13 @@ module.exports = passport => {
             usernameField : 'email',
             passwordField : 'password',
             passReqToCallback : true
-        }, (req, email, password, done)=>{
-            con.query("SELECT * FROM users WHERE email = ?",[email], (err, rows) => {
-                if (err) 
-                    return done(err)
-                if (!rows.length) {
-                    return done(null, false, {message: 'Incorrect email or passsword!'})
-                }
-                if (!bcrypt.compareSync(password, rows[0].hash))
-                    return done(null, false, {message: 'Incorrect email or passsword!'})
-                return done(null, rows[0]);
-            })
+        }, async (req, email, password, done)=>{
+            try {
+                let user = await dbQuery("SELECT * FROM users WHERE email = ?",[email])
+                if (!user.length) return done(null, false)
+                if (!bcrypt.compareSync(password, user[0].hash)) return done(null, false)
+                return done(null, user[0])
+            } catch(err) { return done(err) }
         })
     )
     

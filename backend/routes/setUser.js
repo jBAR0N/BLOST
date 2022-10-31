@@ -1,86 +1,68 @@
-const con = require("../config/db-config")
+const { dbQuery } = require("../config/db-config")
 const upload = require("../config/multer-config")
 const bcrypt = require("bcrypt")
 const fs = require("fs")
+const { authenticate, compare } = require("../src/auth")
 
 module.exports = (app)=>{
 
-    app.post("/set/name",(req, res)=>{
-        if (req.isAuthenticated()) {
-            if (req.body.object.length <= 50) {
-                con.query("SELECT * FROM users WHERE name = ?", [req.body.object], (err, result)=>{
-                    if (result.length === 0) {
-                        con.query("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
-                            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                            else res.send({success: true})
-                        })
-                    } else res.send({success: false, message: "Name is already in use!"})
-                })
-            } else res.send({success: false, message: "Maximum length is 50 characters!"})
-        } else res.send({success: false, message: "Something went wrong. Try again!"})
+    app.post("/set/name", async (req, res)=>{
+        try {
+            await authenticate(req)
+            sameName = await dbQuery("SELECT * FROM users WHERE name = ?", [req.body.object])
+            if (sameName.length === 0 && req.body.object.length <= 50) {
+                dbQuery("UPDATE users SET name = ? WHERE id = ?", [req.body.object, req.user.id])
+                res.send({ success: true })
+            } else res.send({ success: false })
+        } catch { res.send({ success: false }) }
     })
     
-    app.post("/set/email",(req, res)=>{
-        if (req.isAuthenticated()) {
-            if (req.body.object.length <= 255) {
-                con.query("SELECT * FROM users WHERE email = ?", [req.body.object], (err, result)=>{
-                    if (result.length === 0) {
-                        con.query("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id], (err)=>{
-                            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                            else res.send({success: true})
-                        })
-                    } else res.send({success: false, message: "Email is already in use!"})
-                })
-            } else res.send({success: false, message: "Maximum length is 255 characters!"})
-        } else res.send({success: false, message: "Something went wrong. Try again!"})
+    app.post("/set/email", async (req, res)=>{
+        try {
+            await authenticate(req)
+            sameEmail = await dbQuery("SELECT * FROM users WHERE email = ?", [req.body.object])
+            if (sameEmail.length === 0 && req.body.object.length <= 255) {
+                dbQuery("UPDATE users SET email = ? WHERE id = ?", [req.body.object, req.user.id])
+                res.send({ success: true} )
+            } else res.send({ success: false })
+        } catch { res.send({ success: false}) }
     })
 
-    app.post("/set/image", upload.single('image'), (req, res)=>{
-        if (req.isAuthenticated()) {
+    app.post("/set/image", upload.single('image'), async (req, res)=>{
+        try {
+            await authenticate(req)
             if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
-            con.query("UPDATE users SET image = ? WHERE id = ?", [req.file.filename, req.user.id], (err)=>{
-                if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                else res.send({success: true})
-            })
-        } else {
+            dbQuery("UPDATE users SET image = ? WHERE id = ?", [req.file.filename, req.user.id])
+            res.send({success: true})
+        } catch {
             if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path)
-            res.send({success: false, message: "Something went wrong. Try again!"})
+            res.send({ success: false })
         }
     })
 
-    app.post("/set/password", (req, res)=>{
-        if (req.isAuthenticated()) {
-            if (bcrypt.compareSync(req.body.old, req.user.hash)) {
-                const password = bcrypt.hashSync(req.body.new, 10)
-                con.query("UPDATE users SET hash = ? WHERE id = ?", [password, req.user.id], (err)=>{
-                    if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                    else res.send({success: true})
-                })
-            } else res.send({success: false, message: "Wrong password!"})
-        } else res.send({success: false, message: "Something went wrong. Try again!"})
+    app.post("/set/password", async (req, res)=>{
+        try {
+            await authenticate(req)
+            await compare(req.body.old, req.user.hash)
+            const password = bcrypt.hashSync(req.body.new, 10)
+            dbQuery("UPDATE users SET hash = ? WHERE id = ?", [password, req.user.id])
+            res.send({success: true})
+        } catch { res.send({success: false}) }
     })
 
-    app.post("/delete/profile", (req, res)=>{
-        if (req.isAuthenticated()) {
-            if (bcrypt.compareSync(req.body.password, req.user.hash)) {
-                con.query("SELECT filename FROM img_upload WHERE content_id IN (SELECT id FROM content WHERE user_id = ?)", [req.user.id], (err, result)=>{
-                    if (err) res.send({success: false})
-                    else {
-                        result.map(item => {
-                            if (item.filename) { if (fs.existsSync("files/img/" + item.filename)) fs.unlinkSync("files/img/" + item.filename) }
-                        })
-                        con.query("DELETE FROM users WHERE id = ?", [req.user.id], (err)=>{
-                            if (err) res.send({success: false, message: "Something went wrong. Try again!"})
-                            else {
-                                if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
-                                req.logout(()=>{
-                                    res.send({success: true})  
-                                })
-                            }
-                        })
-                    }
-                })
-            } else res.send({success: false, message: "Wrong password!"})
-        } else res.send({success: false, message: "Something went wrong. Try again!"})
+    app.post("/delete/profile", async (req, res)=>{
+        try {
+            await authenticate(req)
+            await compare(req.body.password, req.user.hash)
+            let images = await dbQuery("SELECT filename FROM img_upload WHERE content_id IN (SELECT id FROM content WHERE user_id = ?)", [req.user.id])
+            images.map(item => {
+                if (item.filename) { if (fs.existsSync("files/img/" + item.filename)) fs.unlinkSync("files/img/" + item.filename) }
+            })
+            dbQuery("DELETE FROM users WHERE id = ?", [req.user.id])
+            if (req.user.image) { if (fs.existsSync("files/img/" + req.user.image)) fs.unlinkSync("files/img/" + req.user.image) }
+            req.logout(()=>{
+                res.send({success: true})  
+            })
+        } catch { res.send({success: false}) }
     })
 }

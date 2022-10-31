@@ -1,4 +1,4 @@
-const con = require("../config/db-config")
+const { con } = require("../config/db-config")
 
 module.exports = (app)=>{
 

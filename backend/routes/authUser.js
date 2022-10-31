@@ -1,5 +1,5 @@
-const path = require("path")
-const con = require("../config/db-config")
+const { dbQuery } = require("../config/db-config")
+const { authenticate } = require("../src/auth")
 
 module.exports = (app, passport)=>{
 
@@ -33,33 +33,31 @@ module.exports = (app, passport)=>{
         })(req, res, next);
       });
 
-    app.get("/get/session", (req, res)=>{
-        if(req.isAuthenticated()) {
-          con.query(`
-          SELECT 
-          COUNT(DISTINCT f.follower) AS followers, COUNT(DISTINCT c.id) AS posts, COUNT(DISTINCT d.id) AS drafts,
-          IF(u.id IN (SELECT user_id FROM notifications WHERE noticed = 0), true, false) AS unread
-          FROM
-            users AS u
-            LEFT JOIN followed AS f
-            ON f.user = u.id
-            LEFT JOIN content AS c
-            ON c.user_id = u.id AND c.roll = 'public'
-            LEFT JOIN content AS d
-            ON d.user_id = u.id AND d.roll = 'draft'
-          WHERE u.id = ?
-          `,[req.user.id], (err, result)=>{
-            res.send({
-              email: req.user.email,
-              username: req.user.name,
-              image: req.user.image,
-              about: req.user.about,
-              ...result[0]
-            })
-          })
-        } else {
-            res.send({})
-        }
+    app.get("/get/session", async (req, res)=>{
+      try {
+        await authenticate(req)
+        info = await dbQuery(`
+        SELECT 
+        COUNT(DISTINCT f.follower) AS followers, COUNT(DISTINCT c.id) AS posts, COUNT(DISTINCT d.id) AS drafts,
+        IF(u.id IN (SELECT user_id FROM notifications WHERE noticed = 0), true, false) AS unread
+        FROM
+          users AS u
+          LEFT JOIN followed AS f
+          ON f.user = u.id
+          LEFT JOIN content AS c
+          ON c.user_id = u.id AND c.roll = 'public'
+          LEFT JOIN content AS d
+          ON d.user_id = u.id AND d.roll = 'draft'
+        WHERE u.id = ?
+        `,[req.user.id])
+        res.send({
+          email: req.user.email,
+          username: req.user.name,
+          image: req.user.image,
+          about: req.user.about,
+          ...info[0]
+        })
+      } catch { res.send({}); console.log }
     })
     
     app.get("/logout", (req, res)=>{
