@@ -129,3 +129,4 @@ dist
 #folders and files
 /frontend/build/
 /backend/files/img/
+*.txt

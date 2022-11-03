@@ -1,4 +1,4 @@
-const { con, dbQuery } = require("../config/db-config")
+const { dbQuery } = require("../config/db-config")
 
 module.exports = (app)=>{
 
@@ -32,7 +32,7 @@ module.exports = (app)=>{
                 } :null
                 break;
                 case "drafts": sql= req.isAuthenticated()? {
-                    query: "AND u.name = ? WHERE c.roll = ?",
+                    query: "AND u.id = ? WHERE c.roll = 'draft'",
                     vars: [req.user.id]
                 } :null
                 break;
