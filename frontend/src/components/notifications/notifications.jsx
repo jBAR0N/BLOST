@@ -6,13 +6,13 @@ const Notifications = ({setUnread}) => {
     const [notifications, setNotificaions] = useState([])
     const [finished, setFinished] = useState(false)
 
-    //load notification
+    //load notifications
     useEffect(()=>{
         fetch("http://192.168.0.42:3000/get/notifications", {method: "POST"})
         .then(res => res.json())
         .then(data => {
             setFinished(true)
-            if (!data.success) {
+            if (data.success) {
                 setNotificaions(data.content)
                 setUnread(false)
             }

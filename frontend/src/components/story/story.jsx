@@ -8,9 +8,8 @@ import bookmarkedIcon from "./img/bookmarked.svg"
 
 const Story = ({about}) => {
     const {story} = useParams()
-    const [{content, title, subtitle, name, date}, setData] = useState({})
+    const [{content, title, subtitle, name, date, image}, setData] = useState({})
     const [bookmarked, setBookmarked] = useState(false)
-    const [img, setImg] = useState("/img/user.png")
     const [status, setStatus] = useState("")
 
     useEffect(()=>{
@@ -21,10 +20,6 @@ const Story = ({about}) => {
                 setData({...data, date: formatDate(data.date)})
                 setBookmarked(data.bookmarked)
                 setStatus("done")
-                if (data.image)
-                fetch("http://192.168.0.42:3000/image/" + data.image)
-                .then(res => res.blob())
-                .then(data=>{setImg(URL.createObjectURL(data))})
             } else setStatus("notFound")
         }).catch(()=>{setStatus("notFound")})
     }, [story, about])
@@ -54,7 +49,7 @@ const Story = ({about}) => {
             {!about && about !== 0 &&
                 <div className={CSS.infoRow}>
                     <Link to={"/user/" + name} className={CSS.userWr}>
-                        <img src={img} alt="" className={CSS.userImg} />
+                        <img src={image? ("/image/" + image): "/img/user.png"} alt="" className={CSS.userImg} />
                         <div className={CSS.infoWr}>
                             <div className={CSS.username}>{name}</div>
                             <div className={CSS.date}>{date}</div>
@@ -75,31 +70,16 @@ const Story = ({about}) => {
     )
 }
 
-const Section = ({item: {type, content, title}}) => {
-    const [img, setImg] = useState("/img/placeholder.jpg")
-
-    //load image in the section contains one
-    useEffect(()=>{
-        if(type === "image" && content) {
-            fetch("http://192.168.0.42:3000/image/" + content)
-            .then(res => res.blob())
-            .then(data=>{
-                setImg(URL.createObjectURL(data))
-            })
+const Section = ({item: {type, content, title}}) => (
+    <div className={CSS.section}>
+        <div className="font-a-subtitle">{title}</div>
+        {type === "text"?
+        <div className="font-a-text">{content}</div>
+        :type === "image"?
+        <img alt="" className="a-image" src={content? ("/image/" + content): "/img/placeholder.jpg"}></img>
+        :""
         }
-    }, [content, type])
-
-    return (
-        <div className={CSS.section}>
-            <div className="font-a-subtitle">{title}</div>
-            {type === "text"?
-            <div className="font-a-text">{content}</div>
-            :type === "image"?
-            <img alt="" className="a-image" src={img}></img>
-            :""
-            }
-        </div>
-    )
-}
+    </div>
+)
 
 export default Story

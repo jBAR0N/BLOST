@@ -17,6 +17,12 @@ module.exports = (app)=>{
 
     // Save changes made to a story and delete unused content and images
 
+    app.post("/story/edit", async (req, res) => {
+        try {
+            await authorize(req, req.body)
+        } catch { res.send({success: false})}
+    })
+
     app.post("/set/story", async (req,res)=>{
         try {
             await authorize(req, req.body)

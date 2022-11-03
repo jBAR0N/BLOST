@@ -16,7 +16,6 @@ import Settings from './components/settings/settings';
 
 const App = () => {
   const [user, setUser] = useState({loading: true})
-  const [img, setImg] = useState("/img/user.png")
   const [unread, setUnread] = useState(false)
 
   useEffect(()=>{
@@ -25,11 +24,6 @@ const App = () => {
     .then(data =>{
       setUser(data)
       if (data.unread) setUnread(true)
-      if (data.image)
-        fetch("http://192.168.0.42:3000/image/" + data.image)
-        .then(res => res.blob())
-        .then(data => {setImg(URL.createObjectURL(data))})
-      else setImg("/img/user.png")
     }).catch(()=>{
       setUser({})
     })
@@ -40,7 +34,7 @@ const App = () => {
       
       <Route path='/story/edit/:id'element={<StoryEdit user={user}/>}/>
 
-      <Route path='/' element={<Nav unread={unread} user={user} img={img}/>}>
+      <Route path='/' element={<Nav unread={unread} user={user}/>}>
         <Route index element={<Home user={user}/>}/>
         <Route path='/search/:keyword' element={<Search/>}/>
         <Route path='/user/:name' element={<User/>}/>
@@ -50,7 +44,7 @@ const App = () => {
         <Route path="*" element={<FourOFour/>}/>
       </Route>
 
-      <Route path='/me' element={<Nav me user={user} img={img}/>}>
+      <Route path='/me' element={<Nav unread={unread} me user={user}/>}>
         <Route index element={<Navigate to={user.username? "/user/" + user.username: "/"}/>}/>
         <Route path="/me/stories" element={<Stories user={user}/>}>
           <Route index element={<Navigate to="/me/stories/drafts" replace/>}/>
@@ -59,7 +53,7 @@ const App = () => {
         </Route>
         <Route path="/me/list" element={<Bookmarks/>}/>
         <Route path="/me/notifications" element={<Notifications setUnread={setUnread}/>}/>
-        <Route path="/me/settings" element={<Settings user={user} img={img}/>}/>
+        <Route path="/me/settings" element={<Settings user={user}/>}/>
       </Route>
 
     </Routes>

@@ -6,7 +6,6 @@ import Story from "../story/story"
 import FourOFour from "../404/404"
 
 const User = ({about}) => {
-    const [img, setImg] = useState("/img/user.png")
     const [info, setInfo] = useState({})
     const [followed, setFollowed] = useState(false)
     const [followers, setFollowers] = useState(0)
@@ -23,15 +22,9 @@ const User = ({about}) => {
                 setStatus("done")
                 if (data.content.followed) setFollowed(true)
                 else setFollowed(false)
-                if(data.content.image)
-                fetch("http://192.168.0.42:3000/image/" + data.content.image)
-                .then(res => res.blob())
-                .then(data => {
-                    setImg(URL.createObjectURL(data))
-                })
             } else setStatus ("notFound")
         }).catch(()=>{
-            setStatus ("notFound")
+            setStatus("notFound")
         })
     }, [name])
 
@@ -64,7 +57,7 @@ const User = ({about}) => {
         status === "done"?
         <React.Fragment>
             <div className={CSS.header}>
-            <img className={CSS.headerImg} src={img} alt="" />
+            <img className={CSS.headerImg} src={info.image? ("/image/" + info.image): "/img/user.png"} alt="" />
             <div className={CSS.headerInfoWr}>
                 <div className={CSS.headerName}>{info.name}</div>
                 <div className={CSS.headerFollower}>{followers}{followers === 1? " Follower": " Followers"}</div>

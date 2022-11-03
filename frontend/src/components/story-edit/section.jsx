@@ -1,26 +1,9 @@
 import CSS from "./story-edit.module.css"
 import React from "react"
 import trashIcon from "./img/trash.svg"
-import { useState, useEffect } from "react"
 
 const Section = ({content, sections, setSections, id}) => {
-    const [img, setImg] = useState("/img/placeholder.jpg")
-
-    //load image
-    useEffect(()=>{
-        if (content.type === "image") {
-            if (content.content)
-            fetch("http://192.168.0.42:3000/image/" + content.content)
-            .then(res => res.blob())
-            .then(data => {
-                setImg(URL.createObjectURL(data))
-            }).catch(()=>{
-                setImg("/img/placeholder.jpg")
-            })
-            else setImg("/img/placeholder.jpg")
-        }
-    }, [content])
-
+    
     const deleteSection = () => {
         setSections(sections.filter(item=>(
             sections.indexOf(item) !== sections.indexOf(content)
@@ -71,7 +54,7 @@ const Section = ({content, sections, setSections, id}) => {
                 content.type === "text"?
                 <textarea className="a-input text font-a-text" placeholder="Add text" type="text" value={content.content} onChange={(e)=>{set(e.target.value, "content")}}/>
                 :content.type === "image" ?
-                <img className="a-image" src={img} alt="" />
+                <img className="a-image" src={"/image/" + content.content} alt="" />
                 :""
             }
         </div>

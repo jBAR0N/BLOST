@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import CSS from "./settings.module.css"
 
-const Settings = ({user, img}) => (
+const Settings = ({user}) => (
     <div className={CSS.content}>
         <div className={CSS.title}>About you</div>
         <InputSection path="name" title="Name" field={user.username} 
         description="Your name appears on your Profile page and as your byline and domain. It is a required field. Max 50 characters."
         />
-        <ImageSection img={img}/>
+        <ImageSection img={user.image? ("/image/" + user.image): "/img/user.png"}/>
         <AboutSection story={user.about}/>
         <div className={CSS.title}>Security</div>
         <InputSection path="email" title="Email" field={user.email} 

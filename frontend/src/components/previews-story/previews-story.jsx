@@ -2,19 +2,11 @@ import CSS from "./previews-story.module.css"
 import bookmarkIcon from "./img/bookmark.svg"
 import bookmarkedIcon from "./img/bookmarked.svg"
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 const Post = ({item: {bookmarked, image, id, title, subtitle, name, date}}) => {
     const navigate = useNavigate()
-    const [img, setImg] = useState(null)
     const [bookmark, setBookmark] = useState(bookmarked)
-
-    useEffect(()=>{
-        if(image) 
-        fetch("http://192.168.0.42:3000/image/" + image)
-        .then(res => res.blob())
-        .then(data => {setImg(URL.createObjectURL(data))})
-    }, [image])
 
     const formatDate = date => ( new Date(date).toLocaleString('default', { month: 'short' }) + " " + new Date(date).getDate() + ", " + new Date(date).getFullYear() )
 
@@ -35,7 +27,7 @@ const Post = ({item: {bookmarked, image, id, title, subtitle, name, date}}) => {
         .catch(()=>{setBookmark(original)})
     }
 
-    const openStory = () => { navigate("/story/" + id) }
+    const openStory = () => navigate("/story/" + id)
 
     return(
         <div className={CSS.content}>
@@ -50,7 +42,7 @@ const Post = ({item: {bookmarked, image, id, title, subtitle, name, date}}) => {
             <div onClick={openStory}  className={CSS.description}>{subtitle}</div>
             <div className={CSS.row}>
                 <div onClick={()=>{navigate("/user/" + name)}} className={CSS.writerWr}>
-                    <img alt="account-img" src={img? img: "/img/user.png"} className={CSS.img}/>
+                    <img alt="account-img" src={image? ("/image/" + image): "/img/user.png"} className={CSS.img}/>
                     <div className={CSS.writer}>{name}</div>
                 </div>
                 <div className={CSS.info}>{formatDate(date)}</div>

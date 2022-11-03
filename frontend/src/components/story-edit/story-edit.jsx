@@ -12,6 +12,8 @@ const StoryEdit = ({user: {username}}) => {
     const [title, setTitle] = useState("")
     const [subtitle, setSubtitle] = useState("")
     const [loading, setLoading] = useState(true)
+    const [changes, setChanges] = useState([])
+
 
     useEffect(()=>{
         fetch("http://192.168.0.42:3000/get/draft/" + id, {method: "POST"})
@@ -35,12 +37,7 @@ const StoryEdit = ({user: {username}}) => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                title: title,
-                subtitle: subtitle,
-                sections: sections,
-                id: id
-            })
+            body: JSON.stringify({ title, subtitle, sections, id })
         }
         fetch("http://192.168.0.42:3000/set/story", requestOptions)
         .then(res => res.json())

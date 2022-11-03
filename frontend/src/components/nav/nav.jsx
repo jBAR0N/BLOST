@@ -48,7 +48,7 @@ const Nav = ({user, unread, img, me}) => {
                 <NavLink to="/me/notifications" icon={bellIcon} active={activeBell} unread={unread}/>
                 <NavLink to="/me/stories/" icon={storyIcon} active={activeStory}/>
                 <div onClick={()=>{setTimeout(()=>{setMenu(!menu)})}} className={CSS.link}>
-                    <img className={CSS.userImg} src={img} alt="profile" />
+                    <img className={CSS.userImg} src={user.image? ("/image/" + user.image): "/img/user.png"} alt="profile" />
                 </div>
             </div>
             <div className={CSS.main}>
