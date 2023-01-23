@@ -14,6 +14,9 @@ const StoryEdit = ({user: {username}}) => {
     const [loading, setLoading] = useState(true)
     const [changes, setChanges] = useState([])
 
+    useEffect(()=>{
+        console.log(changes)
+    }, [changes])
 
     useEffect(()=>{
         fetch("http://192.168.0.42:3000/get/draft/" + id, {method: "POST"})
@@ -31,13 +34,16 @@ const StoryEdit = ({user: {username}}) => {
         })
     }, [id, navigate])
 
-    const addSection = () => { setSections([...sections, {type: "text", content: "", title: ""}]) }
+    const addSection = () => {
+        setChanges([...changes, {type: 1, index: sections.length + 1, paragraph: {type: 1, text: ""}}])
+        setSections([...sections, {type: "text", text: ""}])
+    }
 
     const save = callback => {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ title, subtitle, sections, id })
+            body: JSON.stringify({ title, subtitle, sections, id, changes })
         }
         fetch("http://192.168.0.42:3000/set/story", requestOptions)
         .then(res => res.json())
@@ -77,7 +83,7 @@ const StoryEdit = ({user: {username}}) => {
                 <textarea onChange={(e)=>{setSubtitle(e.target.value)}} value={subtitle} type="text" placeholder="Add description" className="a-input description font-a-text"/>
                 {
                     sections.map((item)=>(
-                        <Section id={id} setSections={setSections} sections={sections} content={item}/>
+                        <Section id={id} setSections={setSections} setChanges={setChanges} sections={sections} changes={changes} content={item} key={item}/>
                     ))
                 }
                 <div onClick={addSection} className={CSS.addSection}>Add section</div>

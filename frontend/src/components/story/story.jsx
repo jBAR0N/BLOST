@@ -70,13 +70,12 @@ const Story = ({about}) => {
     )
 }
 
-const Section = ({item: {type, content, title}}) => (
+const Section = ({item: {type, text}}) => (
     <div className={CSS.section}>
-        <div className="font-a-subtitle">{title}</div>
         {type === "text"?
-        <div className="font-a-text">{content}</div>
+        <div className="font-a-text">{text}</div>
         :type === "image"?
-        <img alt="" className="a-image" src={content? ("/image/" + content): "/img/placeholder.jpg"}></img>
+        <img alt="" className="a-image" src={text? ("/image/" + text): "/img/placeholder.jpg"}></img>
         :""
         }
     </div>

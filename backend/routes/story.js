@@ -36,8 +36,8 @@ module.exports = (app)=>{
             dbQuery("UPDATE content SET title = ?, subtitle = ?, date = NOW() WHERE id = ?", [req.body.title, req.body.subtitle, req.body.id])
             await dbQuery("DELETE FROM content_sections WHERE content_id = ?", [req.body.id])
             req.body.sections.map(item => {
-                dbQuery("INSERT INTO content_sections (content_id, position, type, title, content) VALUES (?,?,?,?,?)"
-                , [req.body.id, req.body.sections.indexOf(item), item.type, item.title, item.content], ()=>{})
+                dbQuery("INSERT INTO content_sections (content_id, position, type, text) VALUES (?,?,?,?)"
+                , [req.body.id, req.body.sections.indexOf(item), item.type, item.text], ()=>{})
             })
             res.send({success: true})
         } catch { res.send({success: false})}
@@ -98,7 +98,7 @@ module.exports = (app)=>{
                 ON u.id = c.user_id 
             WHERE c.id = ? AND (c.roll = 'public' OR c.roll = 'about')
             `, [req.isAuthenticated()? req.user.id: null, req.params.id])
-            content = await dbQuery("SELECT type, title, content FROM content_sections WHERE content_id = ? ORDER BY position", [req.params.id])
+            content = await dbQuery("SELECT type, text FROM content_sections WHERE content_id = ? ORDER BY position", [req.params.id])
             res.send({
                 ...mainInfo[0],
                 content,
@@ -113,7 +113,7 @@ module.exports = (app)=>{
         try {
             await authorize(req, req.params)
             let mainInfo = await dbQuery("SELECT title, subtitle, roll FROM content WHERE id = ?", [req.params.id])
-            let content = await dbQuery("SELECT type, title, content FROM content_sections WHERE content_id = ? ORDER BY position", [req.params.id])
+            let content = await dbQuery("SELECT type, text FROM content_sections WHERE content_id = ? ORDER BY position", [req.params.id])
             dbQuery("UPDATE content SET roll = 'draft' WHERE id = ? AND roll='public'", [req.params.id])
             dbQuery("DELETE FROM notifications WHERE content_id = ?", [req.params.id])
             res.send({
